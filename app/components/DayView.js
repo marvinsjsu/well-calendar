@@ -59,8 +59,8 @@ function DayView ({ timeBlocks, handleTimeBlockClick, appDay }) {
       <ul className='legend'>
         <li className='available text-center'>Available</li>
         <li className='requesting text-center'>Requesting</li>
-        <li className='submitted text-center'>Already Requested</li>
-        <li className='unavailable text-center'>Unavailable</li>
+        <li className='submitted text-center'>Requested</li>
+        <li className='unavailable text-center'>Time Passed</li>
       </ul>
     </React.Fragment>
   );

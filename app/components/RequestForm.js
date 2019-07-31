@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import DayView from './DayView';
 import withAppointments from './withAppointments';
-import { createAppointmentID, createTimeBlocks, getStartTimeOptions } from '../utils/helpers';
+import { createAppointmentID, createTimeBlocks, getStartTimeOptions, getEndTimeOptions } from '../utils/helpers';
 import { REQUEST_STATUS } from '../utils/constants';
 
 class RequestForm extends React.Component {
@@ -22,8 +22,8 @@ class RequestForm extends React.Component {
     const { appointments } = this.props;
     const now = moment();
     const earliestDate = now.format('YYYY-MM-DD');
-    const earliestTime = now.format('HH:mm');
-    const timeBlocks = appointments[earliestDate] || createTimeBlocks();
+    const earliestTime = now.format('h:mma');
+    const timeBlocks = appointments[earliestDate] || createTimeBlocks(now);
 
     this.setState({
       appDate: earliestDate,
@@ -52,6 +52,8 @@ class RequestForm extends React.Component {
     });
 
     this.setState({
+      startTime: '',
+      endTime: '',
       timeBlocks: newTimeBlocks
     });
   }
@@ -61,30 +63,69 @@ class RequestForm extends React.Component {
     const { appointments, addAppointment } = this.props;
 
     addAppointment({ appDate, newTimeBlocks });
+    const newAppDate = moment(e.target.value, 'YYYY-MM-DD');
 
     this.setState({
+      startTime: '',
+      endTime: '',
       appDate: e.target.value,
-      timeBlocks: appointments[e.target.value] || createTimeBlocks()
+      timeBlocks: appointments[e.target.value] || createTimeBlocks(newAppDate)
     });
   }
 
-  handleChangeTime = (key, e) => {
+  // handleChangeTime = (key, e) => {
+  //   const { appDate, timeBlocks: newTimeBlocks } = this.state;
+  //   const { appointments, addAppointment } = this.props;
+
+  //   newTimeBlocks[e.target.value] = REQUEST_STATUS.REQUESTING;
+  //   addAppointment({ appDate, newTimeBlocks });
+
+  //   this.setState({
+  //     [key]: e.target.value,
+  //     timeBlocks: newTimeBlocks
+  //   });
+  // }
+
+  handleChangeStartTime = (e) => {
     const { appDate, timeBlocks: newTimeBlocks } = this.state;
     const { appointments, addAppointment } = this.props;
+
+    for (let propKey in newTimeBlocks) {
+      if (newTimeBlocks[propKey] === REQUEST_STATUS.REQUESTING) {
+        newTimeBlocks[propKey] = REQUEST_STATUS.AVAILABLE;
+      }
+    }
 
     newTimeBlocks[e.target.value] = REQUEST_STATUS.REQUESTING;
     addAppointment({ appDate, newTimeBlocks });
 
     this.setState({
-      [key]: e.target.value,
+      startTime: e.target.value,
       timeBlocks: newTimeBlocks
     });
   }
 
-  // setRequestingTimeBlock = () => {
-  //   addAppointment
+  handleChangeEndTime = (e) => {
+    const { appDate, timeBlocks: newTimeBlocks, startTime } = this.state;
+    const startMoment = moment(`${appDate} ${startTime}`, 'YYYY-MM-DD h:mma');
+    const endMoment = moment(`${appDate} ${e.target.value}`, 'YYYY-MM-DD h:mma');
+    let currBlock = '';
 
-  // }
+    for (let timeKey in newTimeBlocks) {
+      currBlock = moment(`${appDate} ${timeKey}`, 'YYYY-MM-DD h:mma');
+      if (currBlock.isBefore(endMoment)
+        && newTimeBlocks[timeKey] === REQUEST_STATUS.AVAILABLE
+        && currBlock.isAfter(startMoment)
+        ) {
+        newTimeBlocks[timeKey] = REQUEST_STATUS.REQUESTING;
+      }
+    }
+
+    this.setState({
+      endTime: e.target.value,
+      timeBlocks: newTimeBlocks
+    });
+  }
 
   handleTimeBlockClick = (val) => {
     const { addAppointment } = this.props;
@@ -151,9 +192,10 @@ class RequestForm extends React.Component {
                 <select
                   id='startTime'
                   className='input-date'
-                  value={startTime}
-                  onChange={(e) => this.handleChangeTime('startTime', e)}
+                  defaultValue={`- select -`}
+                  onChange={this.handleChangeStartTime}
                 >
+                  <option key={0} disabled value={`- select -`}> - select - </option>
                   {timeBlocks && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
@@ -168,12 +210,11 @@ class RequestForm extends React.Component {
                 <select
                   id='endTime'
                   className='input-date'
-                  value={endTime}
-                  onChange={(e) => this.handleChangeTime('endTime', e)}
+                  defaultValue={0}
+                  onChange={this.handleChangeEndTime}
                 >
-                  {timeBlocks && Object.entries(timeBlocks).filter(([block, flag]) => (
-                      flag === 'available' && block !== earliestTime
-                    )).map(([block, flag], idx) => (
+                  <option key={0} disabled value={0}> - select - </option>
+                  {timeBlocks && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
                 </select>

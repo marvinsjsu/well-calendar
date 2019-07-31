@@ -67,17 +67,37 @@ class RequestForm extends React.Component {
     });
   }
 
-  handleChange = (key, e) => {
+  handleChangeDate = (e) => {
     const { appDate, timeBlocks: newTimeBlocks } = this.state;
     const { appointments, addAppointment } = this.props;
 
     addAppointment({ appDate, newTimeBlocks });
 
     this.setState({
-      [key]: e.target.value,
+      appDate: e.target.value,
       timeBlocks: appointments[e.target.value] || createTimeBlocks()
     });
   }
+
+  handleChangeTime = (key, e) => {
+    const { appDate, timeBlocks: newTimeBlocks } = this.state;
+    const { appointments, addAppointment } = this.props;
+
+    newTimeBlocks[e.target.value] = REQUEST_STATUS.REQUESTING;
+    addAppointment({ appDate, newTimeBlocks });
+
+console.log('key', key);
+
+    this.setState({
+      [key]: e.target.value,
+      timeBlocks: newTimeBlocks
+    });
+  }
+
+  // setRequestingTimeBlock = () => {
+  //   addAppointment
+
+  // }
 
   handleTimeBlockClick = (val) => {
     const { addAppointment } = this.props;
@@ -115,6 +135,7 @@ class RequestForm extends React.Component {
 
     return (
       <div className='container__page'>
+        <h2 className=''>Appointment Request</h2>
         <form className='form column' onSubmit={(this.handleSubmit)}>
           <div className='row'>
             <div className='column center'>
@@ -131,7 +152,7 @@ class RequestForm extends React.Component {
                   value={appDate}
                   min={earliestDate}
                   autoComplete='false'
-                  onChange={(e) => this.handleChange('appDate', e)}
+                  onChange={this.handleChangeDate}
                 />
               </div>
               <div className='row'>
@@ -144,16 +165,18 @@ class RequestForm extends React.Component {
                   id='startTime'
                   className='input-date'
                   value={startTime}
-                  onChange={(e) => this.handleChange('startTime', e)}
+                  onChange={(e) => this.handleChangeTime('startTime', e)}
                 >
-                  {timeBlocks && Object.entries(timeBlocks).map(([block, flag], idx) => (
+                  {timeBlocks && Object.entries(timeBlocks).filter(([block, flag]) => (
+                      flag !== 'submitted'
+                    )).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
                 </select>
               </div>
               <div className='row'>
                 <label htmlFor='startTime' className='label'>
-                  Start Time
+                  End Time
                 </label>
               </div>
               <div className='row'>
@@ -161,9 +184,11 @@ class RequestForm extends React.Component {
                   id='endTime'
                   className='input-date'
                   value={endTime}
-                  onChange={(e) => this.handleChange('endTime', e)}
+                  onChange={(e) => this.handleChangeTime('endTime', e)}
                 >
-                  {timeBlocks && Object.entries(timeBlocks).map(([block, flag], idx) => (
+                  {timeBlocks && Object.entries(timeBlocks).filter(([block, flag]) => (
+                      flag === 'available' && block !== earliestTime
+                    )).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
                 </select>
@@ -178,7 +203,7 @@ class RequestForm extends React.Component {
                 </button>
               </div>
             </div>
-            <div className='row'>
+            <div className='row margin-left-med'>
               <DayView
                 timeBlocks={timeBlocks}
                 handleTimeBlockClick={this.handleTimeBlockClick}

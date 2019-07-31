@@ -17,6 +17,12 @@ li {
   list-style-type: none;
 }
 
+label {
+  font-size: 22px;
+  color: #695d47;
+  padding: 15px 0 5px 0;
+}
+
 input {
   height: 30px;
   width: 150px;
@@ -37,6 +43,15 @@ select {
   font-family: Helvetica Neue;
   color: #695d47;
   padding: 3px;
+  background: transparent;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.margin-left-med {
+  margin-left: 20px;
 }
 
 .container {
@@ -93,17 +108,22 @@ select {
   justify-content: space-between;
 }
 
-.requesting {
-  background: #a3e7d8;
+.available:hover, .requesting:hover {
+  cursor: pointer;
 }
 
 .unavailable {
   background: #cfc194;
 }
 
+.requesting {
+  background: #a3e7d8;
+}
+
 .submitted {
   background: #fc7038;
 }
+
 
 .light-brown {
   background: #cfc194;
@@ -127,13 +147,12 @@ select {
 
 
 .btn {
-
   font-size: 20px;
   background-color: #a3e7d8;
   border: 1px solid #a3e7d8;
   border-radius: 3px;
   padding: 10px 20px;
-  margin: 10px 5px;
+  margin: 30px 5px 10px 0;
 }
 
 .btn:hover {

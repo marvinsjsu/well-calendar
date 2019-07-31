@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { convertToHours, toFriendlyHours } from '../utils/helpers';
+import { convertToHours, toFriendlyHours, getHours, getIncrements } from '../utils/helpers';
 import {
   APPOINTMENT_INCREMENTS,
   FIRST_HOUR,
@@ -24,34 +24,42 @@ function TimeBlocks ({ hour, block, onClick, timeBlocks }) {
 }
 
 function DayView ({ timeBlocks, handleTimeBlockClick }) {
-  const hours = [...Array(TOTAL_HOURS_IN_A_DAY).keys()].slice(FIRST_HOUR, LAST_HOUR);
-  const minutes = [...Array(MINUTES_IN_AN_HOUR/APPOINTMENT_INCREMENTS).keys()];
+  const hours = getHours();
+  const minutes = getIncrements();
 
   return (
-    <div className='grid-day'>
+    <React.Fragment>
+      <div className='grid-day'>
+        <ul>
+          {hours.map((hour) => (
+            <li key={hour} className='row space-between time-block'>
+              <div className='time-display'>
+                {convertToHours(hour)}
+              </div>
+              <div className='column time-interval'>
+                <ul>
+                  {minutes.map((val, idx) => (
+                    <TimeBlocks
+                      key={idx}
+                      hour={hour}
+                      block={val}
+                      timeBlocks={timeBlocks}
+                      onClick={handleTimeBlockClick}
+                    />
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
       <ul>
-        {hours.map((hour) => (
-          <li key={hour} className='row space-between time-block'>
-            <div className='time-display'>
-              {convertToHours(hour)}
-            </div>
-            <div className='column time-interval'>
-              <ul>
-                {minutes.map((val, idx) => (
-                  <TimeBlocks
-                    key={idx}
-                    hour={hour}
-                    block={val}
-                    timeBlocks={timeBlocks}
-                    onClick={handleTimeBlockClick}
-                  />
-                ))}
-              </ul>
-            </div>
-          </li>
-        ))}
+        <li className='available text-center'>Available</li>
+        <li className='requesting text-center'>Requesting</li>
+        <li className='submitted text-center'>Already Requested</li>
+        <li className='unavailable text-center'>Unavailable</li>
       </ul>
-    </div>
+    </React.Fragment>
   );
 }
 

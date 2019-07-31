@@ -38,6 +38,7 @@ class App extends React.Component {
       <Router>
         <AppointmentsProvider value={this.state}>
           <div className='container'>
+
             <Switch>
               <Route exact path='/' component={RequestForm} />
               <Route exact path='/request' component={RequestForm} />

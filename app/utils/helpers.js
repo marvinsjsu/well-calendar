@@ -58,8 +58,8 @@ export function toFriendlyHours (hour, minutes) {
 }
 
 export function createTimeBlocks () {
-  const hours = [...Array(TOTAL_HOURS_IN_A_DAY).keys()].slice(FIRST_HOUR, LAST_HOUR);
-  const minutes = [...Array(MINUTES_IN_AN_HOUR/APPOINTMENT_INCREMENTS).keys()];
+  const hours = getHours();
+  const minutes = getIncrements();
 
   let  timeBlocks = hours.reduce((acc, hour) => {
     let time = '';
@@ -72,6 +72,14 @@ export function createTimeBlocks () {
   }, {});
 
   return timeBlocks;
+}
+
+export function getHours () {
+  return [...Array(TOTAL_HOURS_IN_A_DAY).keys()].slice(FIRST_HOUR, LAST_HOUR);
+}
+
+export function getIncrements () {
+  return [...Array(MINUTES_IN_AN_HOUR/APPOINTMENT_INCREMENTS).keys()];
 }
 
 

@@ -58,8 +58,8 @@ class RequestForm extends React.Component {
     });
 
     this.setState({
-      startTime: undefined,
-      endTime: undefined,
+      startTime: 0,
+      endTime: 0,
       timeBlocks: newTimeBlocks
     });
   }
@@ -94,6 +94,7 @@ class RequestForm extends React.Component {
 
     this.setState({
       startTime: e.target.value,
+      endTime: 0,
       timeBlocks: newTimeBlocks
     });
   }
@@ -200,10 +201,12 @@ class RequestForm extends React.Component {
                 <select
                   id='startTime'
                   className='input-date'
+                  defaultValue={0}
                   value={startTime}
+                  disabled={getStartTimeOptions(timeBlocks, appDate).length === 0}
                   onChange={this.handleChangeStartTime}
                 >
-                  <option key={0} disabled value={undefined}> - select - </option>
+                  <option key={'select'} disabled value={0}> - select - </option>
                   {timeBlocks && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
@@ -219,8 +222,9 @@ class RequestForm extends React.Component {
                   id='endTime'
                   className='input-date'
                   defaultValue={0}
+                  value={endTime}
                   onChange={this.handleChangeEndTime}
-                  disabled={startTime == null}
+                  disabled={!startTime}
                 >
                   <option key={0} disabled value={0}> - select - </option>
                   {startTime != null && timeBlocks && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (

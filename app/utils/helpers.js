@@ -88,8 +88,7 @@ export function getEndTimeOptions (startTime, timeBlocks, day) {
       }
     }
   }
-  // const lastBlock = isMoment(day, endTimeOptions[endTimeOptions.length - 1]).add('30', 'minutes');
-  // endTimeOptions.append([lastBlock.format('h:mma'), REQUEST_STATUS.AVAILABLE]);
+
 
   console.log('endTimeOptions', endTimeOptions);
   if (endTimeOptions.length === 0) {
@@ -97,30 +96,5 @@ export function getEndTimeOptions (startTime, timeBlocks, day) {
     endTimeOptions.push([rightAfterStart.format('h:mma'), REQUEST_STATUS.AVAILABLE]);
   }
   return endTimeOptions;
-
-  // return Object.entries(timeBlocks).filter(([block, status]) => (
-  //   isAfter(block, startTime, day)
-  //   && status === REQUEST_STATUS.AVAILABLE
-  // ));
-  // .map(([block, status]) => {
-  //   const tb = toMoment(day, block).add('30', 'minutes');
-  //   return tb.format('h:mma');
-  // });
-
-
-  // const submittedBlocks = Object.entries(timeBlocks).filter(([block, status]) => (
-  //     status === REQUEST_STATUS.SUBMITTED
-  //   ));
-
-
-  // return Object.entries(timeBlocks).filter(([block, status]) => {
-  //     if (isBefore(block, startTime, day)) return false;
-  //     // if (submittedBlocks.length > 0 && isAfter(block, submittedBlocks[0][0], day)) return false;
-  //     console.log('startTime', startTime);
-  //     console.log('block', block);
-  //     return (status === REQUEST_STATUS.AVAILABLE || status === REQUEST_STATUS.REQUESTING)
-  //       && isAfterNow(block, day)
-  //       && !isBefore(block, startTime, day)
-  //   });
 }
 

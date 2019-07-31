@@ -3,16 +3,23 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import DayView from './DayView';
+import Legend from './Legend';
 import withAppointments from './withAppointments';
-import { createAppointmentID, createTimeBlocks, getStartTimeOptions, getEndTimeOptions } from '../utils/helpers';
 import { REQUEST_STATUS } from '../utils/constants';
+import {
+  createAppointmentID,
+  createTimeBlocks,
+  getStartTimeOptions,
+  getEndTimeOptions,
+  toMoment
+} from '../utils/helpers';
 
 class RequestForm extends React.Component {
 
   state = {
     appDate: '',
-    startTime: '',
-    endTime: '',
+    startTime: undefined,
+    endTime: undefined,
     earliestDate: '',
     earliestTime: '',
     timeBlocks: {}
@@ -30,7 +37,7 @@ class RequestForm extends React.Component {
       earliestDate,
       earliestTime,
       timeBlocks
-    }, () => console.log(this.state));
+    });
   }
 
   handleSubmit = (e) => {
@@ -40,7 +47,6 @@ class RequestForm extends React.Component {
     const newTimeBlocks = {};
 
     for (let key in timeBlocks) {
-      console.log(key, timeBlocks[key]);
       newTimeBlocks[key] = timeBlocks[key] === REQUEST_STATUS.REQUESTING
         ? REQUEST_STATUS.SUBMITTED
         : timeBlocks[key];
@@ -52,8 +58,8 @@ class RequestForm extends React.Component {
     });
 
     this.setState({
-      startTime: '',
-      endTime: '',
+      startTime: undefined,
+      endTime: undefined,
       timeBlocks: newTimeBlocks
     });
   }
@@ -66,25 +72,12 @@ class RequestForm extends React.Component {
     const newAppDate = moment(e.target.value, 'YYYY-MM-DD');
 
     this.setState({
-      startTime: '',
-      endTime: '',
+      startTime: 0,
+      endTime: 0,
       appDate: e.target.value,
       timeBlocks: appointments[e.target.value] || createTimeBlocks(newAppDate)
     });
   }
-
-  // handleChangeTime = (key, e) => {
-  //   const { appDate, timeBlocks: newTimeBlocks } = this.state;
-  //   const { appointments, addAppointment } = this.props;
-
-  //   newTimeBlocks[e.target.value] = REQUEST_STATUS.REQUESTING;
-  //   addAppointment({ appDate, newTimeBlocks });
-
-  //   this.setState({
-  //     [key]: e.target.value,
-  //     timeBlocks: newTimeBlocks
-  //   });
-  // }
 
   handleChangeStartTime = (e) => {
     const { appDate, timeBlocks: newTimeBlocks } = this.state;
@@ -107,15 +100,17 @@ class RequestForm extends React.Component {
 
   handleChangeEndTime = (e) => {
     const { appDate, timeBlocks: newTimeBlocks, startTime } = this.state;
-    const startMoment = moment(`${appDate} ${startTime}`, 'YYYY-MM-DD h:mma');
-    const endMoment = moment(`${appDate} ${e.target.value}`, 'YYYY-MM-DD h:mma');
-    let currBlock = '';
+    const startMoment = toMoment(appDate, startTime);
+    const endMoment = toMoment(appDate, e.target.value);
 
+    this._resetBlocks();
+
+    let currBlock = '';
     for (let timeKey in newTimeBlocks) {
-      currBlock = moment(`${appDate} ${timeKey}`, 'YYYY-MM-DD h:mma');
+      currBlock = toMoment(appDate, timeKey);
       if (currBlock.isBefore(endMoment)
         && newTimeBlocks[timeKey] === REQUEST_STATUS.AVAILABLE
-        && currBlock.isAfter(startMoment)
+        && !currBlock.isBefore(startMoment)
         ) {
         newTimeBlocks[timeKey] = REQUEST_STATUS.REQUESTING;
       }
@@ -123,6 +118,20 @@ class RequestForm extends React.Component {
 
     this.setState({
       endTime: e.target.value,
+      timeBlocks: newTimeBlocks
+    });
+  }
+
+  _resetBlocks = () => {
+    const { timeBlocks: newTimeBlocks } = this.state;
+
+    for (let timeKey in newTimeBlocks) {
+      if (newTimeBlocks[timeKey] === REQUEST_STATUS.REQUESTING) {
+        newTimeBlocks[timeKey] = REQUEST_STATUS.AVAILABLE;
+      }
+    }
+
+    this.setState({
       timeBlocks: newTimeBlocks
     });
   }
@@ -149,7 +158,7 @@ class RequestForm extends React.Component {
       }
 
       return { timeBlocks };
-    }, () => console.log(this.state));
+    });
   }
 
   isReadyToBook = () => {
@@ -163,8 +172,7 @@ class RequestForm extends React.Component {
 
     return (
       <div className='container__page'>
-        <h2 className=''>Appointment Request</h2>
-        <form className='form column' onSubmit={(this.handleSubmit)}>
+        <form className='form column margin-top-lg' onSubmit={(this.handleSubmit)}>
           <div className='row'>
             <div className='column center'>
               <div className='row'>
@@ -192,10 +200,10 @@ class RequestForm extends React.Component {
                 <select
                   id='startTime'
                   className='input-date'
-                  defaultValue={`- select -`}
+                  value={startTime}
                   onChange={this.handleChangeStartTime}
                 >
-                  <option key={0} disabled value={`- select -`}> - select - </option>
+                  <option key={0} disabled value={undefined}> - select - </option>
                   {timeBlocks && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
@@ -212,9 +220,10 @@ class RequestForm extends React.Component {
                   className='input-date'
                   defaultValue={0}
                   onChange={this.handleChangeEndTime}
+                  disabled={startTime == null}
                 >
                   <option key={0} disabled value={0}> - select - </option>
-                  {timeBlocks && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (
+                  {startTime != null && timeBlocks && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
                 </select>
@@ -228,6 +237,7 @@ class RequestForm extends React.Component {
                   Request Appointment
                 </button>
               </div>
+              <Legend />
             </div>
             <div className='row margin-left-med'>
               <DayView

@@ -34,6 +34,10 @@ input {
   padding: 3px;
 }
 
+select:disabled {
+  border: 1px solid #eee;
+}
+
 select {
   height: 40px;
   width: 130px;
@@ -49,22 +53,38 @@ select {
 /* lists */
 ul.legend {
   height: 80px;
-  border: 1px solid #a3e7d8;
-  border-radius: 3px;
 }
 
 ul.legend li {
   height: 20px;
   padding: 10px;
   font-size: 15px;
+  display: inline-block;
+  color: #695d47;
 }
 
 ul.legend li:hover {
   cursor: default;
 }
 
+.legend-icon {
+  height: 18px;
+  width: 18px;
+  border: 1px solid #a3e7d8;
+  border-radius: 50%;
+}
+
 .text-center {
   text-align: center;
+}
+
+/* margins */
+.margin-top-lg {
+  margin-top: 50px;
+}
+
+.margin-right-med {
+  margin-right: 20px;
 }
 
 .margin-left-med {

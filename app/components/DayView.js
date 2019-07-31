@@ -30,39 +30,31 @@ function DayView ({ timeBlocks, handleTimeBlockClick, appDay }) {
   const minutes = getIncrements();
 
   return (
-    <React.Fragment>
-      <div className='grid-day'>
-        <ul>
-          {hours.map((hour) => (
-            <li key={hour} className='row space-between time-block'>
-              <div className='time-display'>
-                {toFriendlyHours(hour, 0)}
-              </div>
-              <div className='column time-interval'>
-                <ul>
-                  {minutes.map((val, idx) => (
-                    <TimeBlocks
-                      key={idx}
-                      hour={hour}
-                      block={val}
-                      timeBlocks={timeBlocks}
-                      appDay={appDay}
-                      onClick={handleTimeBlockClick}
-                    />
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <ul className='legend'>
-        <li className='available text-center'>Available</li>
-        <li className='requesting text-center'>Requesting</li>
-        <li className='submitted text-center'>Requested</li>
-        <li className='unavailable text-center'>Time Passed</li>
+    <div className='grid-day'>
+      <ul>
+        {hours.map((hour) => (
+          <li key={hour} className='row space-between time-block'>
+            <div className='time-display'>
+              {toFriendlyHours(hour, 0)}
+            </div>
+            <div className='column time-interval'>
+              <ul>
+                {minutes.map((val, idx) => (
+                  <TimeBlocks
+                    key={idx}
+                    hour={hour}
+                    block={val}
+                    timeBlocks={timeBlocks}
+                    appDay={appDay}
+                    onClick={handleTimeBlockClick}
+                  />
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
       </ul>
-    </React.Fragment>
+    </div>
   );
 }
 

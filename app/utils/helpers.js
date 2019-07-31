@@ -8,30 +8,33 @@ import {
   REQUEST_STATUS
 } from './constants';
 
-
-function isBefore(timeBlockA, timeBlockB, day) {
-  const timeA = moment(`${day} ${timeBlockA}`, 'YYYY-MM-DD h:mma');
-  const timeB = moment(`${day} ${timeBlockB}`, 'YYYY-MM-DD h:mma');
-
-  return timeA.isBefore(timeB);
-}
-
-export function isAfterNow(timeBlockA, day) {
-  const timeA = moment(`${day} ${timeBlockA}`, 'YYYY-MM-DD h:mma');
-  const timeNow = moment();
-
-  return timeA.isAfter(timeNow);
-}
-
-export function isAfter(timeBlockA, timeBlockB, day) {
-  const timeA = moment(`${day} ${timeBlockA}`, 'YYYY-MM-DD h:mma');
-  const timeB = moment(`${day} ${timeBlockB}`, 'YYYY-MM-DD h:mma');
-
-  return timeA.isAfter(timeB);
+export function toMoment(day, time) {
+  return moment(`${day} ${time}`, 'YYYY-MM-DD h:mma');
 }
 
 export function toFriendlyHours (hour, minutes) {
   return moment(`${hour}:${minutes}`, 'HH:mm').format('h:mma');
+}
+
+export function isBefore(timeBlockA, timeBlockB, day) {
+  const timeA = toMoment(day, timeBlockA);
+  const timeB = toMoment(day, timeBlockB);
+
+  return timeA.isBefore(timeB);
+}
+
+export function isAfter(timeBlockA, timeBlockB, day) {
+  const timeA = toMoment(day, timeBlockA);
+  const timeB = toMoment(day, timeBlockB);
+
+  return timeA.isAfter(timeB);
+}
+
+export function isAfterNow(timeBlockA, day) {
+  const timeA = toMoment(day, timeBlockA);
+  const timeNow = moment();
+
+  return timeA.isAfter(timeNow);
 }
 
 export function createTimeBlocks (appDate) {
@@ -70,25 +73,54 @@ export function getStartTimeOptions (timeBlocks, day) {
 }
 
 export function getEndTimeOptions (startTime, timeBlocks, day) {
-  const submittedBlocks = Object.entries(timeBlocks).filter(([block, status]) => (
-      status === REQUEST_STATUS.SUBMITTED
-    ));
+  // if timeBlock is after startTime + 30
+  // if timeBlock is available
+  const endTimeOptions = [];
 
-  console.log('submittedBlocks', submittedBlocks);
+  for (let block in timeBlocks) {
+    if (isAfter(block, startTime, day)) {
+      if (timeBlocks[block] === REQUEST_STATUS.AVAILABLE
+        || timeBlocks[block] === REQUEST_STATUS.REQUESTING
+      ) {
+        endTimeOptions.push([ block, timeBlocks[block]]);
+      } else {
+        break;
+      }
+    }
+  }
+  // const lastBlock = isMoment(day, endTimeOptions[endTimeOptions.length - 1]).add('30', 'minutes');
+  // endTimeOptions.append([lastBlock.format('h:mma'), REQUEST_STATUS.AVAILABLE]);
 
-  return Object.entries(timeBlocks).filter(([block, status]) => {
-      if (isBefore(block, startTime, day)) return false;
-      // if (submittedBlocks.length > 0 && isAfter(block, submittedBlocks[0][0], day)) return false;
-      console.log('startTime', startTime);
-      console.log('block', block);
-      return status === REQUEST_STATUS.AVAILABLE && isAfterNow(block, day)
-    });
+  console.log('endTimeOptions', endTimeOptions);
+  if (endTimeOptions.length === 0) {
+    const rightAfterStart = toMoment(day, startTime).add('30', 'minutes');
+    endTimeOptions.push([rightAfterStart.format('h:mma'), REQUEST_STATUS.AVAILABLE]);
+  }
+  return endTimeOptions;
 
-  // if block is before time start block
-  // - block is not good
-  // if block is after time start block
-  // - block is good if it's before a submitted block
-  // - block is not good if it's submitted block
-  // - block is not good if it's after submitted block
+  // return Object.entries(timeBlocks).filter(([block, status]) => (
+  //   isAfter(block, startTime, day)
+  //   && status === REQUEST_STATUS.AVAILABLE
+  // ));
+  // .map(([block, status]) => {
+  //   const tb = toMoment(day, block).add('30', 'minutes');
+  //   return tb.format('h:mma');
+  // });
+
+
+  // const submittedBlocks = Object.entries(timeBlocks).filter(([block, status]) => (
+  //     status === REQUEST_STATUS.SUBMITTED
+  //   ));
+
+
+  // return Object.entries(timeBlocks).filter(([block, status]) => {
+  //     if (isBefore(block, startTime, day)) return false;
+  //     // if (submittedBlocks.length > 0 && isAfter(block, submittedBlocks[0][0], day)) return false;
+  //     console.log('startTime', startTime);
+  //     console.log('block', block);
+  //     return (status === REQUEST_STATUS.AVAILABLE || status === REQUEST_STATUS.REQUESTING)
+  //       && isAfterNow(block, day)
+  //       && !isBefore(block, startTime, day)
+  //   });
 }
 

@@ -46,6 +46,23 @@ select {
   background: transparent;
 }
 
+/* lists */
+ul.legend {
+  height: 80px;
+  border: 1px solid #a3e7d8;
+  border-radius: 3px;
+}
+
+ul.legend li {
+  height: 20px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+ul.legend li:hover {
+  cursor: default;
+}
+
 .text-center {
   text-align: center;
 }

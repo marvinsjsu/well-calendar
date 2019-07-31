@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import DayView from './DayView';
 import withAppointments from './withAppointments';
-import { createAppointmentID, createTimeBlocks } from '../utils/helpers';
+import { createAppointmentID, createTimeBlocks, getStartTimeOptions } from '../utils/helpers';
 import { REQUEST_STATUS } from '../utils/constants';
 
 class RequestForm extends React.Component {
@@ -25,10 +25,6 @@ class RequestForm extends React.Component {
     const earliestTime = now.format('HH:mm');
     const timeBlocks = appointments[earliestDate] || createTimeBlocks();
 
-    // get timeBlocks
-    // get appointments
-    // merge the two so we show reserved timeBlocks
-
     this.setState({
       appDate: earliestDate,
       earliestDate,
@@ -36,13 +32,6 @@ class RequestForm extends React.Component {
       timeBlocks
     }, () => console.log(this.state));
   }
-
-  // componentWillUpdate () {
-  //   const { appointments } = this.props;
-  //   const { appDate } = this.props;
-  //   const timeBlocks = appointments[appDate] || createTimeBlocks();
-  //   this.setState({ timeBlocks });
-  // }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -85,8 +74,6 @@ class RequestForm extends React.Component {
 
     newTimeBlocks[e.target.value] = REQUEST_STATUS.REQUESTING;
     addAppointment({ appDate, newTimeBlocks });
-
-console.log('key', key);
 
     this.setState({
       [key]: e.target.value,
@@ -167,9 +154,7 @@ console.log('key', key);
                   value={startTime}
                   onChange={(e) => this.handleChangeTime('startTime', e)}
                 >
-                  {timeBlocks && Object.entries(timeBlocks).filter(([block, flag]) => (
-                      flag !== 'submitted'
-                    )).map(([block, flag], idx) => (
+                  {timeBlocks && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
                 </select>
@@ -205,6 +190,7 @@ console.log('key', key);
             </div>
             <div className='row margin-left-med'>
               <DayView
+                appDay={appDate}
                 timeBlocks={timeBlocks}
                 handleTimeBlockClick={this.handleTimeBlockClick}
               />

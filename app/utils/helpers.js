@@ -8,14 +8,6 @@ import {
   REQUEST_STATUS
 } from './constants';
 
-export function createAppointmentID (date, startTime, endTime) {
-  return `${date}::${startTime}::${endTime}`;
-}
-
-export function allAvailableTimes (dayAppointments, increments) {
-  const hours = [...Array(24).keys()];
-  const minutes = [15, 30, 45];
-}
 
 function hasOverlap (newApp, currApps) {
   const overlaps = currApps.filter();
@@ -25,36 +17,17 @@ function overlapping (appA, appB) {
   console.log();
 }
 
-export function convertToHours (hour) {
-  if (hour === 0) {
-    return `12:00am`;
-  }
+export function isAfterNow(timeBlockA, day) {
 
-  if (hour === 12) {
-    return `12:00pm`;
-  }
+  const timeA = moment(`${day} ${timeBlockA}`, 'YYYY-MM-DD h:mma');
+  const timeNow = moment();
 
-  if (hour > 12) {
-    return `${hour % 12}:00pm`;
-  }
 
-  return `${hour}:00am`
+  return timeA.isAfter(timeNow);
 }
 
-
 export function toFriendlyHours (hour, minutes) {
-  let meridium = hour < 12 ? 'am' : 'pm';
-  minutes = minutes === 0 ? '00' : minutes;
-
-  if (hour === 0) {
-    return `12:${minutes}${meridium}`;
-  }
-
-  if (hour > 12) {
-    return `${hour % 12}:${minutes}${meridium}`;
-  }
-
-  return `${hour}:${minutes}${meridium}`;
+  return moment(`${hour}:${minutes}`, 'HH:mm').format('h:mma');
 }
 
 export function createTimeBlocks () {
@@ -82,8 +55,10 @@ export function getIncrements () {
   return [...Array(MINUTES_IN_AN_HOUR/APPOINTMENT_INCREMENTS).keys()];
 }
 
-
-
-
+export function getStartTimeOptions (timeBlocks, day) {
+  return Object.entries(timeBlocks).filter(([block, status]) => (
+      status === REQUEST_STATUS.AVAILABLE && isAfterNow(block, day)
+    ));
+}
 
 

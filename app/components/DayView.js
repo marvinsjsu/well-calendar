@@ -1,29 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { convertToHours, toFriendlyHours, getHours, getIncrements } from '../utils/helpers';
+import { toFriendlyHours, getHours, getIncrements, isAfterNow } from '../utils/helpers';
 import {
   APPOINTMENT_INCREMENTS,
   FIRST_HOUR,
   LAST_HOUR,
   TOTAL_HOURS_IN_A_DAY,
-  MINUTES_IN_AN_HOUR
+  MINUTES_IN_AN_HOUR,
+  REQUEST_STATUS
 } from '../utils/constants';
 
 
-function TimeBlocks ({ hour, block, onClick, timeBlocks }) {
+function TimeBlocks ({ hour, block, onClick, timeBlocks, appDay }) {
   const time = toFriendlyHours(hour, block * APPOINTMENT_INCREMENTS);
+  const status = !isAfterNow(time, appDay) ? REQUEST_STATUS.UNAVAILABLE : timeBlocks[time];
 
   return (
     <li
       key={time}
-      className={`time-interval--minute ${timeBlocks[time]}`}
+      className={`time-interval--minute ${status}`}
       onClick={() => onClick(time)}
     />
   );
 }
 
-function DayView ({ timeBlocks, handleTimeBlockClick }) {
+function DayView ({ timeBlocks, handleTimeBlockClick, appDay }) {
   const hours = getHours();
   const minutes = getIncrements();
 
@@ -34,7 +36,7 @@ function DayView ({ timeBlocks, handleTimeBlockClick }) {
           {hours.map((hour) => (
             <li key={hour} className='row space-between time-block'>
               <div className='time-display'>
-                {convertToHours(hour)}
+                {toFriendlyHours(hour, 0)}
               </div>
               <div className='column time-interval'>
                 <ul>
@@ -44,6 +46,7 @@ function DayView ({ timeBlocks, handleTimeBlockClick }) {
                       hour={hour}
                       block={val}
                       timeBlocks={timeBlocks}
+                      appDay={appDay}
                       onClick={handleTimeBlockClick}
                     />
                   ))}
@@ -53,7 +56,7 @@ function DayView ({ timeBlocks, handleTimeBlockClick }) {
           ))}
         </ul>
       </div>
-      <ul>
+      <ul className='legend'>
         <li className='available text-center'>Available</li>
         <li className='requesting text-center'>Requesting</li>
         <li className='submitted text-center'>Already Requested</li>

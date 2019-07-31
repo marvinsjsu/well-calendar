@@ -12,26 +12,13 @@ class App extends React.Component {
 
   state = {
     appointments: {},
-    addAppointment: ({ appDate, startTime, endTime }) => {
+    addAppointment: ({ appDate, newTimeBlocks }) => {
       this.setState(({ appointments }) => {
-
-        if (!appointments[appDate] || appointments[appDate].length === 0) {
-          appointments[appDate] = [{startTime, endTime}];
-        } else {
-          // check if time is valid
-        }
-
-        return { appointments }
+        appointments[appDate] = newTimeBlocks;
+        return { appointments };
       }, () => console.log(this.state));
-      // this.setState((currState) => ({
-      //   appointments: currState.appointments.concat(appointment)
-      // }), () => console.log(this.state));
     },
-    // removeAppointment: (appointment) => {
-    //   this.setState((currState) => (
-    //     appointments: currState.appointments.filter()
-    //   ));
-    // }
+
   }
 
   componentDidMount () {

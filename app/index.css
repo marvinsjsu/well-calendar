@@ -36,6 +36,7 @@ input {
 
 select:disabled {
   border: 1px solid #eee;
+  color: #eee;
 }
 
 select {
@@ -135,6 +136,10 @@ ul.legend li:hover {
 .column {
   display: flex;
   flex-direction: column;
+}
+
+.wrap {
+  flex-wrap: wrap;
 }
 
 .center {

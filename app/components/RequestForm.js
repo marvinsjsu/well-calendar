@@ -162,10 +162,14 @@ class RequestForm extends React.Component {
     });
   }
 
-  isReadyToBook = () => {
-    const { appDate } = this.state;
+  isReady = () => {
+    const { appDate, startTime, endTime } = this.state;
+
+    if (appDate === '') return false;
+    if (startTime == undefined || startTime === 0 || !startTime) return false;
+    if (endTime == undefined || endTime === 0 || !endTime) return false;
+
     return true;
-    // return appDate != undefined && startTime != undefined && endTime != undefined;
   }
 
   render () {
@@ -173,7 +177,7 @@ class RequestForm extends React.Component {
 
     return (
       <div className='container__page'>
-        <form className='form column margin-top-lg' onSubmit={(this.handleSubmit)}>
+        <form className='form column wrap margin-top-lg' onSubmit={(this.handleSubmit)}>
           <div className='row'>
             <div className='column center'>
               <div className='row'>
@@ -207,7 +211,8 @@ class RequestForm extends React.Component {
                   onChange={this.handleChangeStartTime}
                 >
                   <option key={'select'} disabled value={0}> - select - </option>
-                  {timeBlocks && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
+                  {timeBlocks
+                    && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
                 </select>
@@ -227,7 +232,9 @@ class RequestForm extends React.Component {
                   disabled={!startTime}
                 >
                   <option key={0} disabled value={0}> - select - </option>
-                  {startTime != null && timeBlocks && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (
+                  {startTime != null
+                    && timeBlocks
+                    && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (
                     <option key={block} value={block}>{block}</option>
                   ))}
                 </select>
@@ -236,7 +243,7 @@ class RequestForm extends React.Component {
                 <button
                   className='btn btn-submit'
                   type='submit'
-                  disabled={!this.isReadyToBook()}
+                  disabled={!this.isReady()}
                 >
                   Request Appointment
                 </button>

@@ -73,8 +73,6 @@ export function getStartTimeOptions (timeBlocks, day) {
 }
 
 export function getEndTimeOptions (startTime, timeBlocks, day) {
-  // if timeBlock is after startTime + 30
-  // if timeBlock is available
   const endTimeOptions = [];
 
   for (let block in timeBlocks) {
@@ -84,13 +82,12 @@ export function getEndTimeOptions (startTime, timeBlocks, day) {
       ) {
         endTimeOptions.push([ block, timeBlocks[block]]);
       } else {
+        endTimeOptions.push([ block, timeBlocks[block]]);
         break;
       }
     }
   }
 
-
-  console.log('endTimeOptions', endTimeOptions);
   if (endTimeOptions.length === 0) {
     const rightAfterStart = toMoment(day, startTime).add('30', 'minutes');
     endTimeOptions.push([rightAfterStart.format('h:mma'), REQUEST_STATUS.AVAILABLE]);

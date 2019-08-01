@@ -57,12 +57,13 @@ select {
 
 /* lists */
 ul.legend {
-  height: 80px;
+  height: 15px;
+  margin: 0;
 }
 
 ul.legend li {
   height: 15px;
-  padding: 15px;
+  padding: 0 15px;
   font-size: 15px;
   display: inline-block;
   color: #695d47;
@@ -82,6 +83,8 @@ ul.legend li:hover {
   color: #695d47;
 }
 
+
+
 .input-container {
   min-width: 350px;
 }
@@ -97,12 +100,20 @@ ul.legend li:hover {
   text-align: center;
 }
 
+.text-md {
+  font-size: 18px;
+}
+
+.date {
+  color: #695d47;
+}
+
 /* margins */
 .margin-top-lg {
   margin-top: 50px;
 }
 
-.margin-top-sm {
+.margin-top-md {
   margin-top: 25px;
 }
 

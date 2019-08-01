@@ -6,6 +6,7 @@ import TimeInputSet from './TimeInputSet';
 import DayView from './DayView';
 import Legend from './Legend';
 import RequestSummary from './RequestSummary';
+import Confirmation from './Confirmation';
 import withAppointments from './withAppointments';
 import { REQUEST_STATUS, NO_AVAILABILITY_MESSAGE } from '../utils/constants';
 import {
@@ -25,10 +26,11 @@ class RequestForm extends React.Component {
 
   state = {
     appDate: '',
-    startTime: undefined,
-    endTime: undefined,
+    startTime: '0',
+    endTime: '0',
     earliestDate: '',
     showSummary: false,
+    showConfirmation: false,
     timeBlocks: {}
   }
 
@@ -73,7 +75,8 @@ class RequestForm extends React.Component {
       startTime: '0',
       endTime: '0',
       timeBlocks: newTimeBlocks,
-      showSummary: false
+      showSummary: false,
+      showConfirmation: true
     });
   }
 
@@ -144,20 +147,6 @@ class RequestForm extends React.Component {
     });
   }
 
-  _resetBlocks = () => {
-    const { timeBlocks: newTimeBlocks } = this.state;
-
-    for (let timeKey in newTimeBlocks) {
-      if (newTimeBlocks[timeKey] === REQUEST_STATUS.REQUESTING) {
-        newTimeBlocks[timeKey] = REQUEST_STATUS.AVAILABLE;
-      }
-    }
-
-    this.setState({
-      timeBlocks: newTimeBlocks
-    });
-  }
-
   handleTimeBlockClick = (val) => {
     const { addAppointment } = this.props;
 
@@ -192,8 +181,30 @@ class RequestForm extends React.Component {
     return true;
   }
 
+  _resetBlocks = () => {
+    const { timeBlocks: newTimeBlocks } = this.state;
+
+    for (let timeKey in newTimeBlocks) {
+      if (newTimeBlocks[timeKey] === REQUEST_STATUS.REQUESTING) {
+        newTimeBlocks[timeKey] = REQUEST_STATUS.AVAILABLE;
+      }
+    }
+
+    this.setState({
+      timeBlocks: newTimeBlocks
+    });
+  }
+
   render () {
-    const { appDate, startTime, endTime, earliestDate, timeBlocks, showSummary } = this.state;
+    const {
+      appDate,
+      startTime,
+      endTime,
+      earliestDate,
+      timeBlocks,
+      showSummary,
+      showConfirmation
+    } = this.state;
     const nonAvailable = hasNoAvailableTimeBlocks(timeBlocks);
 
     return (
@@ -253,6 +264,9 @@ class RequestForm extends React.Component {
             </div>
             <div className='row margin-left-med'>
               <div className='column'>
+                <div className='text-md text-center margin-sm date'>
+                  {toMoment(appDate, startTime).format('dddd, MMM Do, YYYY')}
+                </div>
                 <DayView
                   appDay={appDate}
                   timeBlocks={timeBlocks}

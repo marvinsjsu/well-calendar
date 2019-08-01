@@ -17,7 +17,7 @@ export default function Legend () {
           Requested</li>
         <li className='text-center'>
           <div className='legend-icon unavailable'/>
-          Time Passed
+          Unavailable
         </li>
       </ul>
     </div>

@@ -1,42 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { toMoment } from '../utils/helpers';
+
 export default function RequestSummary ({ appDate, startTime, endTime, cancelRequest, submitRequest }) {
+  const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
 
   return (
     <div className='row'>
-      <ul>
-        <li>Summary of Appointment Request</li>
-        <li>
-          <span className='label'>Date:</span>
-          <span className='detail'>{appDate}</span>
-        </li>
-        <li>
-          <span className='label'>Start Time:</span>
-          <span className='detail'>{startTime}</span>
-        </li>
-        <li>
-          <span className='label'>End Time:</span>
-          <span className='detail'>{endTime}</span>
-        </li>
-        <li>
-          <div className='row'>
-            <button
-              className='btn btn-cancel'
-              onClick={cancelRequest}
-            >
-              Cancel
-            </button>
+      <div className='message'>
+        Here's a quick summary of your appointment request.
+        <ul>
+          <li>
+            <span className='detail'>{appointmentDate}</span>
+          </li>
+          <li>
+            <span className='label'>Starts @ </span>
+            <span className='detail'>{startTime}</span>
+          </li>
+          <li>
+            <span className='label'>Ends @ </span>
+            <span className='detail'>{endTime}</span>
+          </li>
+          <li>
+            <div className='row'>
+              <button
+                className='btn btn-cancel'
+                onClick={cancelRequest}
+              >
+                Cancel
+              </button>
 
-            <button
-              className='btn btn-continue'
-              onClick={submitRequest}
-            >
-              Continue
-            </button>
-          </div>
-        </li>
-      </ul>
+              <button
+                className='btn btn-continue'
+                onClick={submitRequest}
+              >
+                Continue
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

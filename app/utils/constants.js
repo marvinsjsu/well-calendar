@@ -17,3 +17,9 @@ export const NO_AVAILABILITY_MESSAGE = `
   this day. Please feel free to
   pick another day.
 `;
+
+export const ROUTES = {
+  HOME: '/',
+  APPOINTMENT_REQUEST: '/request',
+  MY_APPOINTMENTS: '/myappointments'
+};

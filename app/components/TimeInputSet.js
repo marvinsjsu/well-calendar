@@ -38,7 +38,7 @@ export default function TimeInputSet ({
         </select>
       </div>
       <div className='row'>
-        <label htmlFor='startTime' className={`label ${!startTime && 'disable'}`}>
+        <label htmlFor='startTime' className={`label ${startTime === '0' && 'disable'}`}>
           End Time
         </label>
       </div>

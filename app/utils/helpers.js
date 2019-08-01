@@ -57,6 +57,14 @@ export function createTimeBlocks (appDate) {
   return timeBlocks;
 }
 
+export function hasNoAvailableTimeBlocks (timeBlocks) {
+  const availableBlocks = Object.entries(timeBlocks).filter(([block, status]) => (
+      status === REQUEST_STATUS.AVAILABLE || status === REQUEST_STATUS.REQUESTING
+    ));
+
+  return availableBlocks.length === 0;
+}
+
 export function getHours () {
   return [...Array(TOTAL_HOURS_IN_A_DAY).keys()].slice(FIRST_HOUR, LAST_HOUR);
 }
@@ -88,9 +96,21 @@ export function getEndTimeOptions (startTime, timeBlocks, day) {
     }
   }
 
+
+
   if (endTimeOptions.length === 0) {
     const rightAfterStart = toMoment(day, startTime).add('30', 'minutes');
     endTimeOptions.push([rightAfterStart.format('h:mma'), REQUEST_STATUS.AVAILABLE]);
+  } else {
+    const lastBlock = endTimeOptions[endTimeOptions.length - 1];
+    const lastMoment = toMoment(day, lastBlock[0]);
+
+    if (lastMoment.format('h:mma') === '4:30pm'
+      && (lastBlock[1] === REQUEST_STATUS.AVAILABLE || lastBlock[1] === REQUEST_STATUS.REQUESTING)
+    ) {
+      lastMoment.add('30', 'minutes');
+      endTimeOptions.push([lastMoment.format('h:mma'), REQUEST_STATUS.AVAILABLE])
+    }
   }
   return endTimeOptions;
 }

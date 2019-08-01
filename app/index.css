@@ -57,8 +57,8 @@ ul.legend {
 }
 
 ul.legend li {
-  height: 20px;
-  padding: 10px;
+  height: 15px;
+  padding: 15px;
   font-size: 15px;
   display: inline-block;
   color: #695d47;
@@ -68,10 +68,24 @@ ul.legend li:hover {
   cursor: default;
 }
 
+.message {
+  height: 40px;
+  width: 300px;
+  padding: 20px 5px;
+  margin: 20px 0;
+  font-size: 24px;
+  line-height: 1.4em;
+  color: #695d47;
+}
+
+.input-container {
+  min-width: 350px;
+}
+
 .legend-icon {
-  height: 18px;
-  width: 18px;
-  border: 1px solid #a3e7d8;
+  height: 15px;
+  width: 15px;
+  border: 1px solid #695d47;
   border-radius: 50%;
 }
 
@@ -84,12 +98,24 @@ ul.legend li:hover {
   margin-top: 50px;
 }
 
+.margin-top-sm {
+  margin-top: 25px;
+}
+
+.margin-top-sm {
+  margin-top: 10px;
+}
+
 .margin-right-med {
   margin-right: 20px;
 }
 
 .margin-left-med {
   margin-left: 20px;
+}
+
+.padding-top-md {
+  padding-top: 25px;
 }
 
 .container {
@@ -149,6 +175,8 @@ ul.legend li:hover {
 .space-between {
   justify-content: space-between;
 }
+
+
 
 .available:hover, .requesting:hover {
   cursor: pointer;

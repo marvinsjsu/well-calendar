@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+import TimeInputSet from './TimeInputSet';
 import DayView from './DayView';
 import Legend from './Legend';
 import withAppointments from './withAppointments';
 import { REQUEST_STATUS } from '../utils/constants';
 import {
-  createAppointmentID,
   createTimeBlocks,
   getStartTimeOptions,
   getEndTimeOptions,
-  toMoment
+  toMoment,
+  hasNoAvailableTimeBlocks
 } from '../utils/helpers';
 
 class RequestForm extends React.Component {
@@ -174,12 +175,13 @@ class RequestForm extends React.Component {
 
   render () {
     const { appDate, startTime, endTime, earliestDate, earliestTime, timeBlocks } = this.state;
+    const nonAvailable = hasNoAvailableTimeBlocks(timeBlocks);
 
     return (
       <div className='container__page'>
         <form className='form column wrap margin-top-lg' onSubmit={(this.handleSubmit)}>
           <div className='row'>
-            <div className='column center'>
+            <div className='column padding-top-md input-container'>
               <div className='row'>
                 <label htmlFor='appDate' className='label'>
                   Date
@@ -196,69 +198,40 @@ class RequestForm extends React.Component {
                   onChange={this.handleChangeDate}
                 />
               </div>
-              <div className='row'>
-                <label htmlFor='startTime' className='label'>
-                  Start Time
-                </label>
-              </div>
-              <div className='row'>
-                <select
-                  id='startTime'
-                  className='input-date'
-                  defaultValue={0}
-                  value={startTime}
-                  disabled={getStartTimeOptions(timeBlocks, appDate).length === 0}
-                  onChange={this.handleChangeStartTime}
-                >
-                  <option key={'select'} disabled value={0}> - select - </option>
-                  {timeBlocks
-                    && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
-                    <option key={block} value={block}>{block}</option>
-                  ))}
-                </select>
-              </div>
-              <div className='row'>
-                <label htmlFor='startTime' className='label'>
-                  End Time
-                </label>
-              </div>
-              <div className='row'>
-                <select
-                  id='endTime'
-                  className='input-date'
-                  defaultValue={0}
-                  value={endTime}
-                  onChange={this.handleChangeEndTime}
-                  disabled={!startTime}
-                >
-                  <option key={0} disabled value={0}> - select - </option>
-                  {startTime != null
-                    && timeBlocks
-                    && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (
-                    <option key={block} value={block}>{block}</option>
-                  ))}
-                </select>
-              </div>
-              <div className='row'>
-                <button
-                  className='btn btn-submit'
-                  type='submit'
-                  disabled={!this.isReady()}
-                >
-                  Request Appointment
-                </button>
-              </div>
-              <Legend />
+
+              {nonAvailable
+                ? (
+                    <div className='message'>
+                      Sorry, but there are no longer
+                      any available appointments for
+                      this day. Please feel free to
+                      pick another day.
+                    </div>
+                  )
+                : (<TimeInputSet
+                    timeBlocks={timeBlocks}
+                    appDate={appDate}
+                    startTime={startTime}
+                    endTime={endTime}
+                    handleChangeStartTime={this.handleChangeStartTime}
+                    handleChangeEndTime={this.handleChangeEndTime}
+                    isReady={this.isReady}
+                   />
+                  )
+              }
             </div>
             <div className='row margin-left-med'>
-              <DayView
-                appDay={appDate}
-                timeBlocks={timeBlocks}
-                handleTimeBlockClick={this.handleTimeBlockClick}
-              />
+              <div className='column'>
+                <DayView
+                  appDay={appDate}
+                  timeBlocks={timeBlocks}
+                  handleTimeBlockClick={this.handleTimeBlockClick}
+                />
+              </div>
             </div>
           </div>
         </form>
+        <Legend />
       </div>
     );
   }

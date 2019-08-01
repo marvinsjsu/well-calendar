@@ -6,10 +6,17 @@ export default function withAppointments (Component) {
     render () {
       return (
         <AppointmentsConsumer>
-          {({ appointments, addAppointment }) => (
+          {({
+            calendar,
+            myAppointments,
+            addDayBlocksToCalendar,
+            addAppointmentToMyAppointments
+          }) => (
             <Component
-              appointments={appointments}
-              addAppointment={addAppointment}
+              calendar={calendar}
+              myAppointments={myAppointments}
+              addDayBlocksToCalendar={addDayBlocksToCalendar}
+              addAppointmentToMyAppointments={addAppointmentToMyAppointments}
               {...this.props}
             />
           )}

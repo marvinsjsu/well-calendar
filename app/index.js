@@ -7,18 +7,32 @@ import RequestForm from './components/RequestForm';
 import { AppointmentsProvider } from './contexts/appointments';
 import { connected } from './utils/api';
 import { ROUTES } from './utils/constants';
+import {
+  setCalendarInLocalStorage,
+  getCalendarFromLocalStorage,
+  setMyAppointmentsInLocalStorage,
+  getMyAppointmentsFromLocalStorage
+} from './utils/localStorage';
 
 import './index.css';
 
 class App extends React.Component {
 
   state = {
-    appointments: {},
-    addAppointment: ({ appDate, newTimeBlocks }) => {
-      this.setState(({ appointments }) => {
-        appointments[appDate] = newTimeBlocks;
-        return { appointments };
-      });
+    calendar: {},
+    myAppointments: [],
+
+    addDayBlocksToCalendar: ({ appDate, newTimeBlocks }) => {
+      this.setState(({ calendar }) => {
+        calendar[appDate] = newTimeBlocks;
+        return { calendar };
+      }, () => setCalendarInLocalStorage(this.state.calendar));
+    },
+
+    addAppointmentToMyAppointments: (appointment) => {
+      this.setState(({ myAppointments }) => ({
+        myAppointments: [...myAppointments, appointment]
+      }), () => setMyAppointmentsInLocalStorage(this.state.myAppointments));
     },
 
   }
@@ -29,6 +43,16 @@ class App extends React.Component {
     //     console.log('disconnected');
     //   }
     // }, 3000);
+
+    const calendar = getCalendarFromLocalStorage();
+    const myAppointments = getMyAppointmentsFromLocalStorage();
+
+console.log('componentDidMount APP - calendar', calendar);
+
+    this.setState({
+      calendar: calendar || {},
+      myAppointments: myAppointments || []
+    }, () => console.log(this.state));
   }
 
   componentWillUnmount () {
@@ -42,7 +66,6 @@ class App extends React.Component {
       <Router>
         <AppointmentsProvider value={this.state}>
           <div className='container'>
-
             <Switch>
               <Route exact path={ROUTES.HOME} component={Main} />
               <Route exact path={ROUTES.APPOINTMENT_REQUEST} component={RequestForm} />

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Nav from './components/Nav';
 import Main from './components/Main';
 import RequestForm from './components/RequestForm';
 import { AppointmentsProvider } from './contexts/appointments';
@@ -66,6 +67,7 @@ console.log('componentDidMount APP - calendar', calendar);
       <Router>
         <AppointmentsProvider value={this.state}>
           <div className='container'>
+            <Nav />
             <Switch>
               <Route exact path={ROUTES.HOME} component={Main} />
               <Route exact path={ROUTES.APPOINTMENT_REQUEST} component={RequestForm} />

@@ -73,13 +73,40 @@ ul.legend li:hover {
   cursor: default;
 }
 
+.nav-link {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #a3e7d8;
+}
+
+.nav li {
+  margin-right: 10px;
+}
+
+.link {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #a3e7d8;
+  border: none;
+  background: none;
+  display: block;
+  padding: 10px;
+}
+
+.link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
 .message {
-  height: 40px;
   width: 300px;
   padding: 20px 5px;
   margin: 20px 0;
   font-size: 24px;
-  line-height: 1.4  em;
+  line-height: 1.4em;
   color: #695d47;
 }
 
@@ -137,7 +164,10 @@ ul.legend li:hover {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  max-width: 1240px;
 }
+
+
 
 .grid-day {
   max-height: 600px;

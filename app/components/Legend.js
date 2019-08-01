@@ -10,7 +10,7 @@ export default function Legend () {
         </li>
         <li className='text-center'>
           <div className='legend-icon requesting'/>
-          Possible
+          Desired
         </li>
         <li className='text-center'>
           <div className='legend-icon submitted'/>

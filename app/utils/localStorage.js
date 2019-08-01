@@ -19,7 +19,7 @@ console.log('calendar', calendar);
 };
 
 export const setMyAppointmentsInLocalStorage = (myAppointments) => {
-console.log('myAppointments', myAppointments);
+console.log('set myAppointments', myAppointments);
 
   localStorage.setItem(KEY_MY_APPOINTMENTS, JSON.stringify(myAppointments));
 };

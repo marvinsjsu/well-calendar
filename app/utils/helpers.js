@@ -113,3 +113,10 @@ export function getEndTimeOptions (startTime, timeBlocks, day) {
   return endTimeOptions;
 }
 
+export function sortApps (appA, appB) {
+  const timeA = toMoment(appA.appDate, appA.startTime);
+  const timeB = toMoment(appB.appDate, appA.startTime);
+
+  return timeA - timeB;
+}
+

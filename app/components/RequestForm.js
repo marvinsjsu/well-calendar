@@ -7,6 +7,7 @@ import DayView from './DayView';
 import Legend from './Legend';
 import RequestSummary from './RequestSummary';
 import Confirmation from './Confirmation';
+import AppointmentCard from './AppointmentCard';
 import withAppointments from './withAppointments';
 import { REQUEST_STATUS, NO_AVAILABILITY_MESSAGE } from '../utils/constants';
 import {
@@ -18,7 +19,8 @@ import {
   getStartTimeOptions,
   getEndTimeOptions,
   toMoment,
-  hasNoAvailableTimeBlocks
+  hasNoAvailableTimeBlocks,
+  sortApps
 } from '../utils/helpers';
 
 class RequestForm extends React.Component {
@@ -42,7 +44,7 @@ class RequestForm extends React.Component {
   }
 
   componentDidMount () {
-    const calendar = getCalendarFromLocalStorage();
+    const calendar = getCalendarFromLocalStorage() || {};
     const myAppointments = getMyAppointmentsFromLocalStorage();
     const now = moment();
     const earliestDate = now.format('YYYY-MM-DD');
@@ -52,7 +54,9 @@ class RequestForm extends React.Component {
       appDate: earliestDate,
       earliestDate,
       timeBlocks,
-      myAppointments
+      myAppointments: myAppointments || [],
+      showSummary: false,
+      showConfirmation: false
     });
   }
 
@@ -65,9 +69,14 @@ class RequestForm extends React.Component {
   }
 
   submitRequest = () => {
-    const { appDate, timeBlocks } = this.state;
-    const { addDayBlocksToCalendar } = this.props;
+    const { appDate, timeBlocks, myAppointments, startTime, endTime } = this.state;
+    const { addDayBlocksToCalendar, addAppointmentToMyAppointments } = this.props;
     const newTimeBlocks = {};
+    const newAppointment = {
+      appDate,
+      startTime,
+      endTime
+    };
 
     for (let key in timeBlocks) {
       newTimeBlocks[key] = timeBlocks[key] === REQUEST_STATUS.REQUESTING
@@ -75,17 +84,19 @@ class RequestForm extends React.Component {
         : timeBlocks[key];
     }
 
-    addDayBlocksToCalendar({
-      appDate,
-      newTimeBlocks
-    });
-
     this.setState({
       startTime: '0',
       endTime: '0',
       timeBlocks: newTimeBlocks,
       showSummary: false,
-      showConfirmation: true
+      showConfirmation: true,
+      myAppointments: [ ...myAppointments, newAppointment ]
+    }, () => {
+      addAppointmentToMyAppointments(newAppointment);
+      addDayBlocksToCalendar({
+        appDate,
+        newTimeBlocks
+      });
     });
   }
 
@@ -100,8 +111,6 @@ class RequestForm extends React.Component {
   handleChangeDate = (e) => {
     const { appDate, timeBlocks: newTimeBlocks } = this.state;
     const { calendar, addDayBlocksToCalendar } = this.props;
-
-    addDayBlocksToCalendar({ appDate, newTimeBlocks });
     const newAppDate = moment(e.target.value, 'YYYY-MM-DD');
 
     this.setState({
@@ -109,6 +118,8 @@ class RequestForm extends React.Component {
       endTime: '0',
       appDate: e.target.value,
       timeBlocks: calendar[e.target.value] || createTimeBlocks(newAppDate)
+    }, () => {
+      addDayBlocksToCalendar({ appDate, newTimeBlocks });
     });
   }
 
@@ -123,12 +134,13 @@ class RequestForm extends React.Component {
     }
 
     newTimeBlocks[e.target.value] = REQUEST_STATUS.REQUESTING;
-    addDayBlocksToCalendar({ appDate, newTimeBlocks });
 
     this.setState({
       startTime: e.target.value,
       endTime: '0',
       timeBlocks: newTimeBlocks
+    }, () => {
+      addDayBlocksToCalendar({ appDate, newTimeBlocks });
     });
   }
 
@@ -181,6 +193,13 @@ class RequestForm extends React.Component {
     });
   }
 
+  toStartAppRequest = () => {
+    this.setState({
+      showSummary: false,
+      showConfirmation: false
+    });
+  }
+
   isReady = () => {
     const { appDate, startTime, endTime } = this.state;
     if (appDate === '') return false;
@@ -212,7 +231,8 @@ class RequestForm extends React.Component {
       earliestDate,
       timeBlocks,
       showSummary,
-      showConfirmation
+      showConfirmation,
+      myAppointments
     } = this.state;
     const nonAvailable = hasNoAvailableTimeBlocks(timeBlocks);
 
@@ -221,55 +241,61 @@ class RequestForm extends React.Component {
         <form className='form column wrap margin-top-lg' onSubmit={(this.handleSubmit)}>
           <div className='row'>
             <div className='column padding-top-md input-container'>
-              {showSummary
-                ? (
-                    <RequestSummary
-                      appDate={appDate}
-                      startTime={startTime}
-                      endTime={endTime}
-                      submitRequest={this.submitRequest}
-                      cancelRequest={this.cancelRequest}
+              { showConfirmation && (
+                <Confirmation
+                  appDate={appDate}
+                  startTime={startTime}
+                  toStartAppRequest={this.toStartAppRequest}
+                />
+              )}
+              { showSummary && (
+                <RequestSummary
+                  appDate={appDate}
+                  startTime={startTime}
+                  endTime={endTime}
+                  submitRequest={this.submitRequest}
+                  cancelRequest={this.cancelRequest}
+                />
+              )}
+              { !showSummary && !showConfirmation && (
+                <React.Fragment>
+                  <div className='row'>
+                    <label htmlFor='appDate' className='label'>
+                      Date
+                    </label>
+                  </div>
+                  <div className='row'>
+                    <input
+                      type='date'
+                      id='appDate'
+                      className='input-date'
+                      value={appDate}
+                      min={earliestDate}
+                      autoComplete='false'
+                      onChange={this.handleChangeDate}
                     />
-                  )
-                : (
-                    <React.Fragment>
-                      <div className='row'>
-                        <label htmlFor='appDate' className='label'>
-                          Date
-                        </label>
-                      </div>
-                      <div className='row'>
-                        <input
-                          type='date'
-                          id='appDate'
-                          className='input-date'
-                          value={appDate}
-                          min={earliestDate}
-                          autoComplete='false'
-                          onChange={this.handleChangeDate}
+                  </div>
+                  {nonAvailable
+                    ? (
+                        <div className='message'>
+                          {NO_AVAILABILITY_MESSAGE}
+                        </div>
+                      )
+                    : (
+                        <TimeInputSet
+                          timeBlocks={timeBlocks}
+                          appDate={appDate}
+                          startTime={startTime}
+                          endTime={endTime}
+                          handleChangeStartTime={this.handleChangeStartTime}
+                          handleChangeEndTime={this.handleChangeEndTime}
+                          isReady={this.isReady}
                         />
-                      </div>
+                      )
+                  }
+                </React.Fragment>
+              )}
 
-                      {nonAvailable
-                        ? (
-                            <div className='message'>
-                              {NO_AVAILABILITY_MESSAGE}
-                            </div>
-                          )
-                        : (<TimeInputSet
-                            timeBlocks={timeBlocks}
-                            appDate={appDate}
-                            startTime={startTime}
-                            endTime={endTime}
-                            handleChangeStartTime={this.handleChangeStartTime}
-                            handleChangeEndTime={this.handleChangeEndTime}
-                            isReady={this.isReady}
-                           />
-                          )
-                      }
-                    </React.Fragment>
-                  )
-              }
             </div>
             <div className='row margin-left-med'>
               <div className='column'>

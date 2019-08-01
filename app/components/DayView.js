@@ -25,6 +25,14 @@ function TimeBlocks ({ hour, block, onClick, timeBlocks, appDay }) {
   );
 }
 
+TimeBlocks.propTypes = {
+  hour: PropTypes.number.isRequired,
+  block: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  timeBlocks: PropTypes.object.isRequired,
+  appDay: PropTypes.string.isRequired
+};
+
 function DayView ({ timeBlocks, handleTimeBlockClick, appDay }) {
   const hours = getHours();
   const minutes = getIncrements();
@@ -57,5 +65,11 @@ function DayView ({ timeBlocks, handleTimeBlockClick, appDay }) {
     </div>
   );
 }
+
+DayView.propTypes = {
+  timeBlocks: PropTypes.object.isRequired,
+  handleTimeBlockClick: PropTypes.func.isRequired,
+  appDay: PropTypes.string.isRequired
+};
 
 export default DayView;

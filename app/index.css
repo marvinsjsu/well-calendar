@@ -23,6 +23,10 @@ label {
   padding: 15px 0 5px 0;
 }
 
+label.disable {
+  color: #eee;
+}
+
 input {
   height: 30px;
   width: 150px;
@@ -74,7 +78,7 @@ ul.legend li:hover {
   padding: 20px 5px;
   margin: 20px 0;
   font-size: 24px;
-  line-height: 1.4em;
+  line-height: 1.4  em;
   color: #695d47;
 }
 
@@ -223,13 +227,18 @@ ul.legend li:hover {
   border-radius: 3px;
   padding: 10px 20px;
   margin: 30px 5px 10px 0;
+  color: #695d47;
 }
 
 .btn:hover {
   cursor: pointer;
 }
 
-
+.btn:disabled {
+  color: #cfc194;
+  background: #eee;
+  border: none;
+}
 
 
 

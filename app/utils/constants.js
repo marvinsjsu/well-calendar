@@ -10,3 +10,10 @@ export const REQUEST_STATUS = {
   UNAVAILABLE: 'unavailable',
   AVAILABLE: 'available'
 };
+
+export const NO_AVAILABILITY_MESSAGE = `
+  Sorry, but there are no longer
+  any available appointments for
+  this day. Please feel free to
+  pick another day.
+`;

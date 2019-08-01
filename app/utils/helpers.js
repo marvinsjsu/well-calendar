@@ -96,8 +96,6 @@ export function getEndTimeOptions (startTime, timeBlocks, day) {
     }
   }
 
-
-
   if (endTimeOptions.length === 0) {
     const rightAfterStart = toMoment(day, startTime).add('30', 'minutes');
     endTimeOptions.push([rightAfterStart.format('h:mma'), REQUEST_STATUS.AVAILABLE]);

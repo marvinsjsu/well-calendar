@@ -13,10 +13,12 @@ export default function TimeInputSet ({
   isReady
 }) {
 
+  const disableStartInput = getStartTimeOptions(timeBlocks, appDate).length === 0;
+
   return (
     <React.Fragment>
       <div className='row'>
-        <label htmlFor='startTime' className='label'>
+        <label htmlFor='startTime' className={`label ${disableStartInput && 'disable'}`}>
           Start Time
         </label>
       </div>
@@ -36,7 +38,7 @@ export default function TimeInputSet ({
         </select>
       </div>
       <div className='row'>
-        <label htmlFor='startTime' className='label'>
+        <label htmlFor='startTime' className={`label ${!startTime && 'disable'}`}>
           End Time
         </label>
       </div>
@@ -46,7 +48,7 @@ export default function TimeInputSet ({
           className='input-date'
           value={endTime}
           onChange={handleChangeEndTime}
-          disabled={!startTime}
+          disabled={startTime === '0'}
         >
           <option key={0} disabled value={0}> - select - </option>
           {startTime != null
@@ -68,3 +70,13 @@ export default function TimeInputSet ({
     </React.Fragment>
   );
 }
+
+TimeInputSet.propTypes = {
+  timeBlocks: PropTypes.object.isRequired,
+  appDate: PropTypes.string.isRequired,
+  startTime: PropTypes.string,
+  endTime: PropTypes.string,
+  handleChangeStartTime: PropTypes.func.isRequired,
+  handleChangeEndTime: PropTypes.func.isRequired,
+  isReady: PropTypes.func.isRequired
+};

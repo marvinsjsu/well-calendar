@@ -5,8 +5,9 @@ import moment from 'moment';
 import TimeInputSet from './TimeInputSet';
 import DayView from './DayView';
 import Legend from './Legend';
+import RequestSummary from './RequestSummary';
 import withAppointments from './withAppointments';
-import { REQUEST_STATUS } from '../utils/constants';
+import { REQUEST_STATUS, NO_AVAILABILITY_MESSAGE } from '../utils/constants';
 import {
   createTimeBlocks,
   getStartTimeOptions,
@@ -17,12 +18,17 @@ import {
 
 class RequestForm extends React.Component {
 
+  static propTypes = {
+    appointments: PropTypes.object.isRequired,
+    addAppointment: PropTypes.func.isRequired
+  }
+
   state = {
     appDate: '',
     startTime: undefined,
     endTime: undefined,
     earliestDate: '',
-    earliestTime: '',
+    showSummary: false,
     timeBlocks: {}
   }
 
@@ -30,19 +36,24 @@ class RequestForm extends React.Component {
     const { appointments } = this.props;
     const now = moment();
     const earliestDate = now.format('YYYY-MM-DD');
-    const earliestTime = now.format('h:mma');
     const timeBlocks = appointments[earliestDate] || createTimeBlocks(now);
 
     this.setState({
       appDate: earliestDate,
       earliestDate,
-      earliestTime,
       timeBlocks
     });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    this.setState({
+      showSummary: true
+    });
+  }
+
+  submitRequest = () => {
     const { appDate, timeBlocks } = this.state;
     const { addAppointment } = this.props;
     const newTimeBlocks = {};
@@ -59,10 +70,19 @@ class RequestForm extends React.Component {
     });
 
     this.setState({
-      startTime: 0,
-      endTime: 0,
-      timeBlocks: newTimeBlocks
+      startTime: '0',
+      endTime: '0',
+      timeBlocks: newTimeBlocks,
+      showSummary: false
     });
+  }
+
+  cancelRequest = () => {
+    this.setState({
+      showSummary: false,
+      startTime: '0',
+      endTime: '0'
+    }, this._resetBlocks);
   }
 
   handleChangeDate = (e) => {
@@ -73,8 +93,8 @@ class RequestForm extends React.Component {
     const newAppDate = moment(e.target.value, 'YYYY-MM-DD');
 
     this.setState({
-      startTime: 0,
-      endTime: 0,
+      startTime: '0',
+      endTime: '0',
       appDate: e.target.value,
       timeBlocks: appointments[e.target.value] || createTimeBlocks(newAppDate)
     });
@@ -95,7 +115,7 @@ class RequestForm extends React.Component {
 
     this.setState({
       startTime: e.target.value,
-      endTime: 0,
+      endTime: '0',
       timeBlocks: newTimeBlocks
     });
   }
@@ -165,16 +185,15 @@ class RequestForm extends React.Component {
 
   isReady = () => {
     const { appDate, startTime, endTime } = this.state;
-
     if (appDate === '') return false;
-    if (startTime == undefined || startTime === 0 || !startTime) return false;
-    if (endTime == undefined || endTime === 0 || !endTime) return false;
+    if (startTime == 0 || startTime === '0' || !startTime) return false;
+    if (endTime == 0 || endTime === '0' || !endTime) return false;
 
     return true;
   }
 
   render () {
-    const { appDate, startTime, endTime, earliestDate, earliestTime, timeBlocks } = this.state;
+    const { appDate, startTime, endTime, earliestDate, timeBlocks, showSummary } = this.state;
     const nonAvailable = hasNoAvailableTimeBlocks(timeBlocks);
 
     return (
@@ -182,41 +201,53 @@ class RequestForm extends React.Component {
         <form className='form column wrap margin-top-lg' onSubmit={(this.handleSubmit)}>
           <div className='row'>
             <div className='column padding-top-md input-container'>
-              <div className='row'>
-                <label htmlFor='appDate' className='label'>
-                  Date
-                </label>
-              </div>
-              <div className='row'>
-                <input
-                  type='date'
-                  id='appDate'
-                  className='input-date'
-                  value={appDate}
-                  min={earliestDate}
-                  autoComplete='false'
-                  onChange={this.handleChangeDate}
-                />
-              </div>
-
-              {nonAvailable
+              {showSummary
                 ? (
-                    <div className='message'>
-                      Sorry, but there are no longer
-                      any available appointments for
-                      this day. Please feel free to
-                      pick another day.
-                    </div>
+                    <RequestSummary
+                      appDate={appDate}
+                      startTime={startTime}
+                      endTime={endTime}
+                      submitRequest={this.submitRequest}
+                      cancelRequest={this.cancelRequest}
+                    />
                   )
-                : (<TimeInputSet
-                    timeBlocks={timeBlocks}
-                    appDate={appDate}
-                    startTime={startTime}
-                    endTime={endTime}
-                    handleChangeStartTime={this.handleChangeStartTime}
-                    handleChangeEndTime={this.handleChangeEndTime}
-                    isReady={this.isReady}
-                   />
+                : (
+                    <React.Fragment>
+                      <div className='row'>
+                        <label htmlFor='appDate' className='label'>
+                          Date
+                        </label>
+                      </div>
+                      <div className='row'>
+                        <input
+                          type='date'
+                          id='appDate'
+                          className='input-date'
+                          value={appDate}
+                          min={earliestDate}
+                          autoComplete='false'
+                          onChange={this.handleChangeDate}
+                        />
+                      </div>
+
+                      {nonAvailable
+                        ? (
+                            <div className='message'>
+                              {NO_AVAILABILITY_MESSAGE}
+                            </div>
+                          )
+                        : (<TimeInputSet
+                            timeBlocks={timeBlocks}
+                            appDate={appDate}
+                            startTime={startTime}
+                            endTime={endTime}
+                            handleChangeStartTime={this.handleChangeStartTime}
+                            handleChangeEndTime={this.handleChangeEndTime}
+                            isReady={this.isReady}
+                           />
+                          )
+                      }
+                    </React.Fragment>
                   )
               }
             </div>

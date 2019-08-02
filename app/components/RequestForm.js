@@ -9,7 +9,7 @@ import Legend from './Legend';
 import RequestSummary from './RequestSummary';
 import Confirmation from './Confirmation';
 import AppointmentCard from './AppointmentCard';
-import withAppointments from './withAppointments';
+import withContext from '../contexts/withContext';
 import { REQUEST_STATUS, NO_AVAILABILITY_MESSAGE } from '../utils/constants';
 import {
   getCalendarFromLocalStorage,
@@ -27,10 +27,7 @@ import {
 class RequestForm extends React.Component {
 
   static propTypes = {
-    calendar: PropTypes.object.isRequired,
-    myAppointments: PropTypes.array.isRequired,
-    addDayBlocksToCalendar: PropTypes.func.isRequired,
-    addAppointmentToMyAppointments: PropTypes.func.isRequired
+    context: PropTypes.object.isRequired
   }
 
   state = {
@@ -45,8 +42,7 @@ class RequestForm extends React.Component {
   }
 
   componentDidMount () {
-    const calendar = getCalendarFromLocalStorage() || {};
-    const myAppointments = getMyAppointmentsFromLocalStorage();
+    const { context: { calendar, myAppointments }} = this.props;
     const now = moment();
     const earliestDate = now.format('YYYY-MM-DD');
     const timeBlocks = calendar[earliestDate] || createTimeBlocks(now);
@@ -71,7 +67,7 @@ class RequestForm extends React.Component {
 
   submitRequest = () => {
     const { appDate, timeBlocks, myAppointments, startTime, endTime } = this.state;
-    const { addDayBlocksToCalendar, addAppointmentToMyAppointments } = this.props;
+    const { context: { addDayBlocksToCalendar, addToMyAppointments } } = this.props;
     const newTimeBlocks = {};
     const newAppointment = {
       appDate,
@@ -93,7 +89,7 @@ class RequestForm extends React.Component {
       showConfirmation: true,
       myAppointments: [ ...myAppointments, newAppointment ]
     }, () => {
-      addAppointmentToMyAppointments(newAppointment);
+      addToMyAppointments(newAppointment);
       addDayBlocksToCalendar({
         appDate,
         newTimeBlocks
@@ -110,7 +106,7 @@ class RequestForm extends React.Component {
   }
 
   handleChangeDate = (e) => {
-    const { calendar, addDayBlocksToCalendar } = this.props;
+    const { context: { calendar, addDayBlocksToCalendar } } = this.props;
     const newAppDate = moment(e.target.value, 'YYYY-MM-DD');
 
     this.setState({
@@ -125,7 +121,7 @@ class RequestForm extends React.Component {
   }
 
   altHandleChangeDate = (newAppDate) => {
-    const { calendar, addDayBlocksToCalendar } = this.props;
+    const { context: { calendar, addDayBlocksToCalendar } } = this.props;
     const newAppMoment = moment(newAppDate, 'YYYY-MM-DD');
 
     this.setState({
@@ -141,7 +137,7 @@ class RequestForm extends React.Component {
 
   handleChangeStartTime = (e) => {
     const { timeBlocks: newTimeBlocks } = this.state;
-    const { addDayBlocksToCalendar } = this.props;
+    const { context: { addDayBlocksToCalendar } } = this.props;
 
     for (let propKey in newTimeBlocks) {
       if (newTimeBlocks[propKey] === REQUEST_STATUS.REQUESTING) {
@@ -186,7 +182,7 @@ class RequestForm extends React.Component {
   }
 
   handleTimeBlockClick = (val) => {
-    const { addAppointment } = this.props;
+    const { context: { addAppointment } } = this.props;
 
     this.setState((currState) => {
       const timeBlocks = currState.timeBlocks;
@@ -339,4 +335,4 @@ class RequestForm extends React.Component {
   }
 }
 
-export default withAppointments(RequestForm);
+export default withContext(RequestForm);

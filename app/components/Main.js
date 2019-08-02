@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import withAppointments from './withAppointments';
+import withContext from '../contexts/withContext';
 import { ROUTES } from '../utils/constants';
 
-function Main ({ myAppointments }) {
+function Main ({ context: { myAppointments } }) {
   return (
     <main>
       <div className='column wrap margin-top-lg'>
@@ -52,4 +52,4 @@ function Main ({ myAppointments }) {
   );
 }
 
-export default withAppointments(Main);
+export default withContext(Main);

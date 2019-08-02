@@ -5,67 +5,17 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Nav from './components/Nav';
 import Main from './components/Main';
 import RequestForm from './components/RequestForm';
-import { AppointmentsProvider } from './contexts/appointments';
+import { AppProvider } from './contexts/AppProvider';
 import { connected } from './utils/api';
 import { ROUTES } from './utils/constants';
-import {
-  setCalendarInLocalStorage,
-  getCalendarFromLocalStorage,
-  setMyAppointmentsInLocalStorage,
-  getMyAppointmentsFromLocalStorage
-} from './utils/localStorage';
 
 import './index.css';
 
 class App extends React.Component {
-
-  state = {
-    calendar: {},
-    myAppointments: [],
-
-    addDayBlocksToCalendar: ({ appDate, newTimeBlocks }) => {
-      this.setState(({ calendar }) => {
-        calendar[appDate] = newTimeBlocks;
-        return { calendar };
-      }, () => setCalendarInLocalStorage(this.state.calendar));
-    },
-
-    addAppointmentToMyAppointments: (appointment) => {
-      this.setState(({ myAppointments }) => ({
-        myAppointments: [...myAppointments, appointment]
-      }), () => setMyAppointmentsInLocalStorage(this.state.myAppointments));
-    },
-
-  }
-
-  componentDidMount () {
-    // this.connectionInterval = window.setInterval(() => {
-    //   if (!connected()) {
-    //     console.log('disconnected');
-    //   }
-    // }, 3000);
-
-    const calendar = getCalendarFromLocalStorage();
-    const myAppointments = getMyAppointmentsFromLocalStorage();
-
-console.log('componentDidMount APP - calendar', calendar);
-
-    this.setState({
-      calendar: calendar || {},
-      myAppointments: myAppointments || []
-    }, () => console.log(this.state));
-  }
-
-  componentWillUnmount () {
-    // window.clearInterval(this.connectionInterval);
-           // <Route exact path={ROUTES.MY_APPOINTMENTS} component={} />
-    //
-  }
-
   render () {
     return (
       <Router>
-        <AppointmentsProvider value={this.state}>
+        <AppProvider>
           <div className='container'>
             <Nav />
             <Switch>
@@ -73,7 +23,7 @@ console.log('componentDidMount APP - calendar', calendar);
               <Route exact path={ROUTES.APPOINTMENT_REQUEST} component={RequestForm} />
             </Switch>
           </div>
-        </AppointmentsProvider>
+        </AppProvider>
       </Router>
     );
   }

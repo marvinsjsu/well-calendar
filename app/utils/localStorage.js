@@ -4,11 +4,11 @@ const KEY_MY_APPOINTMENTS = 'MY_APPOINTMENTS';
 export const setCalendarInLocalStorage = (calendar) => {
   console.log('setCalendarInLocalStorage calendar: ', calendar);
   // localStorage.clear();
-  // localStorage.setItem(KEY_CALENDAR, JSON.stringify(calendar));
+  localStorage.setItem(KEY_CALENDAR, JSON.stringify(calendar));
 };
 
 export const getCalendarFromLocalStorage = () => {
-  localStorage.clear();
+  // localStorage.clear();
 
   let calendar = localStorage.getItem(KEY_CALENDAR);
 
@@ -24,7 +24,7 @@ export const setMyAppointmentsInLocalStorage = (myAppointments) => {
 };
 
 export const getMyAppointmentsFromLocalStorage = () => {
-  localStorage.clear();
+  // localStorage.clear();
 
   let myAppointments = localStorage.getItem(KEY_MY_APPOINTMENTS);
 

@@ -20,9 +20,6 @@ export class AppProvider extends React.Component {
     addDayBlocksToCalendar: ({ appDate, newTimeBlocks }) => {
       this.setState(({ calendar }) => {
         calendar[appDate] = newTimeBlocks;
-        console.log('addDayBlocksToCalendar appDate:', appDate);
-        console.log('addDayBlocksToCalendar newTimeBlocks:', newTimeBlocks);
-        console.log('addDayBlocksToCalendar calendar:', calendar);
         return { calendar };
       }, () => setCalendarInLocalStorage(this.state.calendar));
     },

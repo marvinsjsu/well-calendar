@@ -54,7 +54,7 @@ class RequestForm extends React.Component {
       myAppointments: myAppointments || [],
       showSummary: false,
       showConfirmation: false
-    });
+    }, () => console.log(this.state));
   }
 
   handleSubmit = (e) => {
@@ -81,6 +81,15 @@ class RequestForm extends React.Component {
         : timeBlocks[key];
     }
 
+console.log('submitRequest: ', appDate);
+console.log('newTimeBlocks: ', newTimeBlocks);
+
+    addToMyAppointments(newAppointment);
+    addDayBlocksToCalendar({
+      appDate,
+      newTimeBlocks
+    });
+
     this.setState({
       startTime: '0',
       endTime: '0',
@@ -88,12 +97,6 @@ class RequestForm extends React.Component {
       showSummary: false,
       showConfirmation: true,
       myAppointments: [ ...myAppointments, newAppointment ]
-    }, () => {
-      addToMyAppointments(newAppointment);
-      addDayBlocksToCalendar({
-        appDate,
-        newTimeBlocks
-      });
     });
   }
 
@@ -114,9 +117,6 @@ class RequestForm extends React.Component {
       endTime: '0',
       appDate: e.target.value,
       timeBlocks: calendar[e.target.value] || createTimeBlocks(newAppDate)
-    }, () => {
-      const { appDate, timeBlocks } = this.state;
-      addDayBlocksToCalendar({ appDate, timeBlocks });
     });
   }
 
@@ -129,14 +129,11 @@ class RequestForm extends React.Component {
       endTime: '0',
       appDate: newAppDate,
       timeBlocks: calendar[newAppDate] || createTimeBlocks(newAppMoment)
-    }, () => {
-      const { appDate, timeBlocks } = this.state;
-      addDayBlocksToCalendar({ appDate, timeBlocks });
     });
   }
 
   handleChangeStartTime = (e) => {
-    const { timeBlocks: newTimeBlocks } = this.state;
+    const { appDate, timeBlocks: newTimeBlocks } = this.state;
     const { context: { addDayBlocksToCalendar } } = this.props;
 
     for (let propKey in newTimeBlocks) {
@@ -151,9 +148,6 @@ class RequestForm extends React.Component {
       startTime: e.target.value,
       endTime: '0',
       timeBlocks: newTimeBlocks
-    }, () => {
-      const { appDate, timeBlocks } = this.state;
-      addDayBlocksToCalendar({ timeBlocks });
     });
   }
 

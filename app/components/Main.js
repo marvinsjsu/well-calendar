@@ -6,7 +6,7 @@ import { ROUTES } from '../utils/constants';
 
 function Main ({ myAppointments }) {
   return (
-    <div className='container__page'>
+    <main>
       <div className='column wrap margin-top-lg'>
         <div className='row'>
           <h2>My appointment requests</h2>
@@ -48,7 +48,7 @@ function Main ({ myAppointments }) {
           </ul>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

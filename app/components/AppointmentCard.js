@@ -7,7 +7,7 @@ export default function AppointmentCard ({ appDate, startTime, endTime, title })
   const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
 
   return (
-    <div className='appointment-card'>
+    <div className='card'>
       {title && (
         <h4 className='title'>{title}</h4>
       )}

@@ -2,8 +2,6 @@ const KEY_CALENDAR = 'CALENDAR';
 const KEY_MY_APPOINTMENTS = 'MY_APPOINTMENTS';
 
 export const setCalendarInLocalStorage = (calendar) => {
-console.log('calendar', calendar);
-
   localStorage.setItem(KEY_CALENDAR, JSON.stringify(calendar));
 };
 
@@ -14,13 +12,10 @@ export const getCalendarFromLocalStorage = () => {
     calendar = JSON.parse(calendar);
   }
 
-console.log('calendar', calendar);
   return calendar;
 };
 
 export const setMyAppointmentsInLocalStorage = (myAppointments) => {
-console.log('set myAppointments', myAppointments);
-
   localStorage.setItem(KEY_MY_APPOINTMENTS, JSON.stringify(myAppointments));
 };
 
@@ -31,6 +26,5 @@ export const getMyAppointmentsFromLocalStorage = () => {
     myAppointments = JSON.parse(myAppointments);
   }
 
-console.log('myAppointments', myAppointments);
   return myAppointments;
 };

@@ -8,8 +8,14 @@ import {
   REQUEST_STATUS
 } from './constants';
 
-export function toMoment(day, time) {
-  return moment(`${day} ${time}`, 'YYYY-MM-DD h:mma');
+export function toMoment (day, time, strict = false) {
+  return moment(`${day} ${time}`, 'YYYY-MM-DD h:mma', strict);
+}
+
+export function getFullDateDisplay (appDate, startTime) {
+  return toMoment(appDate, startTime, true).isValid()
+    && toMoment(appDate, startTime).format('dddd, MMM Do, YYYY')
+    || moment().format('dddd, MMM Do, YYYY')
 }
 
 export function toFriendlyHours (hour, minutes) {
@@ -120,3 +126,37 @@ export function sortApps (appA, appB) {
   return timeA - timeB;
 }
 
+export function getMonths () {
+  return moment.monthsShort();
+}
+
+export function getYears () {
+  let years = [];
+  let year = moment().year();
+
+  for (let i = 0; i < 100; i++) {
+    years = [...years, year];
+    year++;
+  }
+
+  return years;
+}
+
+export function getDays (year, month) {
+  const daysInMonth =  moment(`${year}-${month}`, 'YYYY-MMM').daysInMonth();
+
+  return [...Array(daysInMonth + 1).keys()].slice(1);
+}
+
+export function getAppDate(year, month, day) {
+  return moment(`${month} ${day} ${year}`, 'MMM D YYYY').format('YYYY-MM-DD');
+}
+
+export function getTodayObject() {
+  const now = moment();
+  return {
+    year: now.format('YYYY'),
+    month: now.format('MMM'),
+    day: now.format('D')
+  }
+}

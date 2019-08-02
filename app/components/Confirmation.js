@@ -3,34 +3,30 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { toMoment } from '../utils/helpers';
-import { ROUTES } from '../utils/constants';
+import { ROUTES, LANGUAGE } from '../utils/constants';
 
 export default function Confirmation ({ appDate, startTime, toStartAppRequest }) {
   const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
 
   return (
-    <React.Fragment>
-      <div className='row'>
-        <div className='message'>
-          Thank you! You're appointment request for {appointmentDate} has been submitted.
-        </div>
+    <div className='column request'>
+      <div className='row message'>
+        {LANGUAGE.CONFIRMATION_MESSAGE(appointmentDate)}
       </div>
-      <div className='row'>
+      <div className='column'>
         <button
           className='link'
           onClick={toStartAppRequest}
         >
           Make another request
         </button>
-      </div>
-      <div className='row'>
         <Link
           className='link'
           to={ROUTES.HOME}
         >
-          Existing requests
+          See existing requests
         </Link>
       </div>
-    </React.Fragment>
+    </div>
   );
 }

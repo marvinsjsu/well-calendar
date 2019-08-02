@@ -7,7 +7,7 @@ export default function RequestSummary ({ appDate, startTime, endTime, cancelReq
   const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
 
   return (
-    <div className='row'>
+    <div className='row request'>
       <div className='message'>
         Here's a quick summary of your appointment request.
         <ul>

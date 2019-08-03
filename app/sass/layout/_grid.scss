@@ -52,6 +52,10 @@
     padding: 20rem;
     min-height: 40rem;
   }
+
+  &--space-between {
+    justify-content: space-between;
+  }
 }
 
 .background-red {

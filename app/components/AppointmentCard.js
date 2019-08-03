@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { toMoment } from '../utils/helpers';
 
 export default function AppointmentCard ({ appDate, startTime, endTime, title }) {
-  const appointmentDate = toMoment(appDate, startTime).format('ddd, MMM Do, YYYY');
+  const appointmentDate = toMoment(appDate, startTime).format('ddd., MMM. Do, YYYY');
 
   return (
     <div className='card'>

@@ -7,7 +7,7 @@ import { ConnectionConsumer } from '../contexts/connection';
 import { ROUTES, LANGUAGE } from '../utils/constants';
 
 export default function Confirmation ({ appDate, startTime, toStartAppRequest }) {
-  const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
+  const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY');
 
   return (
     <ConnectionConsumer>

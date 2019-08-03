@@ -9,14 +9,15 @@ export default function Nav () {
       <ul className='navigation'>
         <li>
           <NavLink
-            to={ROUTES.APPOINTMENT_REQUEST}
+            to={ROUTES.HOME}
+            exact
           >
             Create Request
           </NavLink>
         </li>
         <li>
           <NavLink
-            to={ROUTES.HOME}
+            to={ROUTES.MY_APPOINTMENTS}
             exact
           >
             Existing Requests

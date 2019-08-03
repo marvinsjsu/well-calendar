@@ -23,7 +23,7 @@ export default function Confirmation ({ appDate, startTime, toStartAppRequest })
           </button>
           <Link
             className='link'
-            to={ROUTES.HOME}
+            to={ROUTES.MY_APPOINTMENTS}
           >
             See existing requests
           </Link>

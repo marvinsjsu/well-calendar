@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Nav from './components/Nav';
-import Main from './components/Main';
+import MyAppointments from './components/MyAppointments';
 import RequestForm from './components/RequestForm';
 import { AppProvider } from './contexts/AppProvider';
 import { connected } from './utils/api';
@@ -19,8 +19,9 @@ class App extends React.Component {
           <div className='container'>
             <Nav />
             <Switch>
-              <Route exact path={ROUTES.HOME} component={Main} />
-              <Route exact path={ROUTES.APPOINTMENT_REQUEST} component={RequestForm} />
+              <Route exact path={ROUTES.HOME} component={RequestForm} />
+              <Route exact path={ROUTES.MY_APPOINTMENTS} component={MyAppointments} />
+
             </Switch>
           </div>
         </AppProvider>

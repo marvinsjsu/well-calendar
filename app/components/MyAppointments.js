@@ -6,7 +6,7 @@ import withContext from '../contexts/withContext';
 import { ROUTES } from '../utils/constants';
 import { sortApps, isAfterNow } from '../utils/helpers';
 
-function Main ({ context: { myAppointments } }) {
+function MyAppointments ({ context: { myAppointments } }) {
   const hasAppointments = myAppointments.length > 0;
 
   return (
@@ -38,4 +38,4 @@ function Main ({ context: { myAppointments } }) {
   );
 }
 
-export default withContext(Main);
+export default withContext(MyAppointments);

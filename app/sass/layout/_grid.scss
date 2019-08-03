@@ -47,6 +47,11 @@
   flex-wrap: wrap;
   position: relative;
   width: 100%;
+
+  &--center {
+    padding: 20rem;
+    min-height: 40rem;
+  }
 }
 
 .background-red {

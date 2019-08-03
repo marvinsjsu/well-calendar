@@ -348,6 +348,9 @@ body {
   flex-wrap: wrap;
   position: relative;
   width: 100%; }
+  .flex-row--center {
+    padding: 20rem;
+    min-height: 40rem; }
 
 .background-red {
   background-color: red; }
@@ -393,7 +396,7 @@ body {
   margin: 0 auto;
   padding: 15px 50px; }
 
-.section-my-appointments, .form-request-appointment {
+.section-my-appointments, .form-request-appointment, .section-no-match {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -404,9 +407,9 @@ body {
   padding: 3rem 1rem;
   border-radius: 3px;
   /* lists */ }
-  .section-my-appointments--list, .form-request-appointment--list {
+  .section-my-appointments--list, .form-request-appointment--list, .section-no-match--list {
     width: 100%; }
-  .section-my-appointments--form, .form-request-appointment--form {
+  .section-my-appointments--form, .form-request-appointment--form, .section-no-match--form {
     width: 50%;
     min-width: 250px;
     max-width: 500px;
@@ -414,13 +417,13 @@ body {
     /* Removes the clear button from date inputs */
     /* Removes the spin button */
     /* Always display the drop down caret */ }
-    .section-my-appointments--form label, .form-request-appointment--form label {
+    .section-my-appointments--form label, .form-request-appointment--form label, .section-no-match--form label {
       font-size: 2rem;
       color: #695d47;
       padding: 15px 0 5px 0; }
-    .section-my-appointments--form label.disable, .form-request-appointment--form label.disable {
+    .section-my-appointments--form label.disable, .form-request-appointment--form label.disable, .section-no-match--form label.disable {
       color: #CFC194; }
-    .section-my-appointments--form input, .section-my-appointments--form .input-time, .form-request-appointment--form input, .form-request-appointment--form .input-time {
+    .section-my-appointments--form input, .section-my-appointments--form .input-time, .form-request-appointment--form input, .form-request-appointment--form .input-time, .section-no-match--form input, .section-no-match--form .input-time {
       height: 40px;
       width: 150px;
       border: 2px solid #a3e7d8;
@@ -432,42 +435,42 @@ body {
       -webkit-appearance: none;
       background-color: inherit;
       text-align: center; }
-      .section-my-appointments--form input ::-webkit-input-placeholder, .section-my-appointments--form .input-time ::-webkit-input-placeholder, .form-request-appointment--form input ::-webkit-input-placeholder, .form-request-appointment--form .input-time ::-webkit-input-placeholder {
+      .section-my-appointments--form input ::-webkit-input-placeholder, .section-my-appointments--form .input-time ::-webkit-input-placeholder, .form-request-appointment--form input ::-webkit-input-placeholder, .form-request-appointment--form .input-time ::-webkit-input-placeholder, .section-no-match--form input ::-webkit-input-placeholder, .section-no-match--form .input-time ::-webkit-input-placeholder {
         /* Chrome/Opera/Safari */
         text-align: center; }
-      .section-my-appointments--form input ::-moz-placeholder, .section-my-appointments--form .input-time ::-moz-placeholder, .form-request-appointment--form input ::-moz-placeholder, .form-request-appointment--form .input-time ::-moz-placeholder {
+      .section-my-appointments--form input ::-moz-placeholder, .section-my-appointments--form .input-time ::-moz-placeholder, .form-request-appointment--form input ::-moz-placeholder, .form-request-appointment--form .input-time ::-moz-placeholder, .section-no-match--form input ::-moz-placeholder, .section-no-match--form .input-time ::-moz-placeholder {
         /* Firefox 19+ */
         text-align: center; }
-      .section-my-appointments--form input :-ms-input-placeholder, .section-my-appointments--form .input-time :-ms-input-placeholder, .form-request-appointment--form input :-ms-input-placeholder, .form-request-appointment--form .input-time :-ms-input-placeholder {
+      .section-my-appointments--form input :-ms-input-placeholder, .section-my-appointments--form .input-time :-ms-input-placeholder, .form-request-appointment--form input :-ms-input-placeholder, .form-request-appointment--form .input-time :-ms-input-placeholder, .section-no-match--form input :-ms-input-placeholder, .section-no-match--form .input-time :-ms-input-placeholder {
         /* IE 10+ */
         text-align: center; }
-      .section-my-appointments--form input :-moz-placeholder, .section-my-appointments--form .input-time :-moz-placeholder, .form-request-appointment--form input :-moz-placeholder, .form-request-appointment--form .input-time :-moz-placeholder {
+      .section-my-appointments--form input :-moz-placeholder, .section-my-appointments--form .input-time :-moz-placeholder, .form-request-appointment--form input :-moz-placeholder, .form-request-appointment--form .input-time :-moz-placeholder, .section-no-match--form input :-moz-placeholder, .section-no-match--form .input-time :-moz-placeholder {
         /* Firefox 18- */
         text-align: center; }
-    .section-my-appointments--form .input-time, .form-request-appointment--form .input-time {
+    .section-my-appointments--form .input-time, .form-request-appointment--form .input-time, .section-no-match--form .input-time {
       width: 100px;
       text-align: center;
       padding: .5rem; }
-    .section-my-appointments--form .input-date-year, .form-request-appointment--form .input-date-year {
+    .section-my-appointments--form .input-date-year, .form-request-appointment--form .input-date-year, .section-no-match--form .input-date-year {
       width: 75px;
       margin: 0 5px 0 0;
       text-align: center; }
-    .section-my-appointments--form .input-date-month, .form-request-appointment--form .input-date-month {
+    .section-my-appointments--form .input-date-month, .form-request-appointment--form .input-date-month, .section-no-match--form .input-date-month {
       width: 75px;
       margin: 0 5px 0 5px; }
-    .section-my-appointments--form .input-date-day, .form-request-appointment--form .input-date-day {
+    .section-my-appointments--form .input-date-day, .form-request-appointment--form .input-date-day, .section-no-match--form .input-date-day {
       width: 75px;
       margin: 0 0 0 5px; }
-    .section-my-appointments--form input[type="date"]::-webkit-clear-button, .form-request-appointment--form input[type="date"]::-webkit-clear-button {
+    .section-my-appointments--form input[type="date"]::-webkit-clear-button, .form-request-appointment--form input[type="date"]::-webkit-clear-button, .section-no-match--form input[type="date"]::-webkit-clear-button {
       display: none; }
-    .section-my-appointments--form input[type="date"]::-webkit-inner-spin-button, .form-request-appointment--form input[type="date"]::-webkit-inner-spin-button {
+    .section-my-appointments--form input[type="date"]::-webkit-inner-spin-button, .form-request-appointment--form input[type="date"]::-webkit-inner-spin-button, .section-no-match--form input[type="date"]::-webkit-inner-spin-button {
       display: none; }
-    .section-my-appointments--form input[type="date"]::-webkit-calendar-picker-indicator, .form-request-appointment--form input[type="date"]::-webkit-calendar-picker-indicator {
+    .section-my-appointments--form input[type="date"]::-webkit-calendar-picker-indicator, .form-request-appointment--form input[type="date"]::-webkit-calendar-picker-indicator, .section-no-match--form input[type="date"]::-webkit-calendar-picker-indicator {
       color: #2c3e50; }
-    .section-my-appointments--form select:disabled, .form-request-appointment--form select:disabled {
+    .section-my-appointments--form select:disabled, .form-request-appointment--form select:disabled, .section-no-match--form select:disabled {
       border: 1px solid #CFC194;
       color: #CFC194; }
-    .section-my-appointments--form select, .form-request-appointment--form select {
+    .section-my-appointments--form select, .form-request-appointment--form select, .section-no-match--form select {
       height: 40px;
       width: 130px;
       border: 2px solid #a3e7d8;
@@ -478,41 +481,41 @@ body {
       padding: 3px;
       background: transparent;
       -webkit-appearance: none; }
-    .section-my-appointments--form .card, .form-request-appointment--form .card {
+    .section-my-appointments--form .card, .form-request-appointment--form .card, .section-no-match--form .card {
       margin-left: 0; }
-  .section-my-appointments .legend, .form-request-appointment .legend {
+  .section-my-appointments .legend, .form-request-appointment .legend, .section-no-match .legend {
     height: 15px;
     width: 100%;
     margin: 0; }
-    .section-my-appointments .legend li, .form-request-appointment .legend li {
+    .section-my-appointments .legend li, .form-request-appointment .legend li, .section-no-match .legend li {
       height: 15px;
       padding: 0 15px;
       font-size: 15px;
       display: inline-block;
       color: #695d47; }
-    .section-my-appointments .legend li:hover, .form-request-appointment .legend li:hover {
+    .section-my-appointments .legend li:hover, .form-request-appointment .legend li:hover, .section-no-match .legend li:hover {
       cursor: default; }
-    .section-my-appointments .legend .legend-icon, .form-request-appointment .legend .legend-icon {
+    .section-my-appointments .legend .legend-icon, .form-request-appointment .legend .legend-icon, .section-no-match .legend .legend-icon {
       height: 20px;
       width: 20px;
       border: 2px solid #695d47;
       border-radius: 50%; }
-  .section-my-appointments .available, .form-request-appointment .available {
+  .section-my-appointments .available, .form-request-appointment .available, .section-no-match .available {
     background: #fff; }
-  .section-my-appointments .requesting, .form-request-appointment .requesting {
+  .section-my-appointments .requesting, .form-request-appointment .requesting, .section-no-match .requesting {
     background: #a3e7d8; }
-  .section-my-appointments .submitted, .form-request-appointment .submitted {
+  .section-my-appointments .submitted, .form-request-appointment .submitted, .section-no-match .submitted {
     background: #fc7038; }
-  .section-my-appointments .unavailable, .form-request-appointment .unavailable {
+  .section-my-appointments .unavailable, .form-request-appointment .unavailable, .section-no-match .unavailable {
     background: #CFC194; }
-  .section-my-appointments .request-flow, .form-request-appointment .request-flow {
+  .section-my-appointments .request-flow, .form-request-appointment .request-flow, .section-no-match .request-flow {
     min-height: 200px; }
-  .section-my-appointments .link, .form-request-appointment .link {
+  .section-my-appointments .link, .form-request-appointment .link, .section-no-match .link {
     font-size: 1.5rem;
     font-weight: 500;
     text-decoration: none;
     padding: 1rem 0;
     color: #695d47; }
-    .section-my-appointments .link:hover, .form-request-appointment .link:hover {
+    .section-my-appointments .link:hover, .form-request-appointment .link:hover, .section-no-match .link:hover {
       color: #fc7038;
       text-decoration: underline; }

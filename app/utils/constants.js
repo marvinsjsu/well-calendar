@@ -25,7 +25,7 @@ export const LANGUAGE = {
     this day. Please choose another day.
   `,
   CONFIRMATION_MESSAGE: (appointmentDate) => (`
-    Thank you! You're appointment
+    Thank you! Your appointment
     request for ${appointmentDate}
     has been submitted.
   `)

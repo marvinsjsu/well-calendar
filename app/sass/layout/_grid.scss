@@ -44,17 +44,38 @@
 .flex-row {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   position: relative;
   width: 100%;
 
-  &--center {
+  &--vertical-center {
     padding: 20rem;
     min-height: 40rem;
   }
 
+  &--horizontal-center {
+    justify-content: center;
+  }
+
   &--space-between {
     justify-content: space-between;
+  }
+
+  &--width-half {
+    width: 50%;
+  }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+
+  &--horizontal-center {
+    align-items: center;
   }
 }
 
@@ -62,10 +83,6 @@
   background-color: red;
 }
 
-.relative-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+.background-blue {
+  background-color: blue;
 }

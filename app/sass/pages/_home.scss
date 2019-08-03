@@ -1,7 +1,19 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 15px 50px;
+  padding: 1.5rem 5rem;
+
+  @include respond(large-desktop) {
+    padding: 0;
+  }
+
+  @include respond(tablet-landscape) {
+    padding: 0;
+  }
+
+  @include respond(tablet-portrait) {
+    padding: 2rem;
+  }
 }
 
 .section-my-appointments, .form-request-appointment, .section-no-match {
@@ -12,7 +24,7 @@
   flex: 1;
   min-height: 55rem;
   background-color: $color-grey-light-1;
-  padding: 3rem 1rem;
+  padding: 1rem;
   border-radius: 3px;
 
   &--list {
@@ -20,15 +32,14 @@
   }
 
   &--form {
-    width: 50%;
-    min-width: 250px;
-    max-width: 500px;
-    padding: 0rem 2rem 2rem 8rem;
+    max-width: 38rem;
+    min-width: 28rem;
+    margin-bottom: 2rem;
 
     label {
       font-size: 2rem;
       color: $color-dark-brown;
-      padding: 15px 0 5px 0;
+      padding: 1.5rem 0 .5rem 0;
     }
 
     label.disable {
@@ -36,14 +47,14 @@
     }
 
     input, .input-time{
-      height: 40px;
-      width: 150px;
+      height: 4rem;
+      width: 15rem;
       border: 2px solid $color-light-green;
       border-radius: 3px;
-      font-size: 20px;
+      font-size: 2rem;
       font-family: Helvetica Neue;
       color: $color-dark-brown;
-      padding: 3px;
+      padding: .3rem;
       -webkit-appearance: none;
       background-color: inherit;
       text-align: center;
@@ -128,6 +139,7 @@
     height: 15px;
     width: 100%;
     margin: 0;
+    @include clearfix;
 
     li {
       height: 15px;
@@ -181,4 +193,13 @@
       text-decoration: underline;
     }
   }
+}
+
+.form-request-appointment {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 2rem;
 }

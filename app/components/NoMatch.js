@@ -7,7 +7,7 @@ export default function NoMatch () {
   return (
     <main>
       <section className='section-no-match'>
-        <div className='flex-row--center u-center-text'>
+        <div className='flex-row--vertical-center u-center-text'>
           <h2 className='heading-primary u-center-text'>
             Sorry, but we seem to not have this page. {' '}
             <Link

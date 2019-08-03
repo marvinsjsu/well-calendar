@@ -38,7 +38,7 @@ function DayView ({ timeBlocks, handleTimeBlockClick, appDay }) {
   const minutes = getIncrements();
 
   return (
-    <div className='grid-day'>
+    <div className='flex-row grid-day'>
       <ul>
         {hours.map((hour) => (
           <li key={hour} className='time-block'>

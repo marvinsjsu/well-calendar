@@ -1,35 +1,37 @@
-.grid-day {
-  max-height: 600px;
-  overflow-y: scroll;
-  padding: 0;
+.day-view {
+  max-width: 32rem;
+  min-width: 28rem;
+  padding: 1.5rem 0;
 
-  .time-block {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 250px;
-    border: 2px solid $color-light-green;
-    border-radius: 3px;
-    margin: 5px 0;
-  }
+  .grid-day {
+    .time-block {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 250px;
+      border: 2px solid $color-light-green;
+      border-radius: 3px;
+      margin: 5px 0;
+    }
 
-  .time-display {
-    width: 100px;
-    padding: 5px;
-    font-size: 1.5rem;
-    color: $color-dark-brown;
-  }
+    .time-display {
+      width: 100px;
+      padding: 5px;
+      font-size: 1.5rem;
+      color: $color-dark-brown;
+    }
 
-  .time-interval {
-    height: 60px;
-    display: flex;
-    flex-direction: column;
+    .time-interval {
+      height: 60px;
+      display: flex;
+      flex-direction: column;
 
-    &--minute {
-      border-left: 1px solid $color-light-green;
-      border-bottom: 1px solid $color-light-green;
-      height: 30px;
-      width: 150px;
+      &--minute {
+        border-left: 1px solid $color-light-green;
+        border-bottom: 1px solid $color-light-green;
+        height: 30px;
+        width: 150px;
+      }
     }
   }
 }

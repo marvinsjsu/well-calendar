@@ -3,31 +3,23 @@ import { NavLink } from 'react-router-dom';
 
 import { ROUTES } from '../utils/constants';
 
-const activeStyle = {
-  color: '#fc7038'
-}
-
 export default function Nav () {
   return (
-    <nav className='row space-between'>
-      <ul className='row nav'>
+    <nav className='flex-row'>
+      <ul className='navigation'>
         <li>
           <NavLink
-            to={ROUTES.HOME}
-            exact
-            activeStyle={activeStyle}
-            className='nav-link'
+            to={ROUTES.APPOINTMENT_REQUEST}
           >
-            Existing Requests
+            Create Request
           </NavLink>
         </li>
         <li>
           <NavLink
-            to={ROUTES.APPOINTMENT_REQUEST}
-            activeStyle={activeStyle}
-            className='nav-link'
+            to={ROUTES.HOME}
+            exact
           >
-            Create Request
+            Existing Requests
           </NavLink>
         </li>
       </ul>

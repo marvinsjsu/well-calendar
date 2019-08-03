@@ -1,47 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import AppointmentCard from './AppointmentCard';
 import { toMoment } from '../utils/helpers';
 
 export default function RequestSummary ({ appDate, startTime, endTime, cancelRequest, submitRequest }) {
   const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
 
   return (
-    <div className='row request'>
-      <div className='message'>
-        Here's a quick summary of your appointment request.
-        <ul>
-          <li>
-            <span className='detail'>{appointmentDate}</span>
-          </li>
-          <li>
-            <span className='label'>Starts @ </span>
-            <span className='detail'>{startTime}</span>
-          </li>
-          <li>
-            <span className='label'>Ends @ </span>
-            <span className='detail'>{endTime}</span>
-          </li>
-          <li>
-            <div className='row'>
-              <button
-                className='btn btn-cancel'
-                onClick={cancelRequest}
-              >
-                Cancel
-              </button>
-
-              <button
-                className='btn btn-continue'
-                onClick={submitRequest}
-              >
-                Continue
-              </button>
-            </div>
-          </li>
-        </ul>
+    <React.Fragment>
+      <div className='flex-row request-flow'>
+        <p className='heading-tertiary u-margin-top-medium'>
+          Here's a quick summary of your request.
+        </p>
+        <AppointmentCard
+          appDate={appDate}
+          startTime={startTime}
+          endTime={endTime}
+        />
       </div>
-    </div>
+      <div className='flex-row u-margin-bottom-medium'>
+        <button
+          className='btn btn-cancel'
+          onClick={cancelRequest}
+        >
+          Cancel
+        </button>
+
+        <button
+          className='btn btn-continue'
+          onClick={submitRequest}
+        >
+          Continue
+        </button>
+      </div>
+    </React.Fragment>
   );
 }
 

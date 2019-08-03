@@ -81,9 +81,6 @@ class RequestForm extends React.Component {
         : timeBlocks[key];
     }
 
-console.log('submitRequest: ', appDate);
-console.log('newTimeBlocks: ', newTimeBlocks);
-
     addToMyAppointments(newAppointment);
     addDayBlocksToCalendar({
       appDate,
@@ -178,6 +175,8 @@ console.log('newTimeBlocks: ', newTimeBlocks);
   handleTimeBlockClick = (val) => {
     const { context: { addAppointment } } = this.props;
 
+    return false;
+    // TODO
     this.setState((currState) => {
       const timeBlocks = currState.timeBlocks;
 
@@ -245,9 +244,9 @@ console.log('newTimeBlocks: ', newTimeBlocks);
 
     return (
       <main>
-        <form className='form column wrap margin-top-lg' onSubmit={(this.handleSubmit)}>
-          <div className='row'>
-            <div className='column padding-top-md input-container'>
+        <form className='form-request-appointment' onSubmit={(this.handleSubmit)}>
+          <div className='flex-row'>
+            <div className='form-request-appointment--form'>
               { showConfirmation && (
                 <Confirmation
                   appDate={appDate}
@@ -266,12 +265,12 @@ console.log('newTimeBlocks: ', newTimeBlocks);
               )}
               { !showSummary && !showConfirmation && (
                 <div className='column request'>
-                  <div className='row'>
+                  <div className='flex-row'>
                     <label htmlFor='appDate' className='label'>
                       Date
                     </label>
                   </div>
-                  <div className='row'>
+                  <div className='flex-row'>
                     <DateInput
                       appDate={appDate}
                       earliestDate={earliestDate}
@@ -299,7 +298,7 @@ console.log('newTimeBlocks: ', newTimeBlocks);
                   }
                 </div>
               )}
-              <div className='row'>
+              <div className='flex-row'>
                 {myAppointments.length > 0 && myAppointments.sort(sortApps).slice(0, 1).map((app, idx) => (
                   <AppointmentCard
                     key={`${app.appDate}${app.startTime}`}
@@ -308,11 +307,14 @@ console.log('newTimeBlocks: ', newTimeBlocks);
                   />
                 ))}
               </div>
+              <Legend />
             </div>
-            <div className='row margin-left-med'>
+            <div className='margin-left-med'>
               <div className='column'>
-                <div className='text-md text-center margin-sm date'>
-                  {toMoment(appDate, startTime).format('dddd, MMM Do, YYYY')}
+                <div className='flex-row'>
+                  <h4 className='heading-tertiary'>
+                    {toMoment(appDate, startTime).format('dddd, MMM Do, YYYY')}
+                  </h4>
                 </div>
                 <DayView
                   appDay={appDate}
@@ -323,7 +325,6 @@ console.log('newTimeBlocks: ', newTimeBlocks);
             </div>
           </div>
         </form>
-        <Legend />
       </main>
     );
   }

@@ -1,0 +1,518 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  box-sizing: border-box; }
+
+ul {
+  padding: 0; }
+
+li {
+  list-style-type: none; }
+
+main {
+  display: flex;
+  flex-direction: column; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem; }
+
+.heading-primary {
+  width: 100%;
+  padding: .5rem;
+  margin: 1rem 0;
+  font-size: 1.8rem;
+  line-height: 1.4rem;
+  color: #695d47;
+  font-weight: 500;
+  text-transform: uppercase; }
+
+.heading-secondary {
+  width: 100%;
+  padding: .5rem 0;
+  margin: 0;
+  font-size: 2.5rem;
+  color: #695d47;
+  font-weight: 500; }
+
+.heading-tertiary {
+  width: 100%;
+  padding: .5rem 0;
+  margin: 0;
+  font-size: 2rem;
+  color: #695d47;
+  font-weight: 500; }
+
+.message {
+  width: 100%;
+  padding: 2rem 1rem;
+  margin: 2rem 0;
+  font-size: 2.2rem;
+  color: #695d47; }
+
+.u-center-text {
+  text-align: center !important; }
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem !important; }
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem !important; }
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem !important; }
+
+.u-margin-top-big {
+  margin-top: 8rem !important; }
+
+.u-margin-top-medium {
+  margin-top: 5rem !important; }
+
+.u-margin-top-small {
+  margin-top: 2.5rem !important; }
+
+.u-margin-top-huge {
+  margin-top: 10rem !important; }
+
+.btn, .btn:link, .btn:visited {
+  font-size: 1.6rem;
+  background-color: #a3e7d8;
+  border: 1px solid #a3e7d8;
+  border-radius: 3px;
+  padding: 10px 20px;
+  color: #695d47;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  margin-right: .5rem; }
+
+.btn:disabled {
+  color: #cfc194;
+  background: #eee;
+  border: none; }
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+  .btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0; }
+
+.btn:active, .btn:focus {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+
+.btn--white {
+  background-color: #fff;
+  color: #777; }
+  .btn--white::after {
+    background-color: #fff; }
+
+.btn--green {
+  background-color: #55c57a;
+  color: #fff; }
+  .btn--green::after {
+    background-color: #55c57a; }
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s; }
+
+.btn--animated {
+  animation: moveInBottom .5s ease-out .75s;
+  animation-fill-mode: backwards; }
+
+.card {
+  position: relative;
+  min-height: 10rem;
+  width: 25rem;
+  background-color: #a3e7d8;
+  color: #695d47;
+  border-radius: 3px;
+  margin: 1rem; }
+  .card__heading {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: #fc7038;
+    color: #fff;
+    padding: 1rem 0;
+    width: 100%;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px; }
+  .card__details {
+    padding: 1.2rem; }
+    .card__details ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto; }
+      .card__details ul li {
+        text-align: left;
+        font-size: 1.8rem;
+        font-weight: 400;
+        padding: 0; }
+        .card__details ul li:not(:last-child) {
+          border-bottom: 1px solid #f7f7f7; }
+
+.form__group:not(:last-child) {
+  margin-bottom: 2rem; }
+
+.form__input {
+  font-size: 1.5rem;
+  font-family: inherit;
+  color: inherit;
+  padding: 1.5rem 2rem;
+  border-radius: 2px;
+  background-color: rbga(#fff, 0.5);
+  border: none;
+  border-bottom: 3px solid transparent;
+  width: 90%;
+  display: block;
+  transition: all .3s; }
+  .form__input:focus {
+    outline: none;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #55c57a; }
+  .form__input:focus:invalid {
+    border-bottom: 3px solid #ff7730; }
+  .form__input::-webkit-input-placeholder {
+    color: #999; }
+
+.form__label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-left: 2rem;
+  margin-top: .7rem;
+  display: block;
+  transition: all .3s; }
+
+.form__input:placeholder-shown + .form__label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4rem); }
+
+.form__radio-group {
+  width: 49%;
+  display: inline-block; }
+
+.form__radio-input {
+  display: none; }
+
+.form__radio-label {
+  font-size: 1.6rem;
+  cursor: pointer;
+  position: relative;
+  padding-left: 4.5rem; }
+
+.form__radio-button {
+  height: 3rem;
+  width: 3rem;
+  border: 5px solid #55c57a;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: -.4rem; }
+  .form__radio-button::after {
+    content: "";
+    display: block;
+    height: 1.3rem;
+    width: 1.3rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #55c57a;
+    opacity: 0;
+    transition: opacity .2s; }
+
+.form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
+  opacity: 1; }
+
+.grid-day {
+  max-height: 600px;
+  overflow-y: scroll;
+  padding: 0; }
+  .grid-day .time-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 250px;
+    border: 2px solid #a3e7d8;
+    border-radius: 3px;
+    margin: 5px 0; }
+  .grid-day .time-display {
+    width: 100px;
+    padding: 5px;
+    font-size: 1.5rem;
+    color: #695d47; }
+  .grid-day .time-interval {
+    height: 60px;
+    display: flex;
+    flex-direction: column; }
+    .grid-day .time-interval--minute {
+      border-left: 1px solid #a3e7d8;
+      border-bottom: 1px solid #a3e7d8;
+      height: 30px;
+      width: 150px; }
+
+.footer {
+  background-color: #333;
+  padding: 10rem 0;
+  font-size: 1.4rem;
+  color: #f7f7f7; }
+  .footer__logo-box {
+    text-align: center;
+    margin-bottom: 8rem; }
+  .footer__logo {
+    width: 15rem;
+    height: auto; }
+  .footer__navigation {
+    border-top: 1px solid #777;
+    padding-top: 2rem;
+    display: inline-block; }
+  .footer__list {
+    list-style: none; }
+  .footer__item {
+    display: inline-block; }
+    .footer__item:not(:last-child) {
+      margin-right: 1.5rem; }
+  .footer__link:link, .footer__link:visited {
+    color: #f7f7f7;
+    background-color: #333;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: all .2s; }
+  .footer__link:hover, .footer__link:active {
+    color: #55c57a;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+    transform: rotate(5deg) scale(1.3); }
+  .footer__copyright {
+    border-top: 1px solid #777;
+    padding-top: 2rem;
+    width: 80%;
+    float: right; }
+
+.row {
+  max-width: 114rem;
+  margin: 0 auto; }
+  .row:not(:last-child) {
+    margin-bottom: 8rem; }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .row [class^="col-"] {
+    float: left; }
+    .row [class^="col-"]:not(:last-child) {
+      margin-right: 6rem; }
+  .row .col-1-of-2 {
+    width: calc((100% - 6rem) / 2); }
+  .row .col-1-of-3 {
+    width: calc((100% - 2 * 6rem) / 3); }
+  .row .col-2-of-3 {
+    width: calc(2 * ((100% - 2 * 6rem) / 3) + 6rem); }
+  .row .col-1-of-4 {
+    width: calc((100% - 3 * 6rem) / 4); }
+  .row .col-2-of-4 {
+    width: calc(2 * ((100% - 3 * 6rem) / 4) + 6rem); }
+  .row .col-3-of-4 {
+    width: calc(3 * ((100% - 3 * 6rem) / 4) + 2 * 6rem); }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%; }
+
+.background-red {
+  background-color: red; }
+
+.relative-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center; }
+
+.header {
+  height: 95vh; }
+  .header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  .header__logo {
+    height: 3.5rem; }
+  .header__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; }
+
+.navigation li {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 2rem;
+  font-weight: 500;
+  text-transform: uppercase; }
+  .navigation li a {
+    text-decoration: none;
+    color: #CFC194; }
+  .navigation li a:hover {
+    color: #695d47; }
+  .navigation li a.active {
+    color: #fc7038; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 50px; }
+
+.section-my-appointments, .form-request-appointment {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  min-height: 55rem;
+  background-color: #f7f7f7;
+  padding: 3rem 1rem;
+  border-radius: 3px;
+  /* lists */ }
+  .section-my-appointments--list, .form-request-appointment--list {
+    width: 100%; }
+  .section-my-appointments--form, .form-request-appointment--form {
+    width: 50%;
+    min-width: 250px;
+    max-width: 500px;
+    padding: 0rem 2rem 2rem 8rem;
+    /* Removes the clear button from date inputs */
+    /* Removes the spin button */
+    /* Always display the drop down caret */ }
+    .section-my-appointments--form label, .form-request-appointment--form label {
+      font-size: 2rem;
+      color: #695d47;
+      padding: 15px 0 5px 0; }
+    .section-my-appointments--form label.disable, .form-request-appointment--form label.disable {
+      color: #CFC194; }
+    .section-my-appointments--form input, .section-my-appointments--form .input-time, .form-request-appointment--form input, .form-request-appointment--form .input-time {
+      height: 40px;
+      width: 150px;
+      border: 2px solid #a3e7d8;
+      border-radius: 3px;
+      font-size: 20px;
+      font-family: Helvetica Neue;
+      color: #695d47;
+      padding: 3px;
+      -webkit-appearance: none;
+      background-color: inherit;
+      text-align: center; }
+      .section-my-appointments--form input ::-webkit-input-placeholder, .section-my-appointments--form .input-time ::-webkit-input-placeholder, .form-request-appointment--form input ::-webkit-input-placeholder, .form-request-appointment--form .input-time ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        text-align: center; }
+      .section-my-appointments--form input ::-moz-placeholder, .section-my-appointments--form .input-time ::-moz-placeholder, .form-request-appointment--form input ::-moz-placeholder, .form-request-appointment--form .input-time ::-moz-placeholder {
+        /* Firefox 19+ */
+        text-align: center; }
+      .section-my-appointments--form input :-ms-input-placeholder, .section-my-appointments--form .input-time :-ms-input-placeholder, .form-request-appointment--form input :-ms-input-placeholder, .form-request-appointment--form .input-time :-ms-input-placeholder {
+        /* IE 10+ */
+        text-align: center; }
+      .section-my-appointments--form input :-moz-placeholder, .section-my-appointments--form .input-time :-moz-placeholder, .form-request-appointment--form input :-moz-placeholder, .form-request-appointment--form .input-time :-moz-placeholder {
+        /* Firefox 18- */
+        text-align: center; }
+    .section-my-appointments--form .input-time, .form-request-appointment--form .input-time {
+      width: 100px;
+      text-align: center;
+      padding: .5rem; }
+    .section-my-appointments--form .input-date-year, .form-request-appointment--form .input-date-year {
+      width: 75px;
+      margin: 0 5px 0 0;
+      text-align: center; }
+    .section-my-appointments--form .input-date-month, .form-request-appointment--form .input-date-month {
+      width: 75px;
+      margin: 0 5px 0 5px; }
+    .section-my-appointments--form .input-date-day, .form-request-appointment--form .input-date-day {
+      width: 75px;
+      margin: 0 0 0 5px; }
+    .section-my-appointments--form input[type="date"]::-webkit-clear-button, .form-request-appointment--form input[type="date"]::-webkit-clear-button {
+      display: none; }
+    .section-my-appointments--form input[type="date"]::-webkit-inner-spin-button, .form-request-appointment--form input[type="date"]::-webkit-inner-spin-button {
+      display: none; }
+    .section-my-appointments--form input[type="date"]::-webkit-calendar-picker-indicator, .form-request-appointment--form input[type="date"]::-webkit-calendar-picker-indicator {
+      color: #2c3e50; }
+    .section-my-appointments--form select:disabled, .form-request-appointment--form select:disabled {
+      border: 1px solid #CFC194;
+      color: #CFC194; }
+    .section-my-appointments--form select, .form-request-appointment--form select {
+      height: 40px;
+      width: 130px;
+      border: 2px solid #a3e7d8;
+      border-radius: 3px;
+      font-size: 20px;
+      font-family: Helvetica Neue;
+      color: #695d47;
+      padding: 3px;
+      background: transparent;
+      -webkit-appearance: none; }
+    .section-my-appointments--form .card, .form-request-appointment--form .card {
+      margin-left: 0; }
+  .section-my-appointments .legend, .form-request-appointment .legend {
+    height: 15px;
+    width: 100%;
+    margin: 0; }
+    .section-my-appointments .legend li, .form-request-appointment .legend li {
+      height: 15px;
+      padding: 0 15px;
+      font-size: 15px;
+      display: inline-block;
+      color: #695d47; }
+    .section-my-appointments .legend li:hover, .form-request-appointment .legend li:hover {
+      cursor: default; }
+    .section-my-appointments .legend .legend-icon, .form-request-appointment .legend .legend-icon {
+      height: 20px;
+      width: 20px;
+      border: 2px solid #695d47;
+      border-radius: 50%; }
+  .section-my-appointments .available, .form-request-appointment .available {
+    background: #fff; }
+  .section-my-appointments .requesting, .form-request-appointment .requesting {
+    background: #a3e7d8; }
+  .section-my-appointments .submitted, .form-request-appointment .submitted {
+    background: #fc7038; }
+  .section-my-appointments .unavailable, .form-request-appointment .unavailable {
+    background: #CFC194; }
+  .section-my-appointments .request-flow, .form-request-appointment .request-flow {
+    min-height: 200px; }
+  .section-my-appointments .link, .form-request-appointment .link {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 1rem 0;
+    color: #695d47; }
+    .section-my-appointments .link:hover, .form-request-appointment .link:hover {
+      color: #fc7038;
+      text-decoration: underline; }

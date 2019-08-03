@@ -9,24 +9,26 @@ export default function Confirmation ({ appDate, startTime, toStartAppRequest })
   const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
 
   return (
-    <div className='column request'>
-      <div className='row message'>
-        {LANGUAGE.CONFIRMATION_MESSAGE(appointmentDate)}
+    <React.Fragment>
+      <div className='flex-row request-flow u-margin-bottom-medium'>
+        <p className='heading-tertiary u-margin-top-medium'>
+          {LANGUAGE.CONFIRMATION_MESSAGE(appointmentDate)}
+        </p>
+        <div className='flex-row u-margin-top-small'>
+          <button
+            className='btn'
+            onClick={toStartAppRequest}
+          >
+            Make another request
+          </button>
+          <Link
+            className='link'
+            to={ROUTES.HOME}
+          >
+            See existing requests
+          </Link>
+        </div>
       </div>
-      <div className='column'>
-        <button
-          className='link'
-          onClick={toStartAppRequest}
-        >
-          Make another request
-        </button>
-        <Link
-          className='link'
-          to={ROUTES.HOME}
-        >
-          See existing requests
-        </Link>
-      </div>
-    </div>
+    </React.Fragment>
   );
 }

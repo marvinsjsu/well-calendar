@@ -1,53 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import AppointmentCard from './AppointmentCard';
 import withContext from '../contexts/withContext';
 import { ROUTES } from '../utils/constants';
+import { sortApps, isAfterNow } from '../utils/helpers';
 
 function Main ({ context: { myAppointments } }) {
+  const hasAppointments = myAppointments.length > 0;
+
   return (
     <main>
-      <div className='column wrap margin-top-lg'>
-        <div className='row'>
-          <h2>My appointment requests</h2>
+      <section className='section-my-appointments'>
+        <div className='flex-row'>
+          { hasAppointments && (
+            <h2 className='heading-primary u-center-text'>
+              My appointment requests
+            </h2>
+          )}
         </div>
-        <div className='row'>
-          <ul>
-            { myAppointments.length > 0
-              ? (myAppointments.map(({ appDate, startTime, endTime }) => (
-                  <li key={`${appDate}${startTime}`}>
-                    <div className='message'>
-                      <ul>
-                        <li>
-                          <span className='detail'>{appDate}</span>
-                        </li>
-                        <li>
-                          <span className='label'>Starts @ </span>
-                          <span className='detail'>{startTime}</span>
-                        </li>
-                        <li>
-                          <span className='label'>Ends @ </span>
-                          <span className='detail'>{endTime}</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                )))
-            : (
-                <div className='column message'>
-                  You currently don't have any appointment requests. <br />
-                  <Link
-                    className='link'
-                    to={ROUTES.APPOINTMENT_REQUEST}
-                  >
-                    Make a request here
-                  </Link>
-                </div>
-              )
+        <div className='flex-row'>
+          { !hasAppointments && (
+            <p className='message u-center-text flex-center'>
+              You currently don't have any appointment requests.
+            </p>
+          )}
+          { hasAppointments && myAppointments
+              .filter(({ appDate, startTime }) => (isAfterNow(startTime, appDate)))
+              .sort(sortApps)
+              .map((appointment, idx) => (
+                <AppointmentCard key={idx} {...appointment} />
+            ))
           }
-          </ul>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

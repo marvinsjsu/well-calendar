@@ -41,11 +41,11 @@ function DayView ({ timeBlocks, handleTimeBlockClick, appDay }) {
     <div className='grid-day'>
       <ul>
         {hours.map((hour) => (
-          <li key={hour} className='row space-between time-block'>
+          <li key={hour} className='time-block'>
             <div className='time-display'>
               {toFriendlyHours(hour, 0)}
             </div>
-            <div className='column time-interval'>
+            <div className='time-interval'>
               <ul>
                 {minutes.map((val, idx) => (
                   <TimeBlocks

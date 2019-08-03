@@ -9,7 +9,7 @@ import { AppProvider } from './contexts/AppProvider';
 import { connected } from './utils/api';
 import { ROUTES } from './utils/constants';
 
-import './index.css';
+import './css/main.css';
 
 class App extends React.Component {
   render () {

@@ -17,48 +17,75 @@ export default function TimeInputSet ({
 
   return (
     <React.Fragment>
-      <div className='row'>
-        <label htmlFor='startTime' className={`label ${disableStartInput && 'disable'}`}>
+      <div className='flex-row'>
+        <label
+          htmlFor='startTime'
+          className={`label ${disableStartInput && 'disable'}`}
+        >
           Start Time
         </label>
       </div>
-      <div className='row'>
+      <div className='flex-row'>
         <select
           id='startTime'
-          className='input-date'
+          className='input-time'
           value={startTime}
           disabled={getStartTimeOptions(timeBlocks, appDate).length === 0}
           onChange={handleChangeStartTime}
         >
-          <option key={'select'} disabled value={0}> - select - </option>
+          <option
+            key={'select'}
+            disabled value={0}
+          >
+            - select -
+          </option>
           {timeBlocks
             && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
-            <option key={block} value={block}>{block}</option>
+            <option
+              key={block}
+              value={block}
+            >
+              {block}
+            </option>
           ))}
         </select>
       </div>
-      <div className='row'>
-        <label htmlFor='startTime' className={`label ${startTime === '0' && 'disable'}`}>
+      <div className='flex-row'>
+        <label
+          htmlFor='startTime'
+          className={`label ${startTime === '0' && 'disable'}`}
+        >
           End Time
         </label>
       </div>
-      <div className='row'>
+      <div className='flex-row'>
         <select
           id='endTime'
-          className='input-date'
+          className='input-time'
           value={endTime}
           onChange={handleChangeEndTime}
           disabled={startTime === '0'}
         >
-          <option key={0} disabled value={0}> - select - </option>
+          <option
+            key={0}
+            disabled
+            value={0}
+          >
+            - select -
+          </option>
           {startTime != null
             && timeBlocks
             && getEndTimeOptions(startTime, timeBlocks, appDate).map(([block, flag], idx) => (
-            <option key={block} value={block}>{block}</option>
+            <option
+              key={block}
+              value={block}
+            >
+              {block}
+            </option>
           ))}
         </select>
       </div>
-      <div className='row'>
+      <div className='flex-row u-margin-top-small u-margin-bottom-medium'>
         <button
           className='btn btn-submit'
           type='submit'

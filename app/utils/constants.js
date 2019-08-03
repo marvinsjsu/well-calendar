@@ -22,8 +22,7 @@ export const LANGUAGE = {
   NO_AVAILABILITY_MESSAGE: `
     Sorry, but there are no longer
     any available appointments for
-    this day. Please feel free to
-    pick another day.
+    this day. Please choose another day.
   `,
   CONFIRMATION_MESSAGE: (appointmentDate) => (`
     Thank you! You're appointment

@@ -1,0 +1,184 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 50px;
+}
+
+.section-my-appointments, .form-request-appointment {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  min-height: 55rem;
+  background-color: $color-grey-light-1;
+  padding: 3rem 1rem;
+  border-radius: 3px;
+
+  &--list {
+    width: 100%;
+  }
+
+  &--form {
+    width: 50%;
+    min-width: 250px;
+    max-width: 500px;
+    padding: 0rem 2rem 2rem 8rem;
+
+    label {
+      font-size: 2rem;
+      color: $color-dark-brown;
+      padding: 15px 0 5px 0;
+    }
+
+    label.disable {
+      color: $color-light-brown;
+    }
+
+    input, .input-time{
+      height: 40px;
+      width: 150px;
+      border: 2px solid $color-light-green;
+      border-radius: 3px;
+      font-size: 20px;
+      font-family: Helvetica Neue;
+      color: $color-dark-brown;
+      padding: 3px;
+      -webkit-appearance: none;
+      background-color: inherit;
+      text-align: center;
+
+      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        text-align: center;
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        text-align: center;
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        text-align: center;
+      }
+      :-moz-placeholder { /* Firefox 18- */
+        text-align: center;
+      }
+    }
+
+    .input-time {
+      width: 100px;
+      text-align: center;
+      padding: .5rem;
+    }
+
+    .input-date-year {
+      width: 75px;
+      margin: 0 5px 0 0;
+      text-align: center;
+    }
+
+    .input-date-month {
+      width: 75px;
+      margin: 0 5px 0 5px;
+    }
+
+    .input-date-day {
+      width: 75px;
+      margin: 0 0 0 5px;
+    }
+
+    /* Removes the clear button from date inputs */
+    input[type="date"]::-webkit-clear-button {
+        display: none;
+    }
+
+    /* Removes the spin button */
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    /* Always display the drop down caret */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        color: #2c3e50;
+    }
+
+
+    select:disabled {
+      border: 1px solid $color-light-brown;
+      color: $color-light-brown;
+    }
+
+    select {
+      height: 40px;
+      width: 130px;
+      border: 2px solid $color-light-green;
+      border-radius: 3px;
+      font-size: 20px;
+      font-family: Helvetica Neue;
+      color: $color-dark-brown;
+      padding: 3px;
+      background: transparent;
+      -webkit-appearance: none;
+    }
+
+    .card {
+      margin-left: 0;
+    }
+  }
+
+  /* lists */
+  .legend {
+    height: 15px;
+    width: 100%;
+    margin: 0;
+
+    li {
+      height: 15px;
+      padding: 0 15px;
+      font-size: 15px;
+      display: inline-block;
+      color: $color-dark-brown;
+    }
+
+    li:hover {
+      cursor: default;
+    }
+
+    .legend-icon {
+      height: 20px;
+      width: 20px;
+      border: 2px solid $color-dark-brown;
+      border-radius: 50%;
+    }
+  }
+
+  .available {
+    background: $color-white;
+  }
+
+  .requesting {
+    background: $color-light-green;
+  }
+
+  .submitted {
+    background: $color-orange;
+  }
+
+  .unavailable {
+    background: $color-light-brown;
+  }
+
+  .request-flow {
+    min-height: 200px;
+  }
+
+  .link {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 1rem 0;
+    color: $color-dark-brown;
+
+    &:hover {
+      color: $color-orange;
+      text-decoration: underline;
+    }
+  }
+}

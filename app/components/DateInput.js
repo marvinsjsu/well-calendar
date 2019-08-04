@@ -39,8 +39,8 @@ export default class DateInput extends React.Component {
     this.setState({
       [key]: e.target.value
     }, () => {
-      if (key === 'day') {
-        const { year, day, month } = this.state;
+      const { year, day, month } = this.state;
+      if (year !== '' && day !== '' && month !== '') {
         const { altHandleChangeDate } = this.props;
         altHandleChangeDate(getAppDate(year, month, day));
       }
@@ -50,11 +50,6 @@ export default class DateInput extends React.Component {
   render () {
     const { dateTypeSupported, year, month, day } = this.state;
     const { appDate, earliestDate, handleChangeDate } = this.props;
-
-console.log('year: ', year);
-console.log('day: ', day);
-console.log('month: ', month);
-
 
     return (
       <div className='flex-row'>

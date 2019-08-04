@@ -413,7 +413,7 @@ body {
       padding: .3rem;
       -webkit-appearance: none;
       background-color: inherit;
-      text-align: center; }
+      text-align: right; }
       .section-my-appointments--form input ::-webkit-input-placeholder, .section-my-appointments--form .input-time ::-webkit-input-placeholder, .form-request-appointment--form input ::-webkit-input-placeholder, .form-request-appointment--form .input-time ::-webkit-input-placeholder, .section-no-match--form input ::-webkit-input-placeholder, .section-no-match--form .input-time ::-webkit-input-placeholder {
         /* Chrome/Opera/Safari */
         text-align: center; }
@@ -427,19 +427,19 @@ body {
         /* Firefox 18- */
         text-align: center; }
     .section-my-appointments--form .input-time, .form-request-appointment--form .input-time, .section-no-match--form .input-time {
-      width: 100px;
+      width: 10rem;
       text-align: center;
       padding: .5rem; }
     .section-my-appointments--form .input-date-year, .form-request-appointment--form .input-date-year, .section-no-match--form .input-date-year {
-      width: 75px;
-      margin: 0 5px 0 0;
+      width: 7.5rem;
+      margin: 0 .5rem 0 0;
       text-align: center; }
     .section-my-appointments--form .input-date-month, .form-request-appointment--form .input-date-month, .section-no-match--form .input-date-month {
-      width: 75px;
-      margin: 0 5px 0 5px; }
+      width: 5rem;
+      margin: 0 .5rem 0 .5rem; }
     .section-my-appointments--form .input-date-day, .form-request-appointment--form .input-date-day, .section-no-match--form .input-date-day {
-      width: 75px;
-      margin: 0 0 0 5px; }
+      width: 5rem;
+      margin: 0 0 0 .5rem; }
     .section-my-appointments--form input[type="date"]::-webkit-clear-button, .form-request-appointment--form input[type="date"]::-webkit-clear-button, .section-no-match--form input[type="date"]::-webkit-clear-button {
       display: none; }
     .section-my-appointments--form input[type="date"]::-webkit-inner-spin-button, .form-request-appointment--form input[type="date"]::-webkit-inner-spin-button, .section-no-match--form input[type="date"]::-webkit-inner-spin-button {

@@ -17,7 +17,7 @@ export default function RequestSummary ({ appDate, startTime, endTime, cancelReq
           title={`Here's a quick summary of your request.`}
         />
       </div>
-      <div className='flex-row u-margin-bottom-medium'>
+      <div className='flex-row u-margin-top-small u-margin-bottom-medium'>
         <button
           className='btn btn-cancel'
           onClick={cancelRequest}

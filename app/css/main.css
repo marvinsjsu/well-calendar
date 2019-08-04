@@ -505,6 +505,9 @@ body {
       text-align-last: center; }
     .section-my-appointments--form .card, .form-request-appointment--form .card, .section-no-match--form .card {
       margin-left: 0; }
+    @media (max-width: 37.5em) {
+      .section-my-appointments--form .upcoming-appointment, .form-request-appointment--form .upcoming-appointment, .section-no-match--form .upcoming-appointment {
+        display: none; } }
   .section-my-appointments .legend, .form-request-appointment .legend, .section-no-match .legend {
     min-height: 1.5rem;
     width: 100%;

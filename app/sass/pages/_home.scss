@@ -159,6 +159,13 @@
     .card {
       margin-left: 0;
     }
+
+    .upcoming-appointment {
+
+      @include respond(phone) {
+        display: none;
+      }
+    }
   }
 
   /* lists */

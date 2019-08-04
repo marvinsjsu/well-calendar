@@ -298,7 +298,7 @@ class RequestForm extends React.Component {
                 }
               </div>
             )}
-            <div className='flex-row flex-row--horizontal-center'>
+            <div className='flex-row flex-row--horizontal-center upcoming-appointment'>
               {myAppointments.length > 0
                 && myAppointments
                     .filter(({appDate, startTime}) => isAfterNow(startTime, appDate))

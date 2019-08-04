@@ -52,7 +52,7 @@ export default class DateInput extends React.Component {
     const { appDate, earliestDate, handleChangeDate } = this.props;
 
     return (
-      <div className='flex-row'>
+      <React.Fragment>
         {dateTypeSupported
           ? (
               <input
@@ -105,8 +105,7 @@ export default class DateInput extends React.Component {
               </React.Fragment>
             )
         }
-      </div>
-
+      </React.Fragment>
     );
   }
 }

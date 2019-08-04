@@ -246,7 +246,7 @@ class RequestForm extends React.Component {
     return (
       <main>
         <form className='form-request-appointment' onSubmit={(this.handleSubmit)}>
-          <div className='flex-row form-request-appointment--form background-red'>
+          <div className='flex-row form-request-appointment--form'>
             { showConfirmation && (
               <Confirmation
                 appDate={appDate}
@@ -265,12 +265,12 @@ class RequestForm extends React.Component {
             )}
             { !showSummary && !showConfirmation && (
               <div className='column request'>
-                <div className='flex-row'>
+                <div className='flex-row flex-row--align-left'>
                   <label htmlFor='appDate' className='label'>
                     Date
                   </label>
                 </div>
-                <div className='flex-row'>
+                <div className='flex-row flex-row--align-left'>
                   <DateInput
                     appDate={appDate}
                     earliestDate={earliestDate}
@@ -298,7 +298,7 @@ class RequestForm extends React.Component {
                 }
               </div>
             )}
-            <div className='flex-row'>
+            <div className='flex-row flex-row--horizontal-center'>
               {myAppointments.length > 0
                 && myAppointments
                     .filter(({appDate, startTime}) => isAfterNow(startTime, appDate))

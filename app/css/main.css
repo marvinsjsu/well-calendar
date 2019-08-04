@@ -183,6 +183,9 @@ body {
   color: #695d47;
   border-radius: 3px;
   margin: 1rem; }
+  @media (max-width: 37.5em) {
+    .card {
+      margin: .5rem; } }
   .card__heading {
     font-size: 1.5rem;
     font-weight: 300;
@@ -190,10 +193,13 @@ body {
     text-align: center;
     background-color: #fc7038;
     color: #fff;
-    padding: 1rem 0;
+    padding: 1rem;
     width: 100%;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
+    @media (max-width: 37.5em) {
+      .card__heading {
+        text-align: left; } }
   .card__details {
     padding: 1.2rem; }
     .card__details ul {
@@ -310,14 +316,20 @@ body {
   .flex-row--vertical-center {
     padding: 20rem;
     min-height: 40rem; }
-  .flex-row--horizontal-center {
-    justify-content: center; }
   .flex-row--space-between {
     justify-content: space-between; }
   .flex-row--width-half {
     width: 50%; }
   .flex-row--align-right {
     justify-content: flex-end; }
+    @media (max-width: 37.5em) {
+      .flex-row--align-right {
+        justify-content: center; } }
+  .flex-row--align-left {
+    justify-content: flex-start; }
+    @media (max-width: 37.5em) {
+      .flex-row--align-left {
+        justify-content: center; } }
 
 .flex-column {
   display: flex;
@@ -419,6 +431,8 @@ body {
       padding: 1.5rem 0 .5rem 0; }
     .section-my-appointments--form label.disable, .form-request-appointment--form label.disable, .section-no-match--form label.disable {
       color: #CFC194; }
+    .section-my-appointments--form .time-container, .form-request-appointment--form .time-container, .section-no-match--form .time-container {
+      width: 50%; }
     .section-my-appointments--form input, .section-my-appointments--form .input-time, .form-request-appointment--form input, .form-request-appointment--form .input-time, .section-no-match--form input, .section-no-match--form .input-time {
       height: 4rem;
       width: 15rem;

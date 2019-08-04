@@ -7,6 +7,10 @@
     border-radius: 3px;
     margin: 1rem;
 
+    @include respond(phone) {
+      margin: .5rem;
+    }
+
     &__heading {
         font-size: 1.5rem;
         font-weight: 300;
@@ -14,10 +18,14 @@
         text-align: center;
         background-color: $color-orange;
         color: $color-white;
-        padding: 1rem 0;
+        padding: 1rem;
         width: 100%;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
+
+        @include respond(phone) {
+          text-align: left;
+        }
     }
 
     &__details {

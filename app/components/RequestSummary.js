@@ -10,13 +10,11 @@ export default function RequestSummary ({ appDate, startTime, endTime, cancelReq
   return (
     <React.Fragment>
       <div className='flex-row request-flow'>
-        <p className='heading-tertiary u-margin-top-medium'>
-          Here's a quick summary of your request.
-        </p>
         <AppointmentCard
           appDate={appDate}
           startTime={startTime}
           endTime={endTime}
+          title={`Here's a quick summary of your request.`}
         />
       </div>
       <div className='flex-row u-margin-bottom-medium'>

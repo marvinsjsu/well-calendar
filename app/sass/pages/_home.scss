@@ -14,6 +14,10 @@
   @include respond(tablet-portrait) {
     padding: 2rem;
   }
+
+  @include respond(phone) {
+    padding: 0rem;
+  }
 }
 
 .section-my-appointments, .form-request-appointment, .section-no-match {
@@ -155,11 +159,12 @@
 
   /* lists */
   .legend {
-    height: 1.5rem;
+    min-height: 1.5rem;
     width: 100%;
     margin: 0;
     @include clearfix;
     text-align: right;
+    position: relative;
 
     li {
       height: 1.5rem;
@@ -167,6 +172,17 @@
       font-size: 1.5rem;
       display: inline-block;
       color: $color-dark-brown;
+
+      @include respond(phone) {
+        height: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: left;
+        padding: .5rem;
+        margin: 1rem 0;
+      }
     }
 
     li:hover {
@@ -178,6 +194,10 @@
       width: 2rem;
       border: .2rem solid $color-dark-brown;
       border-radius: 50%;
+
+      @include respond(phone) {
+        margin: 1rem;
+      }
     }
   }
 

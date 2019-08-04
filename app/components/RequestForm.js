@@ -308,7 +308,7 @@ class RequestForm extends React.Component {
                 <AppointmentCard
                   key={`${app.appDate}${app.startTime}`}
                   {...app}
-                  title='Upcoming appointment requests'
+                  title='Upcoming appointment request'
                 />
               ))}
             </div>

@@ -388,6 +388,9 @@ body {
   @media (max-width: 56.25em) {
     .container {
       padding: 2rem; } }
+  @media (max-width: 37.5em) {
+    .container {
+      padding: 0rem; } }
 
 .section-my-appointments, .form-request-appointment, .section-no-match {
   display: flex;
@@ -489,10 +492,11 @@ body {
     .section-my-appointments--form .card, .form-request-appointment--form .card, .section-no-match--form .card {
       margin-left: 0; }
   .section-my-appointments .legend, .form-request-appointment .legend, .section-no-match .legend {
-    height: 1.5rem;
+    min-height: 1.5rem;
     width: 100%;
     margin: 0;
-    text-align: right; }
+    text-align: right;
+    position: relative; }
     .section-my-appointments .legend::after, .form-request-appointment .legend::after, .section-no-match .legend::after {
       content: "";
       display: table;
@@ -503,6 +507,16 @@ body {
       font-size: 1.5rem;
       display: inline-block;
       color: #695d47; }
+      @media (max-width: 37.5em) {
+        .section-my-appointments .legend li, .form-request-appointment .legend li, .section-no-match .legend li {
+          height: 2rem;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          text-align: left;
+          padding: .5rem;
+          margin: 1rem 0; } }
     .section-my-appointments .legend li:hover, .form-request-appointment .legend li:hover, .section-no-match .legend li:hover {
       cursor: default; }
     .section-my-appointments .legend .legend-icon, .form-request-appointment .legend .legend-icon, .section-no-match .legend .legend-icon {
@@ -510,6 +524,9 @@ body {
       width: 2rem;
       border: 0.2rem solid #695d47;
       border-radius: 50%; }
+      @media (max-width: 37.5em) {
+        .section-my-appointments .legend .legend-icon, .form-request-appointment .legend .legend-icon, .section-no-match .legend .legend-icon {
+          margin: 1rem; } }
   .section-my-appointments .available, .form-request-appointment .available, .section-no-match .available {
     background: #fff; }
   .section-my-appointments .requesting, .form-request-appointment .requesting, .section-no-match .requesting {

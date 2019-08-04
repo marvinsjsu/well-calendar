@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Legend () {
   return (
-    <div className='flex-row u-margin-top-small'>
+    <div className='flex-row u-margin-top-small u-margin-bottom-medium'>
       <ul className='legend'>
         <li className='text-center'>
           <div className='legend-icon available'/>

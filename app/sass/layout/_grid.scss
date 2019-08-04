@@ -65,6 +65,10 @@
   &--width-half {
     width: 50%;
   }
+
+  &--align-right {
+    justify-content: flex-end;
+  }
 }
 
 .flex-column {
@@ -78,6 +82,7 @@
     align-items: center;
   }
 }
+
 
 .background-red {
   background-color: red;

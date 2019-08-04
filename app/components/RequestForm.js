@@ -21,7 +21,8 @@ import {
   getEndTimeOptions,
   toMoment,
   hasNoAvailableTimeBlocks,
-  sortApps
+  sortApps,
+  isAfterNow
 } from '../utils/helpers';
 
 class RequestForm extends React.Component {
@@ -298,7 +299,12 @@ class RequestForm extends React.Component {
               </div>
             )}
             <div className='flex-row'>
-              {myAppointments.length > 0 && myAppointments.sort(sortApps).slice(0, 1).map((app, idx) => (
+              {myAppointments.length > 0
+                && myAppointments
+                    .filter(({appDate, startTime}) => isAfterNow(startTime, appDate))
+                    .sort(sortApps)
+                    .slice(0, 1)
+                    .map((app, idx) => (
                 <AppointmentCard
                   key={`${app.appDate}${app.startTime}`}
                   {...app}
@@ -306,7 +312,6 @@ class RequestForm extends React.Component {
                 />
               ))}
             </div>
-            <Legend />
           </div>
           <div className='flex-column day-view'>
             <div className='flex-row'>
@@ -319,6 +324,7 @@ class RequestForm extends React.Component {
               timeBlocks={timeBlocks}
               handleTimeBlockClick={this.handleTimeBlockClick}
             />
+            <Legend />
           </div>
         </form>
       </main>

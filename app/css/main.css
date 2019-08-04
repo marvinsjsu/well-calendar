@@ -130,7 +130,10 @@ body {
 .btn:disabled {
   color: #cfc194;
   background: #eee;
-  border: none; }
+  border: none;
+  cursor: default;
+  transform: none;
+  box-shadow: none; }
 
 .btn:hover {
   transform: translateY(-2px);
@@ -206,7 +209,7 @@ body {
           border-bottom: 1px solid #f7f7f7; }
 
 .day-view {
-  max-width: 32rem;
+  max-width: 40rem;
   min-width: 28rem;
   padding: 1.5rem 0; }
   .day-view .grid-day .time-block {
@@ -312,6 +315,8 @@ body {
     justify-content: space-between; }
   .flex-row--width-half {
     width: 50%; }
+  .flex-row--align-right {
+    justify-content: flex-end; }
 
 .flex-column {
   display: flex;
@@ -441,6 +446,16 @@ body {
       display: none; }
     .section-my-appointments--form input[type="date"]::-webkit-calendar-picker-indicator, .form-request-appointment--form input[type="date"]::-webkit-calendar-picker-indicator, .section-no-match--form input[type="date"]::-webkit-calendar-picker-indicator {
       color: #2c3e50; }
+    .section-my-appointments--form ::-webkit-input-placeholder, .form-request-appointment--form ::-webkit-input-placeholder, .section-no-match--form ::-webkit-input-placeholder {
+      text-align: center; }
+    .section-my-appointments--form :-moz-placeholder, .form-request-appointment--form :-moz-placeholder, .section-no-match--form :-moz-placeholder {
+      /* Firefox 18- */
+      text-align: center; }
+    .section-my-appointments--form ::-moz-placeholder, .form-request-appointment--form ::-moz-placeholder, .section-no-match--form ::-moz-placeholder {
+      /* Firefox 19+ */
+      text-align: center; }
+    .section-my-appointments--form :-ms-input-placeholder, .form-request-appointment--form :-ms-input-placeholder, .section-no-match--form :-ms-input-placeholder {
+      text-align: center; }
     .section-my-appointments--form select:disabled, .form-request-appointment--form select:disabled, .section-no-match--form select:disabled {
       border: 1px solid #CFC194;
       color: #CFC194; }
@@ -454,29 +469,32 @@ body {
       color: #695d47;
       padding: 3px;
       background: transparent;
-      -webkit-appearance: none; }
+      -webkit-appearance: none;
+      text-align: center;
+      text-align-last: center; }
     .section-my-appointments--form .card, .form-request-appointment--form .card, .section-no-match--form .card {
       margin-left: 0; }
   .section-my-appointments .legend, .form-request-appointment .legend, .section-no-match .legend {
-    height: 15px;
+    height: 1.5rem;
     width: 100%;
-    margin: 0; }
+    margin: 0;
+    text-align: right; }
     .section-my-appointments .legend::after, .form-request-appointment .legend::after, .section-no-match .legend::after {
       content: "";
       display: table;
       clear: both; }
     .section-my-appointments .legend li, .form-request-appointment .legend li, .section-no-match .legend li {
-      height: 15px;
-      padding: 0 15px;
-      font-size: 15px;
+      height: 1.5rem;
+      padding: 0 1rem;
+      font-size: 1.5rem;
       display: inline-block;
       color: #695d47; }
     .section-my-appointments .legend li:hover, .form-request-appointment .legend li:hover, .section-no-match .legend li:hover {
       cursor: default; }
     .section-my-appointments .legend .legend-icon, .form-request-appointment .legend .legend-icon, .section-no-match .legend .legend-icon {
-      height: 20px;
-      width: 20px;
-      border: 2px solid #695d47;
+      height: 2rem;
+      width: 2rem;
+      border: 0.2rem solid #695d47;
       border-radius: 50%; }
   .section-my-appointments .available, .form-request-appointment .available, .section-no-match .available {
     background: #fff; }

@@ -110,6 +110,22 @@
         color: #2c3e50;
     }
 
+    ::-webkit-input-placeholder {
+       text-align: center;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+       text-align: center;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+       text-align: center;
+    }
+
+    :-ms-input-placeholder {
+       text-align: center;
+    }
+
 
     select:disabled {
       border: 1px solid $color-light-brown;
@@ -127,6 +143,8 @@
       padding: 3px;
       background: transparent;
       -webkit-appearance: none;
+      text-align: center;
+      text-align-last: center;
     }
 
     .card {
@@ -136,15 +154,16 @@
 
   /* lists */
   .legend {
-    height: 15px;
+    height: 1.5rem;
     width: 100%;
     margin: 0;
     @include clearfix;
+    text-align: right;
 
     li {
-      height: 15px;
-      padding: 0 15px;
-      font-size: 15px;
+      height: 1.5rem;
+      padding: 0 1rem;
+      font-size: 1.5rem;
       display: inline-block;
       color: $color-dark-brown;
     }
@@ -154,9 +173,9 @@
     }
 
     .legend-icon {
-      height: 20px;
-      width: 20px;
-      border: 2px solid $color-dark-brown;
+      height: 2rem;
+      width: 2rem;
+      border: .2rem solid $color-dark-brown;
       border-radius: 50%;
     }
   }

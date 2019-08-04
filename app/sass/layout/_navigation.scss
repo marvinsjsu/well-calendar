@@ -6,9 +6,19 @@
     font-weight: 500;
     text-transform: uppercase;
 
+    @include respond(phone) {
+      width: 100%;
+      margin: .25rem 0;
+      text-align: center;
+    }
+
     a {
       text-decoration: none;
       color: $color-light-brown;
+
+      @include respond(phone) {
+        font-weight: 400;
+      }
     }
 
     a:hover {
@@ -17,6 +27,12 @@
 
     a.active {
       color: $color-orange;
+
+      @include respond(phone) {
+        color: $color-dark-brown;
+        font-size: 2.2rem;
+        font-weight: 700;
+      }
     }
   }
 }

@@ -313,7 +313,7 @@ class RequestForm extends React.Component {
               ))}
             </div>
           </div>
-          <div className='flex-column day-view background-blue'>
+          <div className='flex-column day-view'>
             <div className='flex-row'>
               <h4 className='heading-tertiary u-center-text'>
                 {toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY')}

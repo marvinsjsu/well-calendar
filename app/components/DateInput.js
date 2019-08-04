@@ -75,7 +75,7 @@ export default class DateInput extends React.Component {
                 >
                   <option key={0} value={''} disabled>- year -</option>
                   {getYears().map((year) => (
-                    <option key={year} value={year}>&nbsp;&nbsp;{year}</option>
+                    <option key={year} value={year}>&nbsp;{year}</option>
                   ))}
                 </select>
                 <select

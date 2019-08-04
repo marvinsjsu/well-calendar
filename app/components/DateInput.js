@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getYears, getMonths, getDays, getAppDate, getTodayObject } from '../utils/helpers';
+import { getYears, getMonths, getDays, getAppDate, getTodayObject, getMoment } from '../utils/helpers';
 
 export default class DateInput extends React.Component {
 
@@ -13,9 +13,19 @@ export default class DateInput extends React.Component {
   }
 
   componentDidMount () {
+    // detect if input fallsback from type date to text
     const checkDateType = document.createElement('input');
     checkDateType.type = 'date';
-    const { year, day, month } = getTodayObject();
+
+    const { appDate } = this.props;
+    let { year, day, month } = getTodayObject();
+
+    if (appDate) {
+      let appDateMoment = getMoment(appDate);
+      year = appDateMoment.format('YYYY');
+      day = appDateMoment.format('D');
+      month = appDateMoment.format('MMM')
+    }
 
     this.setState({
       dateTypeSupported: checkDateType.type === 'date',
@@ -40,6 +50,11 @@ export default class DateInput extends React.Component {
   render () {
     const { dateTypeSupported, year, month, day } = this.state;
     const { appDate, earliestDate, handleChangeDate } = this.props;
+
+console.log('year: ', year);
+console.log('day: ', day);
+console.log('month: ', month);
+
 
     return (
       <div className='flex-row'>

@@ -152,6 +152,10 @@ export function getAppDate(year, month, day) {
   return moment(`${month} ${day} ${year}`, 'MMM D YYYY').format('YYYY-MM-DD');
 }
 
+export function getMoment(appDate) {
+  return moment(appDate, 'YYYY-MM-DD');
+}
+
 export function getTodayObject() {
   const now = moment();
   return {

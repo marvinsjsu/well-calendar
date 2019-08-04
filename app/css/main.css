@@ -435,10 +435,10 @@ body {
       margin: 0 .5rem 0 0;
       text-align: center; }
     .section-my-appointments--form .input-date-month, .form-request-appointment--form .input-date-month, .section-no-match--form .input-date-month {
-      width: 5rem;
+      width: 6rem;
       margin: 0 .5rem 0 .5rem; }
     .section-my-appointments--form .input-date-day, .form-request-appointment--form .input-date-day, .section-no-match--form .input-date-day {
-      width: 5rem;
+      width: 4.5rem;
       margin: 0 0 0 .5rem; }
     .section-my-appointments--form input[type="date"]::-webkit-clear-button, .form-request-appointment--form input[type="date"]::-webkit-clear-button, .section-no-match--form input[type="date"]::-webkit-clear-button {
       display: none; }

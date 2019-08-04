@@ -75,7 +75,7 @@ export default class DateInput extends React.Component {
                 >
                   <option key={0} value={''} disabled>- year -</option>
                   {getYears().map((year) => (
-                    <option key={year} value={year}>{year}</option>
+                    <option key={year} value={year}>&nbsp;&nbsp;{year}</option>
                   ))}
                 </select>
                 <select
@@ -87,7 +87,7 @@ export default class DateInput extends React.Component {
                 >
                   <option key={0} value={''} disabled>- month -</option>
                   {getMonths().map((month) => (
-                    <option key={month} value={month}>{month}</option>
+                    <option key={month} value={month}>&nbsp;{month}</option>
                   ))}
                 </select>
                 <select
@@ -99,7 +99,7 @@ export default class DateInput extends React.Component {
                 >
                   <option key={0} value={''} disabled>- day -</option>
                   {year !== '' && month !== '' && getDays(year, month).map((day) => (
-                    <option key={day} value={day}>{day}</option>
+                    <option key={day} value={day}>&nbsp;{day}</option>
                   ))}
                 </select>
               </React.Fragment>

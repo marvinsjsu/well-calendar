@@ -20,7 +20,7 @@ export default function TimeInputSet ({
 
       <div className='flex-row'>
         <div className='flex-column time-container'>
-          <div className='flex-row flex-row--align-left'>
+          <div className='flex-row flex-row--align-left flex-row--mobile-align-right'>
             <label
               htmlFor='startTime'
               className={`label ${disableStartInput && 'disable'}`}
@@ -28,7 +28,7 @@ export default function TimeInputSet ({
               Start Time
             </label>
           </div>
-          <div className='flex-row flex-row--align-left'>
+          <div className='flex-row flex-row--align-left flex-row--mobile-align-right'>
             <select
               id='startTime'
               className='input-time'
@@ -58,7 +58,7 @@ export default function TimeInputSet ({
         </div>
         <div className='flex-column time-container'>
 
-          <div className='flex-row flex-row--align-left'>
+          <div className='flex-row flex-row--align-left flex-row--mobile-align-left'>
             <label
               htmlFor='startTime'
               className={`label ${startTime === '0' && 'disable'}`}
@@ -66,7 +66,7 @@ export default function TimeInputSet ({
               End Time
             </label>
           </div>
-          <div className='flex-row flex-row--align-left'>
+          <div className='flex-row flex-row--align-left flex-row--mobile-align-left'>
             <select
               id='endTime'
               className='input-time'

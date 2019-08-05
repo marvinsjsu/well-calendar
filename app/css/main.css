@@ -404,6 +404,14 @@ body {
     @media (max-width: 37.5em) {
       .flex-row--align-left {
         justify-content: center; } }
+  @media (max-width: 37.5em) {
+    .flex-row--mobile-align-right {
+      justify-content: flex-end;
+      margin-right: 1rem; } }
+  @media (max-width: 37.5em) {
+    .flex-row--mobile-align-left {
+      justify-content: flex-start;
+      margin-left: 1rem; } }
 
 .flex-column {
   display: flex;

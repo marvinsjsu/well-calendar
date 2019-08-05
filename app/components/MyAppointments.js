@@ -19,7 +19,7 @@ function MyAppointments ({ context: { myAppointments } }) {
             </h2>
           )}
         </div>
-        <div className='flex-row'>
+        <div className='flex-row flex-row--flex-start'>
           { !hasAppointments && (
             <p className='message u-center-text flex-center'>
               You currently don't have any appointment requests.

@@ -20,16 +20,30 @@ export const REQUEST_STATUS = {
 
 export const LANGUAGE = {
   NO_AVAILABILITY_MESSAGE: `
-    Sorry, but there are no longer
-    any available appointments for
-    this day. Please choose another day.
+    There are no available appointments for
+    this day. Please pick another date.
   `,
   CONFIRMATION_MESSAGE: (appointmentDate) => (`
     Thank you! Your appointment
     request for ${appointmentDate}
     has been submitted.
-  `)
+  `),
+  REQUEST_TITLE: {
+    PICK_DATE: `
+      Please choose the date and time for
+      your appointment.
+    `,
+    CONFIRM_SUMMARY: `
+      Please confirm your appointment
+      request.
+    `,
+    REQUEST_CONFIRMATION: (appointmentDate) => (`
+      Thank you! Your appointment
+      request for ${appointmentDate}
+      has been submitted.
+    `),
 
+  }
 };
 
 export const NO_AVAILABILITY_MESSAGE = `

@@ -32,7 +32,7 @@ export default function Nav () {
                       to={ROUTES.MY_APPOINTMENTS}
                       exact
                     >
-                      Existing Requests
+                      All My Requests
                     </NavLink>
                   </li>
                 </ul>

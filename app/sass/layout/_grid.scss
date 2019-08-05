@@ -58,8 +58,20 @@
     justify-content: space-between;
   }
 
-  &--width-half {
+  &--flex-start {
+    justify-content: flex-start;
+
+    @include respond(phone) {
+      justify-content: center;
+    }
+  }
+
+  &--half {
     width: 50%;
+
+    @include respond(phone) {
+      width: 100%;
+    }
   }
 
   &--align-right {
@@ -89,6 +101,11 @@
   &--horizontal-center {
     align-items: center;
   }
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
 }
 
 

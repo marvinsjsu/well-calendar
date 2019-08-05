@@ -10,7 +10,7 @@ import RequestSummary from './RequestSummary';
 import Confirmation from './Confirmation';
 import AppointmentCard from './AppointmentCard';
 import withContext from '../contexts/withContext';
-import { REQUEST_STATUS, NO_AVAILABILITY_MESSAGE } from '../utils/constants';
+import { REQUEST_STATUS, LANGUAGE } from '../utils/constants';
 import {
   getCalendarFromLocalStorage,
   getMyAppointmentsFromLocalStorage
@@ -242,49 +242,50 @@ class RequestForm extends React.Component {
       myAppointments
     } = this.state;
     const nonAvailable = hasNoAvailableTimeBlocks(timeBlocks);
+    const hasAppointments = myAppointments.length > 0;
 
     return (
       <main>
-        <form className='form-request-appointment' onSubmit={(this.handleSubmit)}>
-          <div className='flex-row form-request-appointment--form'>
-            { showConfirmation && (
-              <Confirmation
-                appDate={appDate}
-                startTime={startTime}
-                toStartAppRequest={this.toStartAppRequest}
-              />
-            )}
-            { showSummary && (
-              <RequestSummary
-                appDate={appDate}
-                startTime={startTime}
-                endTime={endTime}
-                submitRequest={this.submitRequest}
-                cancelRequest={this.cancelRequest}
-              />
-            )}
-            { !showSummary && !showConfirmation && (
-              <div className='column request'>
-                <div className='flex-row flex-row--align-left'>
-                  <label htmlFor='appDate' className='label'>
-                    Date
-                  </label>
-                </div>
-                <div className='flex-row flex-row--align-left'>
-                  <DateInput
-                    appDate={appDate}
-                    earliestDate={earliestDate}
-                    handleChangeDate={this.handleChangeDate}
-                    altHandleChangeDate={this.altHandleChangeDate}
-                  />
-                </div>
-                {nonAvailable
-                  ? (
-                      <div className='message'>
-                        {NO_AVAILABILITY_MESSAGE}
+        <section className='flex-row section-request-form'>
+          <div className='flex-row flex-row--half'>
+            <div className='flex-row--half u-padding-small'>
+              <form onSubmit={(this.handleSubmit)}>
+                <div className='section-request-form--form'>
+                  { showConfirmation && (
+                    <Confirmation
+                      appDate={appDate}
+                      startTime={startTime}
+                      toStartAppRequest={this.toStartAppRequest}
+                    />
+                  )}
+                  { showSummary && (
+                    <RequestSummary
+                      appDate={appDate}
+                      startTime={startTime}
+                      endTime={endTime}
+                      submitRequest={this.submitRequest}
+                      cancelRequest={this.cancelRequest}
+                    />
+                  )}
+                  { !showSummary && !showConfirmation && (
+                    <div className='request-step'>
+                      <h4 className='message'>
+                        {nonAvailable ? LANGUAGE.NO_AVAILABILITY_MESSAGE : LANGUAGE.REQUEST_TITLE.PICK_DATE}
+                      </h4>
+                      <div className='flex-row flex-row--align-left'>
+                        <label htmlFor='appDate' className='label'>
+                          Date
+                        </label>
                       </div>
-                    )
-                  : (
+                      <div className='flex-row flex-row--align-left'>
+                        <DateInput
+                          appDate={appDate}
+                          earliestDate={earliestDate}
+                          handleChangeDate={this.handleChangeDate}
+                          altHandleChangeDate={this.altHandleChangeDate}
+                        />
+                      </div>
+
                       <TimeInputSet
                         timeBlocks={timeBlocks}
                         appDate={appDate}
@@ -294,39 +295,59 @@ class RequestForm extends React.Component {
                         handleChangeEndTime={this.handleChangeEndTime}
                         isReady={this.isReady}
                       />
-                    )
-                }
+
+                    </div>
+                  )}
+                </div>
+              </form>
+              <div className='flex-row no-mobile'>
+                <Legend />
               </div>
-            )}
-            <div className='flex-row flex-row--horizontal-center upcoming-appointment'>
-              {myAppointments.length > 0
-                && myAppointments
-                    .filter(({appDate, startTime}) => isAfterNow(startTime, appDate))
-                    .sort(sortApps)
-                    .slice(0, 1)
-                    .map((app, idx) => (
-                <AppointmentCard
-                  key={`${app.appDate}${app.startTime}`}
-                  {...app}
-                  title='Upcoming appointment request'
+            </div>
+            <div className='flex-row--half u-padding-small'>
+              <div className='flex-column day-view'>
+                <h4 className='heading-tertiary u-center-text'>
+                  {toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY')}
+                </h4>
+                <DayView
+                  appDay={appDate}
+                  timeBlocks={timeBlocks}
+                  handleTimeBlockClick={this.handleTimeBlockClick}
                 />
-              ))}
+                <div className='flex-row no-tablet'>
+                  <Legend />
+                </div>
+              </div>
             </div>
           </div>
-          <div className='flex-column day-view'>
+          <div className='flex-row--half u-padding-small no-mobile'>
             <div className='flex-row'>
-              <h4 className='heading-tertiary u-center-text'>
-                {toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY')}
-              </h4>
+              { hasAppointments && (
+                <h2 className='heading-primary u-center-text'>
+                  Upcoming Appointments
+                </h2>
+              )}
             </div>
-            <DayView
-              appDay={appDate}
-              timeBlocks={timeBlocks}
-              handleTimeBlockClick={this.handleTimeBlockClick}
-            />
-            <Legend />
+            <div className='flex-row flex-row--flex-start'>
+              { !hasAppointments && (
+                <h4 className='message u-center-text'>
+                  You currently don't have any appointment requests.
+                </h4>
+              )}
+              { hasAppointments && myAppointments
+                  .filter(({ appDate, startTime }) => (isAfterNow(startTime, appDate)))
+                  .sort(sortApps)
+                  .slice(0, 8)
+                  .map((appointment, idx) => (
+                    <AppointmentCard key={idx} {...appointment} />
+                ))
+              }
+            </div>
+
           </div>
-        </form>
+        </section>
+
+
       </main>
     );
   }

@@ -13,26 +13,24 @@ export default function Confirmation ({ appDate, startTime, toStartAppRequest })
     <ConnectionConsumer>
       {({ connected }) => (
         <React.Fragment>
-          <div className='flex-row request-flow u-margin-bottom-medium'>
-            <p className='heading-tertiary u-margin-top-medium'>
-              {LANGUAGE.CONFIRMATION_MESSAGE(appointmentDate)}
-            </p>
-            <div className='flex-row u-margin-top-small'>
-              <button
-                className='btn'
-                onClick={toStartAppRequest}
+          <h4 className='message'>
+            {LANGUAGE.CONFIRMATION_MESSAGE(appointmentDate)}
+          </h4>
+          <div className='flex-row u-margin-top-small'>
+            <button
+              className='btn'
+              onClick={toStartAppRequest}
+            >
+              Make another request
+            </button>
+            {connected && (
+              <Link
+                className='link'
+                to={ROUTES.MY_APPOINTMENTS}
               >
-                Make another request
-              </button>
-              {connected && (
-                <Link
-                  className='link'
-                  to={ROUTES.MY_APPOINTMENTS}
-                >
-                  See existing requests
-                </Link>
-              )}
-            </div>
+                See all requests
+              </Link>
+            )}
           </div>
         </React.Fragment>
       )}

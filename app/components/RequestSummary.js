@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 
 import AppointmentCard from './AppointmentCard';
 import { toMoment } from '../utils/helpers';
+import { LANGUAGE } from '../utils/constants';
 
 export default function RequestSummary ({ appDate, startTime, endTime, cancelRequest, submitRequest }) {
   const appointmentDate = toMoment(appDate, startTime).format('dddd, MMM Do, YYYY');
 
   return (
     <React.Fragment>
-      <div className='flex-row request-flow'>
+      <h4 className='message'>
+        {LANGUAGE.REQUEST_TITLE.CONFIRM_SUMMARY}
+      </h4>
+      <div className='flex-row u-margin-top-small'>
         <AppointmentCard
           appDate={appDate}
           startTime={startTime}
           endTime={endTime}
-          title={`Here's a quick summary of your request.`}
         />
       </div>
       <div className='flex-row u-margin-top-small u-margin-bottom-medium'>
         <button
-          className='btn btn-cancel'
+          className='btn'
           onClick={cancelRequest}
         >
           Cancel

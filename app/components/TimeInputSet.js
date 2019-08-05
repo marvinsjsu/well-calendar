@@ -38,7 +38,7 @@ export default function TimeInputSet ({
                 key={'select'}
                 disabled value={0}
               >
-                &nbsp;- select -
+                - select -
               </option>
               {timeBlocks
                 && getStartTimeOptions(timeBlocks, appDate).map(([block, flag], idx) => (
@@ -46,7 +46,7 @@ export default function TimeInputSet ({
                   key={block}
                   value={block}
                 >
-                  &nbsp;{block}
+                  {block}
                 </option>
               ))}
             </select>
@@ -74,7 +74,7 @@ export default function TimeInputSet ({
                 disabled
                 value={0}
               >
-                &nbsp;- select -
+                - select -
               </option>
               {startTime != null
                 && timeBlocks
@@ -83,7 +83,7 @@ export default function TimeInputSet ({
                   key={block}
                   value={block}
                 >
-                  &nbsp;{block}
+                  {block}
                 </option>
               ))}
             </select>

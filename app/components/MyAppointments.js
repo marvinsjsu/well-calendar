@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import AppointmentCard from './AppointmentCard';
@@ -39,7 +40,7 @@ function MyAppointments ({ context: { myAppointments } }) {
 }
 
 MyAppointments.propType = {
-  context: PropType.object.isRequired
+  context: PropTypes.object.isRequired
 };
 
 export default withContext(MyAppointments);

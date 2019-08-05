@@ -68,21 +68,23 @@ body {
 
 .heading-tertiary {
   width: 100%;
-  padding: .5rem 0;
+  padding: 0 0 .5rem 0;
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #695d47;
-  font-weight: 500; }
+  font-weight: 500;
+  text-transform: uppercase; }
 
 .message {
   width: 100%;
   padding: 1rem;
-  margin: 1rem auto;
   font-size: 1.5rem;
+  font-weight: 500;
   line-height: 1.8rem;
   text-transform: uppercase;
-  background-color: #CFC194;
-  color: #695d47;
+  text-align: center;
+  background-color: #695d47;
+  color: #fff;
   border-radius: 3px; }
 
 .warning {
@@ -281,7 +283,7 @@ body {
 .day-view {
   max-width: 40rem;
   min-width: 28rem;
-  padding: 1.5rem 0; }
+  padding: 0; }
   .day-view .grid-day .time-block {
     display: flex;
     flex-direction: row;
@@ -382,8 +384,16 @@ body {
     min-height: 40rem; }
   .flex-row--space-between {
     justify-content: space-between; }
+  .flex-row--flex-start {
+    justify-content: flex-start; }
+    @media (max-width: 37.5em) {
+      .flex-row--flex-start {
+        justify-content: center; } }
   .flex-row--half {
     width: 50%; }
+    @media (max-width: 37.5em) {
+      .flex-row--half {
+        width: 100%; } }
   .flex-row--align-right {
     justify-content: flex-end; }
     @media (max-width: 37.5em) {
@@ -480,9 +490,14 @@ body {
   width: 100%;
   /* lists */ }
   .section-request-form--form {
+    min-height: 32rem;
     /* Removes the clear button from date inputs */
     /* Removes the spin button */
     /* Always display the drop down caret */ }
+    @media (max-width: 37.5em) {
+      .section-request-form--form {
+        min-height: 5rem;
+        margin-top: .5rem; } }
     .section-request-form--form label {
       font-size: 2rem;
       color: #695d47;
@@ -567,7 +582,6 @@ body {
       .section-request-form--form .upcoming-appointment {
         display: none; } }
   .section-request-form .legend {
-    min-height: 1.5rem;
     width: 100%;
     margin: 0;
     text-align: right;
@@ -578,30 +592,23 @@ body {
       clear: both; }
     .section-request-form .legend li {
       height: 1.5rem;
-      padding: 0 1rem;
       font-size: 1.5rem;
-      display: inline-block;
-      color: #695d47; }
-      @media (max-width: 37.5em) {
-        .section-request-form .legend li {
-          height: 2rem;
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          align-items: center;
-          text-align: left;
-          padding: .5rem;
-          margin: 1rem 0; } }
+      color: #695d47;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: left;
+      padding: 1rem;
+      margin: 1rem 0; }
     .section-request-form .legend li:hover {
       cursor: default; }
     .section-request-form .legend .legend-icon {
-      height: 2rem;
-      width: 2rem;
+      height: 1.8rem;
+      width: 1.8rem;
       border: 0.1rem solid #695d47;
-      border-radius: 50%; }
-      @media (max-width: 37.5em) {
-        .section-request-form .legend .legend-icon {
-          margin: 1rem; } }
+      border-radius: 50%;
+      margin: .5rem .5rem .5rem 0; }
   .section-request-form .available {
     background: #fff; }
   .section-request-form .requesting {
@@ -610,6 +617,23 @@ body {
     background: #fc7038; }
   .section-request-form .unavailable {
     background: #CFC194; }
+  @media (max-width: 37.5em) {
+    .section-request-form .no-mobile {
+      display: none; } }
+  @media (min-width: 56.25em) {
+    .section-request-form .no-tablet {
+      display: none; } }
+  .section-request-form .appointments-container {
+    background-color: #eee; }
+  .section-request-form .link {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 1rem 0;
+    color: #695d47; }
+    .section-request-form .link:hover {
+      color: #fc7038;
+      text-decoration: underline; }
 
 .section-my-appointments, .form-request-appointment, .section-no-match {
   display: flex;
@@ -625,15 +649,6 @@ body {
     width: 100%; }
   .section-my-appointments .request-flow, .form-request-appointment .request-flow, .section-no-match .request-flow {
     min-height: 200px; }
-  .section-my-appointments .link, .form-request-appointment .link, .section-no-match .link {
-    font-size: 1.5rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 1rem 0;
-    color: #695d47; }
-    .section-my-appointments .link:hover, .form-request-appointment .link:hover, .section-no-match .link:hover {
-      color: #fc7038;
-      text-decoration: underline; }
 
 .form-request-appointment {
   display: flex;

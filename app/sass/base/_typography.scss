@@ -28,22 +28,24 @@ body {
 
 .heading-tertiary {
   width: 100%;
-  padding: .5rem 0;
+  padding: 0 0 .5rem 0;
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: $color-dark-brown;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .message {
   width: 100%;
   padding: 1rem;
-  margin: 1rem auto;
   font-size: 1.5rem;
+  font-weight: 500;
   line-height: 1.8rem;
   text-transform: uppercase;
-  background-color: $color-light-brown;
-  color: $color-dark-brown;
+  text-align: center;
+  background-color: $color-dark-brown;
+  color: $color-white;
   border-radius: 3px;
 }
 

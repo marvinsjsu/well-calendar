@@ -10,7 +10,7 @@ import RequestSummary from './RequestSummary';
 import Confirmation from './Confirmation';
 import AppointmentCard from './AppointmentCard';
 import withContext from '../contexts/withContext';
-import { REQUEST_STATUS, NO_AVAILABILITY_MESSAGE } from '../utils/constants';
+import { REQUEST_STATUS, LANGUAGE } from '../utils/constants';
 import {
   getCalendarFromLocalStorage,
   getMyAppointmentsFromLocalStorage
@@ -249,9 +249,8 @@ class RequestForm extends React.Component {
         <section className='flex-row section-request-form'>
           <div className='flex-row flex-row--half'>
             <div className='flex-row--half u-padding-small'>
-
               <form onSubmit={(this.handleSubmit)}>
-                <div className='flex-row section-request-form--form'>
+                <div className='section-request-form--form'>
                   { showConfirmation && (
                     <Confirmation
                       appDate={appDate}
@@ -269,7 +268,10 @@ class RequestForm extends React.Component {
                     />
                   )}
                   { !showSummary && !showConfirmation && (
-                    <div className='column request-step'>
+                    <div className='request-step'>
+                      <h4 className='message'>
+                        {nonAvailable ? LANGUAGE.NO_AVAILABILITY_MESSAGE : LANGUAGE.REQUEST_TITLE.PICK_DATE}
+                      </h4>
                       <div className='flex-row flex-row--align-left'>
                         <label htmlFor='appDate' className='label'>
                           Date
@@ -283,49 +285,42 @@ class RequestForm extends React.Component {
                           altHandleChangeDate={this.altHandleChangeDate}
                         />
                       </div>
-                      {nonAvailable
-                        ? (
-                            <div className='flex-row'>
-                              <p className='message'>
-                                {NO_AVAILABILITY_MESSAGE}
-                              </p>
-                            </div>
-                          )
-                        : (
-                            <TimeInputSet
-                              timeBlocks={timeBlocks}
-                              appDate={appDate}
-                              startTime={startTime}
-                              endTime={endTime}
-                              handleChangeStartTime={this.handleChangeStartTime}
-                              handleChangeEndTime={this.handleChangeEndTime}
-                              isReady={this.isReady}
-                            />
-                          )
-                      }
+
+                      <TimeInputSet
+                        timeBlocks={timeBlocks}
+                        appDate={appDate}
+                        startTime={startTime}
+                        endTime={endTime}
+                        handleChangeStartTime={this.handleChangeStartTime}
+                        handleChangeEndTime={this.handleChangeEndTime}
+                        isReady={this.isReady}
+                      />
+
                     </div>
                   )}
                 </div>
               </form>
-
+              <div className='flex-row no-mobile'>
+                <Legend />
+              </div>
             </div>
             <div className='flex-row--half u-padding-small'>
               <div className='flex-column day-view'>
-                <div className='flex-row'>
-                  <h4 className='heading-tertiary u-center-text'>
-                    {toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY')}
-                  </h4>
-                </div>
+                <h4 className='heading-tertiary u-center-text'>
+                  {toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY')}
+                </h4>
                 <DayView
                   appDay={appDate}
                   timeBlocks={timeBlocks}
                   handleTimeBlockClick={this.handleTimeBlockClick}
                 />
-                <Legend />
+                <div className='flex-row no-tablet'>
+                  <Legend />
+                </div>
               </div>
             </div>
           </div>
-          <div className='flex-row--half u-padding-small'>
+          <div className='flex-row--half u-padding-small no-mobile'>
             <div className='flex-row'>
               { hasAppointments && (
                 <h2 className='heading-primary u-center-text'>
@@ -333,11 +328,11 @@ class RequestForm extends React.Component {
                 </h2>
               )}
             </div>
-            <div className='flex-row flex-center'>
+            <div className='flex-row flex-row--flex-start'>
               { !hasAppointments && (
-                <p className='message u-center-text'>
+                <h4 className='message u-center-text'>
                   You currently don't have any appointment requests.
-                </p>
+                </h4>
               )}
               { hasAppointments && myAppointments
                   .filter(({ appDate, startTime }) => (isAfterNow(startTime, appDate)))

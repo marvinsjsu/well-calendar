@@ -28,6 +28,12 @@
   width: 100%;
 
   &--form {
+    min-height: 32rem;
+
+    @include respond(phone) {
+      min-height: 5rem;
+      margin-top: .5rem;
+    }
 
     label {
       font-size: 2rem;
@@ -158,7 +164,6 @@
 
   /* lists */
   .legend {
-    min-height: 1.5rem;
     width: 100%;
     margin: 0;
     @include clearfix;
@@ -167,21 +172,16 @@
 
     li {
       height: 1.5rem;
-      padding: 0 1rem;
       font-size: 1.5rem;
-      display: inline-block;
       color: $color-dark-brown;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: left;
+      padding: 1rem;
+      margin: 1rem 0;
 
-      @include respond(phone) {
-        height: 2rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        text-align: left;
-        padding: .5rem;
-        margin: 1rem 0;
-      }
     }
 
     li:hover {
@@ -189,14 +189,11 @@
     }
 
     .legend-icon {
-      height: 2rem;
-      width: 2rem;
+      height: 1.8rem;
+      width: 1.8rem;
       border: .1rem solid $color-dark-brown;
       border-radius: 50%;
-
-      @include respond(phone) {
-        margin: 1rem;
-      }
+      margin: .5rem .5rem .5rem 0;
     }
   }
 
@@ -214,6 +211,35 @@
 
   .unavailable {
     background: $color-light-brown;
+  }
+
+  .no-mobile {
+    @include respond(phone) {
+      display: none;
+    }
+  }
+
+  .no-tablet {
+    @include exclusion(tablet-portrait) {
+      display: none;
+    }
+  }
+
+  .appointments-container {
+    background-color: $color-grey-light-2;
+  }
+
+  .link {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 1rem 0;
+    color: $color-dark-brown;
+
+    &:hover {
+      color: $color-orange;
+      text-decoration: underline;
+    }
   }
 
 }
@@ -237,18 +263,6 @@
     min-height: 200px;
   }
 
-  .link {
-    font-size: 1.5rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 1rem 0;
-    color: $color-dark-brown;
-
-    &:hover {
-      color: $color-orange;
-      text-decoration: underline;
-    }
-  }
 }
 
 .form-request-appointment {

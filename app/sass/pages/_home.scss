@@ -20,26 +20,14 @@
   }
 }
 
-.section-my-appointments, .form-request-appointment, .section-no-match {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 1;
+.section-request-form {
   min-height: 55rem;
   background-color: $color-grey-light-1;
-  padding: 1rem;
+  padding: .25rem;
   border-radius: 3px;
-
-  &--list {
-    width: 100%;
-  }
+  width: 100%;
 
   &--form {
-    max-width: 38rem;
-    min-width: 28rem;
-    margin-bottom: 2rem;
-    padding-top: 3rem;
 
     label {
       font-size: 2rem;
@@ -203,7 +191,7 @@
     .legend-icon {
       height: 2rem;
       width: 2rem;
-      border: .2rem solid $color-dark-brown;
+      border: .1rem solid $color-dark-brown;
       border-radius: 50%;
 
       @include respond(phone) {
@@ -226,6 +214,23 @@
 
   .unavailable {
     background: $color-light-brown;
+  }
+
+}
+
+.section-my-appointments, .form-request-appointment, .section-no-match {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  min-height: 55rem;
+  background-color: $color-grey-light-1;
+  padding: 1rem;
+  border-radius: 3px;
+
+  &--list {
+    width: 100%;
   }
 
   .request-flow {

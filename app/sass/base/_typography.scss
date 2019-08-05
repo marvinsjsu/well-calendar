@@ -37,10 +37,14 @@ body {
 
 .message {
   width: 100%;
-  padding: 2rem 1rem;
-  margin: 2rem 0;
-  font-size: 2.2rem;
+  padding: 1rem;
+  margin: 1rem auto;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  text-transform: uppercase;
+  background-color: $color-light-brown;
   color: $color-dark-brown;
+  border-radius: 3px;
 }
 
 .warning {

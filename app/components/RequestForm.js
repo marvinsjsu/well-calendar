@@ -242,91 +242,117 @@ class RequestForm extends React.Component {
       myAppointments
     } = this.state;
     const nonAvailable = hasNoAvailableTimeBlocks(timeBlocks);
+    const hasAppointments = myAppointments.length > 0;
 
     return (
       <main>
-        <form className='form-request-appointment' onSubmit={(this.handleSubmit)}>
-          <div className='flex-row form-request-appointment--form'>
-            { showConfirmation && (
-              <Confirmation
-                appDate={appDate}
-                startTime={startTime}
-                toStartAppRequest={this.toStartAppRequest}
-              />
-            )}
-            { showSummary && (
-              <RequestSummary
-                appDate={appDate}
-                startTime={startTime}
-                endTime={endTime}
-                submitRequest={this.submitRequest}
-                cancelRequest={this.cancelRequest}
-              />
-            )}
-            { !showSummary && !showConfirmation && (
-              <div className='column request'>
-                <div className='flex-row flex-row--align-left'>
-                  <label htmlFor='appDate' className='label'>
-                    Date
-                  </label>
-                </div>
-                <div className='flex-row flex-row--align-left'>
-                  <DateInput
-                    appDate={appDate}
-                    earliestDate={earliestDate}
-                    handleChangeDate={this.handleChangeDate}
-                    altHandleChangeDate={this.altHandleChangeDate}
-                  />
-                </div>
-                {nonAvailable
-                  ? (
-                      <div className='message'>
-                        {NO_AVAILABILITY_MESSAGE}
+        <section className='flex-row section-request-form'>
+          <div className='flex-row flex-row--half'>
+            <div className='flex-row--half u-padding-small'>
+
+              <form onSubmit={(this.handleSubmit)}>
+                <div className='flex-row section-request-form--form'>
+                  { showConfirmation && (
+                    <Confirmation
+                      appDate={appDate}
+                      startTime={startTime}
+                      toStartAppRequest={this.toStartAppRequest}
+                    />
+                  )}
+                  { showSummary && (
+                    <RequestSummary
+                      appDate={appDate}
+                      startTime={startTime}
+                      endTime={endTime}
+                      submitRequest={this.submitRequest}
+                      cancelRequest={this.cancelRequest}
+                    />
+                  )}
+                  { !showSummary && !showConfirmation && (
+                    <div className='column request-step'>
+                      <div className='flex-row flex-row--align-left'>
+                        <label htmlFor='appDate' className='label'>
+                          Date
+                        </label>
                       </div>
-                    )
-                  : (
-                      <TimeInputSet
-                        timeBlocks={timeBlocks}
-                        appDate={appDate}
-                        startTime={startTime}
-                        endTime={endTime}
-                        handleChangeStartTime={this.handleChangeStartTime}
-                        handleChangeEndTime={this.handleChangeEndTime}
-                        isReady={this.isReady}
-                      />
-                    )
-                }
-              </div>
-            )}
-            <div className='flex-row flex-row--horizontal-center upcoming-appointment'>
-              {myAppointments.length > 0
-                && myAppointments
-                    .filter(({appDate, startTime}) => isAfterNow(startTime, appDate))
-                    .sort(sortApps)
-                    .slice(0, 1)
-                    .map((app, idx) => (
-                <AppointmentCard
-                  key={`${app.appDate}${app.startTime}`}
-                  {...app}
-                  title='Upcoming appointment request'
+                      <div className='flex-row flex-row--align-left'>
+                        <DateInput
+                          appDate={appDate}
+                          earliestDate={earliestDate}
+                          handleChangeDate={this.handleChangeDate}
+                          altHandleChangeDate={this.altHandleChangeDate}
+                        />
+                      </div>
+                      {nonAvailable
+                        ? (
+                            <div className='flex-row'>
+                              <p className='message'>
+                                {NO_AVAILABILITY_MESSAGE}
+                              </p>
+                            </div>
+                          )
+                        : (
+                            <TimeInputSet
+                              timeBlocks={timeBlocks}
+                              appDate={appDate}
+                              startTime={startTime}
+                              endTime={endTime}
+                              handleChangeStartTime={this.handleChangeStartTime}
+                              handleChangeEndTime={this.handleChangeEndTime}
+                              isReady={this.isReady}
+                            />
+                          )
+                      }
+                    </div>
+                  )}
+                </div>
+              </form>
+
+            </div>
+            <div className='flex-row--half u-padding-small'>
+              <div className='flex-column day-view'>
+                <div className='flex-row'>
+                  <h4 className='heading-tertiary u-center-text'>
+                    {toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY')}
+                  </h4>
+                </div>
+                <DayView
+                  appDay={appDate}
+                  timeBlocks={timeBlocks}
+                  handleTimeBlockClick={this.handleTimeBlockClick}
                 />
-              ))}
+                <Legend />
+              </div>
             </div>
           </div>
-          <div className='flex-column day-view'>
+          <div className='flex-row--half u-padding-small'>
             <div className='flex-row'>
-              <h4 className='heading-tertiary u-center-text'>
-                {toMoment(appDate, startTime).format('dddd, MMM. Do, YYYY')}
-              </h4>
+              { hasAppointments && (
+                <h2 className='heading-primary u-center-text'>
+                  Upcoming Appointments
+                </h2>
+              )}
             </div>
-            <DayView
-              appDay={appDate}
-              timeBlocks={timeBlocks}
-              handleTimeBlockClick={this.handleTimeBlockClick}
-            />
-            <Legend />
+            <div className='flex-row flex-center'>
+              { !hasAppointments && (
+                <p className='message u-center-text'>
+                  You currently don't have any appointment requests.
+                </p>
+              )}
+              { hasAppointments && myAppointments
+                  .filter(({ appDate, startTime }) => (isAfterNow(startTime, appDate)))
+                  .sort(sortApps)
+                  .slice(0, 8)
+                  .map((appointment, idx) => (
+                    <AppointmentCard key={idx} {...appointment} />
+                ))
+              }
+            </div>
+
           </div>
-        </form>
+        </section>
+
+
       </main>
     );
   }

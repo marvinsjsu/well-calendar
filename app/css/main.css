@@ -191,7 +191,9 @@ body {
   text-transform: uppercase;
   border: none;
   cursor: pointer;
-  margin-right: .5rem; }
+  margin-right: .5rem;
+  min-width: 7rem;
+  margin-bottom: 1rem; }
 
 .btn:disabled {
   color: #cfc194;
@@ -390,7 +392,8 @@ body {
       .flex-row--flex-start {
         justify-content: center; } }
   .flex-row--half {
-    width: 50%; }
+    width: 50%;
+    min-width: 28rem; }
     @media (max-width: 37.5em) {
       .flex-row--half {
         width: 100%; } }
@@ -625,7 +628,7 @@ body {
     background: #fc7038; }
   .section-request-form .unavailable {
     background: #CFC194; }
-  @media (max-width: 37.5em) {
+  @media (max-width: 56.25em) {
     .section-request-form .no-mobile {
       display: none; } }
   @media (min-width: 56.25em) {
@@ -643,7 +646,7 @@ body {
       color: #fc7038;
       text-decoration: underline; }
 
-.section-my-appointments, .form-request-appointment, .section-no-match {
+.section-my-appointments, .section-no-match {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -653,9 +656,9 @@ body {
   background-color: #f7f7f7;
   padding: 1rem;
   border-radius: 3px; }
-  .section-my-appointments--list, .form-request-appointment--list, .section-no-match--list {
+  .section-my-appointments--list, .section-no-match--list {
     width: 100%; }
-  .section-my-appointments .request-flow, .form-request-appointment .request-flow, .section-no-match .request-flow {
+  .section-my-appointments .request-flow, .section-no-match .request-flow {
     min-height: 200px; }
 
 .form-request-appointment {

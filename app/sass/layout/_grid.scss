@@ -68,6 +68,7 @@
 
   &--half {
     width: 50%;
+    min-width: 28rem;
 
     @include respond(phone) {
       width: 100%;
@@ -121,7 +122,6 @@
   justify-content: center;
   align-items: center;
 }
-
 
 .background-red {
   background-color: red;

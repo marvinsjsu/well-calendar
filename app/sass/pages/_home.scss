@@ -214,7 +214,7 @@
   }
 
   .no-mobile {
-    @include respond(phone) {
+    @include respond(tablet-portrait) {
       display: none;
     }
   }
@@ -244,7 +244,7 @@
 
 }
 
-.section-my-appointments, .form-request-appointment, .section-no-match {
+.section-my-appointments, .section-no-match {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

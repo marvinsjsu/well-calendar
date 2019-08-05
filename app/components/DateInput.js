@@ -5,6 +5,12 @@ import { getYears, getMonths, getDays, getAppDate, getTodayObject, getMoment } f
 
 export default class DateInput extends React.Component {
 
+  static propTypes = {
+    appDate: PropTypes.string.isRequired,
+    earliestDate: PropTypes.string.isRequired,
+    handleChangeDate: PropTypes.func.isRequired
+  }
+
   state = {
     dateTypeSupported: null,
     year: '',

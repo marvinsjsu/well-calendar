@@ -12,12 +12,10 @@ export default function TimeInputSet ({
   handleChangeEndTime,
   isReady
 }) {
-
   const disableStartInput = getStartTimeOptions(timeBlocks, appDate).length === 0;
 
   return (
     <React.Fragment>
-
       <div className='flex-row'>
         <div className='flex-column time-container'>
           <div className='flex-row flex-row--align-left flex-row--mobile-align-right'>
@@ -53,11 +51,8 @@ export default function TimeInputSet ({
               ))}
             </select>
           </div>
-
-
         </div>
         <div className='flex-column time-container'>
-
           <div className='flex-row flex-row--align-left flex-row--mobile-align-left'>
             <label
               htmlFor='startTime'
@@ -93,16 +88,8 @@ export default function TimeInputSet ({
               ))}
             </select>
           </div>
-
-
         </div>
       </div>
-
-
-
-
-
-
       <div className='flex-row u-margin-top-small u-margin-bottom-medium'>
         <button
           className='btn btn-submit'

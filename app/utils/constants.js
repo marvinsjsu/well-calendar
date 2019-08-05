@@ -23,11 +23,9 @@ export const LANGUAGE = {
     There are no available appointments for
     this day. Please pick another date.
   `,
-  CONFIRMATION_MESSAGE: (appointmentDate) => (`
-    Thank you! Your appointment
-    request for ${appointmentDate}
-    has been submitted.
-  `),
+  NO_APPOINTMENTS: `
+    You currently don't have any appointment requests.
+  `,
   REQUEST_TITLE: {
     PICK_DATE: `
       Please choose the date and time for
@@ -42,7 +40,6 @@ export const LANGUAGE = {
       request for ${appointmentDate}
       has been submitted.
     `),
-
   }
 };
 

@@ -14,7 +14,7 @@ export default function Confirmation ({ appDate, startTime, toStartAppRequest })
       {({ connected }) => (
         <React.Fragment>
           <h4 className='message'>
-            {LANGUAGE.CONFIRMATION_MESSAGE(appointmentDate)}
+            {LANGUAGE.REQUEST_TITLE.REQUEST_CONFIRMATION(appointmentDate)}
           </h4>
           <div className='flex-row u-margin-top-small'>
             <button
@@ -37,3 +37,9 @@ export default function Confirmation ({ appDate, startTime, toStartAppRequest })
     </ConnectionConsumer>
   );
 }
+
+Confirmation.propTypes = {
+  appDate: PropTypes.string.isRequired,
+  startTime: PropTypes.string.isRequired,
+  toStartAppRequest: PropTypes.func.isRequired
+};

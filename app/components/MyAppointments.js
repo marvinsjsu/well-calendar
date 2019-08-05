@@ -38,4 +38,8 @@ function MyAppointments ({ context: { myAppointments } }) {
   );
 }
 
+MyAppointments.propType = {
+  context: PropType.object.isRequired
+};
+
 export default withContext(MyAppointments);

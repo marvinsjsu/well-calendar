@@ -55,7 +55,7 @@ class RequestForm extends React.Component {
       myAppointments: myAppointments || [],
       showSummary: false,
       showConfirmation: false
-    }, () => console.log(this.state));
+    });
   }
 
   handleSubmit = (e) => {
@@ -331,7 +331,7 @@ class RequestForm extends React.Component {
             <div className='flex-row flex-row--flex-start'>
               { !hasAppointments && (
                 <h4 className='message u-center-text'>
-                  You currently don't have any appointment requests.
+                  {LANGUAGE.NO_APPOINTMENTS}
                 </h4>
               )}
               { hasAppointments && myAppointments
@@ -343,11 +343,8 @@ class RequestForm extends React.Component {
                 ))
               }
             </div>
-
           </div>
         </section>
-
-
       </main>
     );
   }
